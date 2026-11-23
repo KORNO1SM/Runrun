@@ -1053,6 +1053,22 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
 
 .tile-dark { filter: invert(1) hue-rotate(180deg) brightness(.9) contrast(.88) saturate(.5); }
 
+/* 코치 코멘트 */
+.coach { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 18px; padding: 16px; margin-bottom: 12px; }
+.coach-tag { font-size: 12px; font-weight: 700; color: var(--accent); }
+.coach-head h3 { margin: 4px 0 12px; font-size: 19px; line-height: 1.35; letter-spacing: -.01em; }
+.coach-sec { padding: 10px 0; border-top: 1px solid var(--line); }
+.coach-sec h4 { margin: 0 0 6px; font-size: 13px; font-weight: 700; }
+.coach-sec.good h4 { color: #6fd39a; }
+.coach-sec.fix h4 { color: var(--serious); }
+.coach-sec.next h4 { color: #8fbcf0; }
+.coach-sec ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+.coach-sec li { font-size: 14px; color: var(--text2); line-height: 1.6; }
+.coach-more { border-top: 1px solid var(--line); padding: 10px 0 4px; }
+.coach-more summary { font-size: 13px; color: var(--text2); cursor: pointer; font-weight: 600; }
+.coach-more .ins { margin-top: 10px; }
+.btn.ask { width: 100%; margin-top: 10px; border-color: rgba(242, 184, 75, .4); color: var(--accent); }
+
 </style>
 </head>
 <body>
@@ -2205,7 +2221,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
   const fin = Number.isFinite;
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-  const VERSION = '1.1.1';
+  const VERSION = '1.2.0';
 
   /* ───────── 상수 ───────── */
   const C = {
@@ -2864,6 +2880,8 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
 
       ${pbList.length ? html`<section class="pb-banner"><h3>최고 기록 경신</h3><ul>${pbList.map((x) => html`<li><span class="pb-k">${BEST_LABEL[x.k]}</span><b class="num">${fmtDur(x.t)}</b><span class="pb-d">이전보다 ${fmtDur(x.prev - x.t)} 단축</span></li>`)}</ul></section>` : ''}
 
+      ${coachCard(a, A, ins)}
+
       ${s.hasGPS ? html`<section class="map-wrap" id="mapWrap">
         <div id="map" class="map"></div>
         <div class="map-ctl">
@@ -2919,7 +2937,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
         </div>
       </section>` : ''}
 
-      ${ins.length ? html`<section class="card"><h3>분석 코멘트</h3><ul class="ins">${ins.map((x) => html`<li class="k-${x.k}"><span class="ins-ic">${STATUS_ICON[x.k] || '•'}</span><span>${x.t}</span></li>`)}</ul></section>` : ''}
+
 
       <section class="card charts">
         <h3>구간 그래프</h3>
@@ -2963,6 +2981,15 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     });
     $('#shoeInput').addEventListener('change', (e) => { a.shoe = e.target.value.trim(); saveMeta(); });
     $('#noteInput').addEventListener('change', (e) => { a.note = e.target.value; saveMeta(); });
+    const askBtn = $('#askClaude');
+    askBtn && askBtn.addEventListener('click', async () => {
+      const text = claudePrompt(a, A);
+      try {
+        if (navigator.share && !(window.top !== window.self)) { await navigator.share({ title: `${a.name} 분석 요청`, text }); return; }
+      } catch (e) { if (e && e.name === 'AbortError') return; }
+      try { await navigator.clipboard.writeText(text); toast('분석 데이터를 복사했어요. Claude 앱에 붙여넣어 주세요', 3500); }
+      catch (e) { toast('복사하지 못했어요'); }
+    });
     $('#delBtn').addEventListener('click', async () => {
       if (!(await dialog({ title: '이 기록을 삭제할까요?', body: `${fmtDate(a.start)} ${a.name} · ${fmtKm(s.dist)} km\n삭제하면 되돌릴 수 없어요.`, ok: '삭제', danger: true }))) return;
       await DB.del('acts', a.id); await DB.del('streams', a.id);
@@ -3008,6 +3035,117 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     }));
 
     if (s.hasGPS) setupMap(A, s);
+  }
+  /* ───────── 코치 코멘트 (기기 안에서 규칙 기반으로 작성) ───────── */
+  function coachReport(a, A) {
+    const s = A.summary, set = S.settings, km = s.dist / 1000, type = a.type;
+    const good = [], fix = [], next = [];
+    const tot = s.zones ? s.zones.reduce((x, y) => x + y, 0) : 0;
+    const zs = (i) => (tot ? s.zones[i] / tot : NaN);
+    const easyShare = tot ? zs(0) + zs(1) : NaN, hardShare = tot ? zs(3) + zs(4) : NaN;
+    const half = s.dist / 2;
+    const r1 = E.rangeStats(A.P, 0, half), r2 = E.rangeStats(A.P, half, s.dist);
+    const split = r2.pace - r1.pace;
+    const gp = set.goalTime && set.goalDist ? set.goalTime / set.goalDist * 1000 : NaN;
+    const vsGoal = fin(gp) ? s.pace - gp : NaN;
+    const ctx = efContext(a);
+    const efD = fin(s.ef) && ctx.efN >= 2 ? (s.ef / ctx.efAvg - 1) * 100 : NaN;
+    const prev = S.acts.filter((x) => x.id !== a.id && x.type === type && x.start < a.start).sort((x, y) => y.start - x.start)[0];
+    const pbs = (S.pbs.get(a.id) || []).filter((x) => x.k >= 5000);
+    const load = loadSeries(60);
+    const tsb = load ? (load.find((p) => p.x >= +dayStart(a.start)) || load[load.length - 1]).tsb : NaN;
+    const fullSplits = A.splits.filter((x) => x.dist >= 990 && fin(x.pace));
+    const climb = A.hills.climbs.slice().sort((x, y) => y.gain - x.gain)[0];
+    let head = '';
+
+    // 공통: 페이스 운영
+    if (km >= 4 && fin(split)) {
+      if (split <= -3) good.push(`후반이 km당 ${Math.round(-split)}초 빨랐어요. 체력을 남겨 두고 끌어올린 좋은 운영이에요.`);
+      else if (split >= 10) fix.push(`후반에 km당 ${Math.round(split)}초 느려졌어요. 초반 ${Math.min(3, fullSplits.length)}km를 5~10초 늦게 출발하면 후반 하락을 줄일 수 있어요.`);
+    }
+    // 디커플링
+    if (fin(s.dec) && type !== 'interval') {
+      if (s.dec < 5) good.push(`심박 드리프트 ${s.dec.toFixed(1)}%로 안정적이에요. 이 강도·거리는 유산소 기반이 충분해요.`);
+      else if (s.dec >= 8) fix.push(`후반 심박 드리프트가 ${s.dec.toFixed(1)}%로 커요.${s.moving > 4800 ? ' 60분 넘는 러닝은 30~40분마다 수분·탄수화물을 보충해 보세요.' : ' 페이스를 조금 낮추거나 이 강도의 지속 시간을 서서히 늘려 보세요.'}`);
+    }
+    // 효율 추세
+    if (fin(efD) && Math.abs(efD) >= 2) (efD > 0 ? good : fix).push(`심박 효율이 최근 30일 ${TYPE[type].label} 평균보다 ${Math.abs(efD).toFixed(1)}% ${efD > 0 ? '좋아요. 같은 심박으로 더 멀리 가고 있다는 뜻이에요' : '낮아요. 피로·수면·기온 영향일 수 있으니 회복 상태를 함께 보세요'}.`);
+    // 케이던스
+    if (fin(s.avgCad)) {
+      if (s.avgCad >= 175) good.push(`케이던스 ${Math.round(s.avgCad)}spm, 보폭 ${s.stride.toFixed(2)}m로 회전이 좋아요.`);
+      else if (s.avgCad < 165 && type !== 'recovery' && type !== 'easy') fix.push(`케이던스가 ${Math.round(s.avgCad)}spm으로 낮은 편이에요. 같은 페이스에서 걸음 수를 5% 정도 늘리면 착지 충격과 오버스트라이드를 줄일 수 있어요.`);
+    }
+    // 언덕
+    if (climb && climb.gain >= 12 && fin(climb.gap)) {
+      const d = climb.gap - s.pace;
+      if (d < -8) good.push(`${(climb.a / 1000).toFixed(1)}km 업힐(+${Math.round(climb.gain)}m)을 경사 보정 ${fmtPace(climb.gap)}로, 평균보다 강하게 밀었어요.`);
+      else if (d > 15) fix.push(`${(climb.a / 1000).toFixed(1)}km 업힐(+${Math.round(climb.gain)}m)에서 경사 보정 페이스가 ${fmtPace(climb.gap)}로 크게 떨어졌어요. 언덕 반복(200m×6) 훈련이 도움이 돼요.`);
+    }
+    // 유형별
+    if (type === 'easy' || type === 'recovery') {
+      head = fin(easyShare) && easyShare >= 0.7 ? '강도를 잘 지킨 회복·기초 러닝이에요' : '이지런치고는 강도가 높았어요';
+      if (fin(easyShare)) (easyShare >= 0.7 ? good : fix).push(easyShare >= 0.7 ? `시간의 ${Math.round(easyShare * 100)}%를 Z1~2에서 달렸어요. 이지런은 이렇게 편해야 다음 강훈련이 살아나요.` : `Z1~2 비중이 ${Math.round(easyShare * 100)}%뿐이에요. 이지런은 대화가 되는 강도로, 심박 ${Math.round(E.zoneBounds(set)[1])}bpm 아래를 목표로 해 보세요.`);
+      next.push(fin(tsb) && tsb < -15 ? '피로가 쌓여 있어요. 다음 1~2회도 이지런으로 회복을 우선하세요.' : '컨디션이 괜찮다면 다음은 템포런이나 인터벌로 강도를 넣어 볼 차례예요.');
+    } else if (type === 'long') {
+      head = fin(s.dec) && s.dec < 5 && (!fin(split) || split < 8) ? '끝까지 무너지지 않은 탄탄한 롱런이에요' : '거리는 채웠지만 후반 관리가 숙제로 남은 롱런이에요';
+      if (fin(vsGoal)) (vsGoal >= 20 && vsGoal <= 75 ? good : fix).push(vsGoal >= 20 && vsGoal <= 75 ? `목표 대회 페이스(${fmtPace(gp)})보다 ${Math.round(vsGoal)}초 느린 페이스로, 롱런 적정 범위(+30~60초)에 있어요.` : vsGoal < 20 ? `목표 페이스와 차이가 ${Math.round(vsGoal)}초뿐이에요. 롱런은 목표보다 30~60초 느리게 달려야 회복 부담이 덜해요.` : `목표 페이스보다 ${Math.round(vsGoal)}초 느렸어요. 마지막 3~5km를 목표 페이스로 올리는 마무리를 섞어 보세요.`);
+      next.push('다음 2~3일은 이지런·휴식으로 회복하고, 롱런 거리는 주당 1~2km씩만 늘려 가세요.');
+    } else if (type === 'tempo') {
+      head = fin(hardShare) && hardShare >= 0.3 ? '역치 자극을 제대로 준 템포런이에요' : '템포 구간 강도가 조금 부족했어요';
+      if (fin(vsGoal)) (vsGoal <= 0 ? good : fix).push(vsGoal <= 0 ? `평균 페이스가 목표 대회 페이스(${fmtPace(gp)})보다 빨라요. 목표 페이스가 몸에 익어 가고 있어요.` : `평균 페이스가 목표 대회 페이스보다 ${Math.round(vsGoal)}초 느려요. 템포 본 구간만 놓고 목표 페이스 ±5초를 맞춰 보세요.`);
+      next.push('다음 날은 이지런이나 휴식으로 회복하세요. 템포런은 주 1회면 충분해요.');
+    } else if (type === 'interval') {
+      head = fin(hardShare) && hardShare >= 0.25 ? '고강도 자극이 충분히 들어간 인터벌이에요' : '인터벌치고 고강도 시간이 짧았어요';
+      const fastest = fullSplits.length ? fullSplits.reduce((p, c) => (c.pace < p.pace ? c : p)) : null;
+      if (fastest) good.push(`가장 빠른 km는 ${fastest.k}km의 ${fmtPace(fastest.pace)}였어요.`);
+      next.push('인터벌 다음 날은 반드시 쉬운 러닝으로 회복하세요. 반복 구간 페이스가 일정했는지 그래프에서 확인해 보세요.');
+    } else if (type === 'race') {
+      head = pbs.length ? `최고 기록을 경신한 레이스예요` : fin(split) && split <= 3 ? '페이스 운영이 좋았던 레이스예요' : '후반 하락이 아쉬운 레이스예요';
+      if (fin(gp) && set.goalDist >= s.dist * 1.5) {
+        const pred = s.moving * Math.pow(set.goalDist / s.dist, 1.06);
+        next.push(`이 기록을 ${set.goalName || '목표 대회'} 거리로 환산하면 약 ${fmtDur(pred)}이에요(목표 ${fmtDur(set.goalTime)}).`);
+      }
+      next.push('레이스 후 최소 일주일은 강도를 낮추고 회복에 집중하세요.');
+    } else head = '러닝 기록을 분석했어요';
+    for (const p of pbs) good.unshift(`${BEST_LABEL[p.k]} 최고 기록 ${fmtDur(p.t)}, 이전보다 ${fmtDur(p.prev - p.t)} 단축했어요.`);
+    if (prev && fin(prev.summary.pace) && Math.abs(prev.summary.dist - s.dist) / s.dist < 0.25) {
+      const d = s.pace - prev.summary.pace, hd = s.avgHR - prev.summary.avgHR;
+      if (Math.abs(d) >= 3) (d < 0 && !(hd > 3) ? good : d > 0 ? fix : good).push(`직전 ${TYPE[type].label}(${fmtDate(prev.start)})보다 km당 ${Math.abs(Math.round(d))}초 ${d < 0 ? '빨랐어요' : '느렸어요'}${fin(hd) ? `, 평균 심박은 ${hd >= 0 ? '+' : ''}${Math.round(hd)}bpm` : ''}.`);
+    }
+    if (fin(tsb) && tsb < -25 && !next.some((x) => x.includes('피로'))) next.unshift(`훈련 부하가 높아요(TSB ${Math.round(tsb)}). 부상 예방을 위해 이번 주는 볼륨을 10~20% 줄이는 걸 권해요.`);
+    return { head, good: good.slice(0, 4), fix: fix.slice(0, 3), next: next.slice(0, 2) };
+  }
+  function coachCard(a, A, ins) {
+    const r = coachReport(a, A);
+    const hills = ins.filter((x) => x.k === 'hill' || x.k === 'info');
+    return html`<section class="coach">
+      <div class="coach-head"><span class="coach-tag">코치 코멘트</span><h3>${r.head}</h3></div>
+      ${r.good.length ? html`<div class="coach-sec good"><h4>잘한 점</h4><ul>${r.good.map((t) => html`<li>${t}</li>`)}</ul></div>` : ''}
+      ${r.fix.length ? html`<div class="coach-sec fix"><h4>보완할 점</h4><ul>${r.fix.map((t) => html`<li>${t}</li>`)}</ul></div>` : ''}
+      ${r.next.length ? html`<div class="coach-sec next"><h4>다음 훈련</h4><ul>${r.next.map((t) => html`<li>${t}</li>`)}</ul></div>` : ''}
+      ${hills.length ? html`<details class="coach-more"><summary>세부 관찰 ${hills.length}개</summary><ul class="ins">${hills.map((x) => html`<li class="k-${x.k}"><span class="ins-ic">${STATUS_ICON[x.k] || '•'}</span><span>${x.t}</span></li>`)}</ul></details>` : ''}
+      <button class="btn ghost ask" id="askClaude">Claude에게 더 자세히 물어보기</button>
+      <p class="fine">코멘트는 이 기기 안에서 기록 수치로 자동 작성돼요. 버튼을 누르면 분석 데이터를 Claude 앱으로 보내거나 복사해서 더 깊은 피드백을 받을 수 있어요.</p>
+    </section>`;
+  }
+  function claudePrompt(a, A) {
+    const s = A.summary, set = S.settings;
+    const L = [];
+    L.push(`내 러닝 기록을 코치처럼 분석해 줘. 잘한 점, 보완할 점, 다음 훈련 제안을 알려 줘.`);
+    if (set.goalTime) L.push(`목표: ${set.goalName || '대회'} ${(set.goalDist / 1000).toFixed(1)}km ${fmtDur(set.goalTime)}${set.goalDate ? ` (${set.goalDate})` : ''}. 최대심박 ${set.hrMax}, 안정심박 ${set.hrRest}.`);
+    L.push(`\n[${fmtDate(a.start)} ${fmtTime(a.start)}] ${a.name} / 유형: ${TYPE[a.type].label}`);
+    L.push(`거리 ${fmtKm(s.dist)}km, 이동시간 ${fmtDur(s.moving)}, 평균 ${fmtPace(s.pace)}/km, 경사보정 ${fmtPace(s.gap)}/km`);
+    L.push(`심박 평균 ${fmtInt(s.avgHR)} 최대 ${fmtInt(s.maxHR)}, 케이던스 ${fmtInt(s.avgCad)}spm, 보폭 ${fin(s.stride) ? s.stride.toFixed(2) : '-'}m, 상승 ${fmtInt(s.gain)}m`);
+    L.push(`심박효율 ${fin(s.ef) ? s.ef.toFixed(2) : '-'} m/beat, 디커플링 ${fin(s.dec) ? s.dec.toFixed(1) : '-'}%, TRIMP ${fmtInt(s.trimp)}`);
+    if (s.zones) { const t = s.zones.reduce((x, y) => x + y, 0) || 1; L.push(`심박존 비율 Z1~Z5: ${s.zones.map((z) => Math.round(z / t * 100) + '%').join(' / ')}`); }
+    L.push(`\n1km 스플릿 (km: 페이스 / GAP / 심박 / spm / 고도±)`);
+    for (const x of A.splits) L.push(`${x.dist < 990 ? (x.dist / 1000).toFixed(2) : x.k}: ${fmtPace(x.pace)} / ${fmtPace(x.gap)} / ${fmtInt(x.hr)} / ${fmtInt(x.cad)} / +${fmtInt(x.gain)}-${fmtInt(x.loss)}`);
+    const hl = [...A.hills.climbs.map((h) => `업힐 ${(h.a / 1000).toFixed(1)}-${(h.b / 1000).toFixed(1)}km +${Math.round(h.gain)}m ${(h.grade * 100).toFixed(1)}% 페이스 ${fmtPace(h.pace)} GAP ${fmtPace(h.gap)}`), ...A.hills.descents.map((h) => `다운힐 ${(h.a / 1000).toFixed(1)}-${(h.b / 1000).toFixed(1)}km -${Math.round(h.gain)}m 페이스 ${fmtPace(h.pace)}`)];
+    if (hl.length) L.push(`\n경사 구간\n` + hl.join('\n'));
+    const recent = S.acts.filter((x) => x.start < a.start && x.start > a.start - 28 * 864e5);
+    if (recent.length) { const r = agg(recent); L.push(`\n최근 4주: ${r.n}회, ${fmtKm(r.dist, 1)}km, 평균 ${fmtPace(r.pace)}/km, 심박효율 ${fin(r.ef) ? r.ef.toFixed(2) : '-'}`); }
+    if (a.note) L.push(`메모: ${a.note}`);
+    return L.join('\n');
   }
   function stat(label, value, unit, show) {
     if (!show) return '';
