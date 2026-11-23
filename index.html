@@ -1051,6 +1051,8 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
 @media (max-width: 360px) { .goal-pred .big { font-size: 54px; } .hero3 b { font-size: 28px; } }
 @media (prefers-reduced-motion: reduce) { #toast { transition: none; } }
 
+.tile-dark { filter: invert(1) hue-rotate(180deg) brightness(.9) contrast(.88) saturate(.5); }
+
 </style>
 </head>
 <body>
@@ -2203,7 +2205,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
   const fin = Number.isFinite;
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-  const VERSION = '1.1.0';
+  const VERSION = '1.1.1';
 
   /* ───────── 상수 ───────── */
   const C = {
@@ -2222,11 +2224,9 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
   const BEST_LABEL = { 1000: '1K', 5000: '5K', 10000: '10K', 21097.5: '하프', 42195: '풀' };
   const DEFAULTS = { hrMax: 190, hrRest: 55, sex: 'm', zoneMethod: 'hrr', cadMode: 'auto', weekGoal: 40, mapStyle: 'dark', touched: false, tipDismissed: false, goalName: '춘천마라톤', goalDist: 42195, goalTime: 11700, goalDate: '' };
   const ANALYSIS_KEYS = ['hrMax', 'hrRest', 'sex', 'zoneMethod', 'cadMode'];
-  const TILES = {
-    dark: ['https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', '&copy; OpenStreetMap &copy; CARTO'],
-    light: ['https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', '&copy; OpenStreetMap &copy; CARTO'],
-    osm: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png', '&copy; OpenStreetMap'],
-  };
+  // CARTO 타일은 API 키가 필요해져서 OpenStreetMap 타일을 쓰고, 다크는 CSS 필터로 어둡게 표시
+  const OSM = ['https://tile.openstreetmap.org/{z}/{x}/{y}.png', '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'];
+  const TILES = { dark: [...OSM, 'tile-dark'], light: [...OSM, ''], osm: [...OSM, ''] };
 
   /* ───────── 상태 ───────── */
   const S = {
@@ -3075,7 +3075,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     S.map = map;
     const tile = TILES[S.settings.mapStyle] || TILES.dark;
     let tileErr = 0;
-    L.tileLayer(tile[0], { attribution: tile[1], maxZoom: 19, subdomains: 'abcd', detectRetina: false, crossOrigin: true })
+    L.tileLayer(tile[0], { attribution: tile[1], maxZoom: 19, className: tile[2], detectRetina: false })
       .on('tileerror', () => { if (++tileErr === 3) { const nt = $('#mapNote'); if (nt) { nt.hidden = false; setTimeout(() => { nt.hidden = true; }, 5000); } } })
       .on('tileload', () => { tileErr = -1000; $('#mapNote').hidden = true; })
       .addTo(map);
@@ -3339,7 +3339,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
         <h3>케이던스 · 목표 · 지도</h3>
         <div class="field row"><span>GPX 케이던스 값<small>한쪽 발 기준(80~95)이면 ×2 해서 spm으로</small></span>${seg('cadMode', [['auto', '자동'], ['x1', '그대로'], ['x2', '×2']])}</div>
         <label class="field row"><span>주간 목표 거리<small>km, 0이면 표시 안 함</small></span><input type="number" inputmode="decimal" data-num="weekGoal" value="${st.weekGoal}" min="0" max="300"></label>
-        <div class="field row"><span>지도 스타일</span>${seg('mapStyle', [['dark', '다크'], ['light', '라이트'], ['osm', 'OSM']])}</div>
+        <div class="field row"><span>지도 스타일</span>${seg('mapStyle', [['dark', '다크'], ['light', '라이트']])}</div>
       </section>
       <section class="card">
         <h3>데이터</h3>
