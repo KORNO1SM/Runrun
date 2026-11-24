@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312151C'/%3E%3Cpath d='M14 44c8-2 10-14 18-16s10 8 18 4' fill='none' stroke='%23F2B84B' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="icon-192.png">
+<script>try{var t=localStorage.getItem('runlog-theme');if(t)document.documentElement.dataset.theme=t;var m=document.querySelector('meta[name=theme-color]');if(m&&t==='light')m.content='#F2F4F7';}catch(e){}</script>
 <style>
 /* required styles */
 
@@ -680,7 +681,10 @@ svg.leaflet-image-layer.leaflet-interactive path {
 :root {
   --page: #12151C; --surface: #1A1F28; --surface2: #232A35; --surface3: #2D3542;
   --line: rgba(238, 242, 247, .08); --text: #EEF2F7; --text2: #B9C2D0; --muted: #7F8A9C;
-  --accent: #F2B84B; --accent-ink: #1E1606; --blue: #3987e5;
+  --accent: #F2B84B; --accent-ink: #1E1606; --blue: #3987e5; --accent-text: #F2B84B;
+  --good-ink: var(--good-ink); --bad-ink: var(--bad-ink); --warn-ink: var(--warn-ink); --up-ink: var(--up-ink); --down-ink: var(--down-ink); --violet-ink: var(--violet-ink);
+  --bar-bg: rgba(18, 21, 28, .92); --nav-bg: rgba(22, 26, 34, .97); --overlay: var(--overlay); --map-bg: #161B23; --line-strong: #364050;
+  --goal-grad: linear-gradient(180deg, #232A35 0%, #1A1F28 100%); --scrim: rgba(0, 0, 0, .6); --tile-filter: none;
   --num: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
   --good: #0ca30c; --warn: #fab219; --serious: #ec835a; --critical: #d03b3b;
   --st: env(safe-area-inset-top, 0px); --sb: env(safe-area-inset-bottom, 0px);
@@ -700,13 +704,13 @@ b { font-weight: 650; }
 .center { text-align: center; }
 
 /* ── 상단·하단 바 ── */
-.topbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 6px; height: calc(52px + var(--st)); padding: var(--st) 12px 0; background: rgba(18, 21, 28, .92); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.topbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 6px; height: calc(52px + var(--st)); padding: var(--st) 12px 0; background: var(--bar-bg); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
 .topbar h1 { flex: 1; margin: 0; font-size: 17px; font-weight: 650; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.brand { font-size: 13px; font-weight: 800; letter-spacing: .02em; color: var(--accent); }
+.brand { font-size: 13px; font-weight: 800; letter-spacing: .02em; color: var(--accent-text); }
 .icon-btn { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; border: 0; background: transparent; color: var(--text); padding: 0; }
 .icon-btn svg { width: 22px; height: 22px; }
 main { max-width: 680px; margin: 0 auto; padding: 12px 12px calc(92px + var(--sb)); }
-.tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: flex; justify-content: space-around; padding: 6px 6px calc(6px + var(--sb)); background: rgba(22, 26, 34, .97); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-top: 1px solid var(--line); }
+.tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: flex; justify-content: space-around; padding: 6px 6px calc(6px + var(--sb)); background: var(--nav-bg); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-top: 1px solid var(--line); }
 .tab { flex: 1; max-width: 140px; display: flex; flex-direction: column; align-items: center; gap: 3px; border: 0; background: none; color: var(--muted); font-size: 11px; font-weight: 600; padding: 4px 0; }
 .tab svg { width: 22px; height: 22px; }
 .tab.on { color: var(--text); }
@@ -727,7 +731,7 @@ main { max-width: 680px; margin: 0 auto; padding: 12px 12px calc(92px + var(--sb
 .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
 .btn.ghost { background: transparent; }
 .btn.danger { background: var(--critical); border-color: transparent; color: #fff; }
-.btn.danger-ghost { background: transparent; color: #f08a8a; border-color: rgba(208, 59, 59, .4); width: 100%; margin-top: 12px; }
+.btn.danger-ghost { background: transparent; color: var(--bad-ink); border-color: rgba(208, 59, 59, .4); width: 100%; margin-top: 12px; }
 .btn.small { min-height: 34px; padding: 0 12px; font-size: 13px; border-radius: 10px; }
 .btn.big { min-height: 52px; font-size: 16px; padding: 0 22px; }
 .btn-col { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
@@ -735,7 +739,7 @@ main { max-width: 680px; margin: 0 auto; padding: 12px 12px calc(92px + var(--sb
 .chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px; border-radius: 999px; background: var(--surface2); border: 1px solid var(--line); font-size: 12px; font-weight: 600; color: var(--text2); white-space: nowrap; }
 .chip i { width: 8px; height: 8px; border-radius: 50%; flex: none; }
 .chip.sel { padding: 6px 12px; font-size: 13px; }
-.chip.sel.on { background: var(--text); color: #12151C; border-color: transparent; }
+.chip.sel.on { background: var(--text); color: var(--page); border-color: transparent; }
 .chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 8px; scrollbar-width: none; }
 .chips::-webkit-scrollbar { display: none; }
 .seg { display: flex; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 3px; margin-bottom: 12px; }
@@ -746,23 +750,23 @@ main { max-width: 680px; margin: 0 auto; padding: 12px 12px calc(92px + var(--sb
 .lk { display: inline-block; width: 12px; height: 2px; border-radius: 1px; vertical-align: middle; margin-right: 5px; }
 .sw { display: inline-block; width: 10px; height: 10px; border-radius: 3px; vertical-align: -1px; margin-right: 6px; }
 .delta { font-size: 12px; font-weight: 650; }
-.delta.up { color: #6fd39a; }
+.delta.up { color: var(--good-ink); }
 .delta.down { color: var(--serious); }
 .status { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 650; padding: 2px 8px; border-radius: 999px; border: 1px solid; margin-left: 8px; vertical-align: 2px; }
-.s-good { color: #4cc94c; border-color: rgba(12, 163, 12, .5); }
+.s-good { color: var(--good-ink); border-color: rgba(12, 163, 12, .5); }
 .s-warn { color: var(--warn); border-color: rgba(250, 178, 25, .5); }
-.s-bad { color: #f07070; border-color: rgba(208, 59, 59, .55); }
+.s-bad { color: var(--bad-ink); border-color: rgba(208, 59, 59, .55); }
 .s-info { color: var(--text2); border-color: var(--line); }
 .status-line { margin: 2px 0 10px; }
 .status-line .status { margin-left: 0; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--text2); margin: 8px 0 4px; }
-.banner { background: rgba(250, 178, 25, .12); border: 1px solid rgba(250, 178, 25, .35); color: #f5d38a; border-radius: 12px; padding: 10px 12px; font-size: 13px; margin-bottom: 12px; }
+.banner { background: rgba(250, 178, 25, .12); border: 1px solid rgba(250, 178, 25, .35); color: var(--warn-ink); border-radius: 12px; padding: 10px 12px; font-size: 13px; margin-bottom: 12px; }
 .tip { display: flex; flex-direction: column; gap: 10px; background: var(--surface2); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; margin-bottom: 12px; font-size: 13px; color: var(--text2); }
 .tip-btns { display: flex; gap: 8px; }
 
 /* ── 빈 상태 ── */
 .empty { text-align: center; padding: 40px 10px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-.empty-ic { width: 84px; height: 84px; border-radius: 26px; background: var(--surface); border: 1px solid var(--line); display: grid; place-items: center; color: var(--accent); }
+.empty-ic { width: 84px; height: 84px; border-radius: 26px; background: var(--surface); border: 1px solid var(--line); display: grid; place-items: center; color: var(--accent-text); }
 .empty-ic svg { width: 46px; height: 46px; }
 .empty h2 { margin: 6px 0 0; font-size: 20px; }
 .empty p { margin: 0; color: var(--text2); max-width: 400px; }
@@ -807,25 +811,25 @@ main { max-width: 680px; margin: 0 auto; padding: 12px 12px calc(92px + var(--sb
 .type-row { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
 .type-row::-webkit-scrollbar { display: none; }
 .map-wrap { position: relative; z-index: 0; isolation: isolate; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); margin-bottom: 12px; background: var(--surface2); }
-.map { height: 270px; background: #161B23; }
+.map { height: 270px; background: var(--map-bg); }
 .map-wrap.full { position: fixed; inset: 0; z-index: 60; border-radius: 0; margin: 0; border: 0; }
 .map-wrap.full .map { height: 100%; }
 .map-ctl { position: absolute; top: 10px; left: 10px; right: 10px; z-index: 500; display: flex; justify-content: space-between; align-items: flex-start; pointer-events: none; }
 .map-wrap.full .map-ctl { top: calc(10px + var(--st)); }
 .map-ctl > * { pointer-events: auto; }
-.map-ctl .seg { background: rgba(18, 21, 28, .85); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
-.map-ctl .icon-btn { background: rgba(18, 21, 28, .85); border: 1px solid var(--line); }
-.map-legend { position: absolute; left: 10px; bottom: 22px; z-index: 500; display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text2); background: rgba(18, 21, 28, .85); padding: 5px 9px; border-radius: 10px; flex-wrap: wrap; max-width: calc(100% - 20px); }
+.map-ctl .seg { background: var(--overlay); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.map-ctl .icon-btn { background: var(--overlay); border: 1px solid var(--line); }
+.map-legend { position: absolute; left: 10px; bottom: 22px; z-index: 500; display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text2); background: var(--overlay); padding: 5px 9px; border-radius: 10px; flex-wrap: wrap; max-width: calc(100% - 20px); }
 .map-wrap.full .map-legend { bottom: calc(24px + var(--sb)); }
 .map-legend > i { width: 54px; height: 6px; border-radius: 3px; }
 .ml-dots { display: inline-flex; align-items: center; gap: 4px; margin-left: 6px; }
 .ml-dots i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-.map-note { position: absolute; left: 50%; top: 58px; transform: translateX(-50%); z-index: 400; font-size: 12px; color: var(--muted); background: rgba(18, 21, 28, .75); padding: 4px 10px; border-radius: 8px; pointer-events: none; white-space: nowrap; }
+.map-note { position: absolute; left: 50%; top: 58px; transform: translateX(-50%); z-index: 400; font-size: 12px; color: var(--muted); background: var(--overlay); padding: 4px 10px; border-radius: 8px; pointer-events: none; white-space: nowrap; }
 .km-ic span { display: grid; place-items: center; width: 22px; height: 18px; border-radius: 9px; background: rgba(18, 21, 28, .9); color: #f0efec; font: 700 10px system-ui, sans-serif; border: 1px solid rgba(255, 255, 255, .25); }
-.leaflet-container { background: #161B23; font: 12px system-ui, sans-serif; }
-.leaflet-control-attribution { background: rgba(18, 21, 28, .6) !important; color: var(--muted) !important; font-size: 9px !important; }
+.leaflet-container { background: var(--map-bg); font: 12px system-ui, sans-serif; }
+.leaflet-control-attribution { background: var(--overlay) !important; color: var(--muted) !important; font-size: 9px !important; }
 .leaflet-control-attribution a { color: var(--text2) !important; }
-.leaflet-bar a { background: #232A35 !important; color: #EEF2F7 !important; border-color: #364050 !important; }
+.leaflet-bar a { background: var(--surface2) !important; color: var(--text) !important; border-color: var(--line-strong) !important; }
 
 .hero3 { display: grid; grid-template-columns: 1.1fr 1fr 1fr; gap: 8px; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--line); }
 .hero3 b { font-size: 25px; font-weight: 700; letter-spacing: -.02em; line-height: 1.2; }
@@ -842,10 +846,10 @@ main { max-width: 680px; margin: 0 auto; padding: 12px 12px calc(92px + var(--sb
 .ins { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
 .ins li { display: flex; gap: 10px; font-size: 14px; color: var(--text2); line-height: 1.5; }
 .ins-ic { flex: none; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 800; background: var(--surface3); color: var(--text2); margin-top: 1px; }
-.k-good .ins-ic { background: rgba(12, 163, 12, .22); color: #4cc94c; }
+.k-good .ins-ic { background: rgba(12, 163, 12, .22); color: var(--good-ink); }
 .k-warn .ins-ic { background: rgba(250, 178, 25, .2); color: var(--warn); }
-.k-bad .ins-ic { background: rgba(208, 59, 59, .25); color: #f07070; }
-.k-hill .ins-ic { background: rgba(144, 133, 233, .22); color: #b3abf2; font-size: 9px; }
+.k-bad .ins-ic { background: rgba(208, 59, 59, .25); color: var(--bad-ink); }
+.k-hill .ins-ic { background: rgba(144, 133, 233, .22); color: var(--violet-ink); font-size: 9px; }
 
 .readout { position: sticky; top: calc(52px + var(--st)); z-index: 5; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; min-height: 40px; padding: 8px 10px; margin: 0 -4px 6px; background: var(--surface2); border-radius: 10px; font-size: 14px; }
 .readout.small { position: static; min-height: 36px; }
@@ -855,7 +859,7 @@ main { max-width: 680px; margin: 0 auto; padding: 12px 12px calc(92px + var(--sb
 .ro-i { display: inline-flex; align-items: baseline; white-space: nowrap; }
 .ro-i .lk { align-self: center; }
 .ro-link { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; width: 100%; border: 0; background: none; padding: 0; text-align: left; }
-.ro-go { margin-left: auto; color: var(--accent); font-size: 13px; font-weight: 650; }
+.ro-go { margin-left: auto; color: var(--accent-text); font-size: 13px; font-weight: 650; }
 .ch-block { margin-top: 10px; }
 .ch-title { font-size: 12px; color: var(--text2); font-weight: 650; margin: 8px 0 2px; display: flex; align-items: center; }
 .ch-title .lk:not(:first-child) { margin-left: 10px; }
@@ -875,16 +879,16 @@ table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nu
 .pbar i { display: block; height: 100%; background: rgba(57, 135, 229, .35); border-radius: 0 4px 4px 0; }
 .splits td.pace span { position: relative; float: right; }
 .splits tr.fast .pbar i { background: rgba(57, 135, 229, .7); }
-.splits td.up { color: #f0a77f; }
-.splits td.down { color: #8fbcf0; }
+.splits td.up { color: var(--up-ink); }
+.splits td.down { color: var(--down-ink); }
 .splits td.mixed { color: var(--text2); font-size: 12px; }
 .splits tbody tr { cursor: pointer; }
 .hills { list-style: none; padding: 0; margin: 0; }
 .hills li { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); }
 .hills li:first-child { border-top: 0; }
 .hill-badge { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; font-size: 11px; flex: none; }
-.hill-badge.up { background: rgba(217, 89, 38, .2); color: #f0a77f; }
-.hill-badge.down { background: rgba(57, 135, 229, .2); color: #8fbcf0; }
+.hill-badge.up { background: rgba(217, 89, 38, .2); color: var(--up-ink); }
+.hill-badge.down { background: rgba(57, 135, 229, .2); color: var(--down-ink); }
 .hill-main, .hill-pace { display: flex; flex-direction: column; }
 .hill-main { flex: 1; }
 .hill-main span, .hill-pace span { font-size: 12px; color: var(--muted); }
@@ -923,20 +927,20 @@ table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nu
 .pr-list { display: flex; flex-direction: column; }
 .pr { display: grid; grid-template-columns: 48px 1fr auto auto; gap: 10px; align-items: baseline; border: 0; border-top: 1px solid var(--line); background: none; padding: 10px 0; text-align: left; font-size: 13px; }
 .pr:first-child { border-top: 0; }
-.pr-k { font-weight: 700; color: var(--accent); }
+.pr-k { font-weight: 700; color: var(--accent-text); }
 .pr b { font-size: 17px; }
 
 /* ── 토스트·대화상자 ── */
-#toast { position: fixed; left: 50%; bottom: calc(86px + var(--sb)); transform: translate(-50%, 20px); z-index: 80; background: #EEF2F7; color: #12151C; font-size: 14px; font-weight: 600; padding: 10px 16px; border-radius: 12px; opacity: 0; pointer-events: none; transition: .2s; max-width: calc(100% - 32px); text-align: center; }
+#toast { position: fixed; left: 50%; bottom: calc(86px + var(--sb)); transform: translate(-50%, 20px); z-index: 80; background: var(--text); color: var(--page); font-size: 14px; font-weight: 600; padding: 10px 16px; border-radius: 12px; opacity: 0; pointer-events: none; transition: .2s; max-width: calc(100% - 32px); text-align: center; }
 #toast.on { opacity: 1; transform: translate(-50%, 0); }
-#dialog { position: fixed; inset: 0; z-index: 90; background: rgba(0, 0, 0, .6); display: none; align-items: flex-end; justify-content: center; padding: 16px 16px calc(16px + var(--sb)); }
+#dialog { position: fixed; inset: 0; z-index: 90; background: var(--scrim); display: none; align-items: flex-end; justify-content: center; padding: 16px 16px calc(16px + var(--sb)); }
 #dialog.on { display: flex; }
 .dlg-box { width: 100%; max-width: 420px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
 .dlg-box h3 { margin: 0 0 8px; font-size: 17px; }
 .dlg-box p { margin: 0 0 16px; color: var(--text2); font-size: 14px; white-space: pre-line; }
 .dlg-btns { display: flex; gap: 8px; }
 .dlg-btns .btn { flex: 1; }
-.drop-hint { display: none; position: fixed; inset: 12px; z-index: 95; border: 2px dashed var(--accent); border-radius: 20px; background: rgba(18, 21, 28, .88); color: var(--accent); font-weight: 700; place-items: center; font-size: 18px; }
+.drop-hint { display: none; position: fixed; inset: 12px; z-index: 95; border: 2px dashed var(--accent); border-radius: 20px; background: var(--overlay); color: var(--accent-text); font-weight: 700; place-items: center; font-size: 18px; }
 body.drag .drop-hint { display: grid; }
 
 @media (min-width: 560px) {
@@ -954,7 +958,7 @@ body.drag .drop-hint { display: grid; }
 .num, .hero b, .hero3 b, .stat b, .econ-v b, .econ-eq b, .run-dist b, .best-row b, .pr b, .readout b, .splits td, .zones td, .kv b {
   font-family: var(--num); font-variant-numeric: tabular-nums; letter-spacing: 0;
 }
-.brand { color: var(--accent); font-family: var(--num); font-size: 16px; font-weight: 700; letter-spacing: .01em; }
+.brand { color: var(--accent-text); font-family: var(--num); font-size: 16px; font-weight: 700; letter-spacing: .01em; }
 .topbar h1 { font-size: 18px; font-weight: 700; }
 h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
 .card h3 { font-size: 15px; font-weight: 700; }
@@ -962,24 +966,24 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
 
 /* 목표 대회 — 홈의 주인공 */
 .goal { position: relative; overflow: hidden; border-radius: 22px; padding: 18px 18px 14px; margin-bottom: 14px;
-  background: linear-gradient(180deg, #232A35 0%, #1A1F28 100%); border: 1px solid rgba(242, 184, 75, .28); }
+  background: var(--goal-grad); border: 1px solid rgba(242, 184, 75, .28); }
 .goal::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--accent); }
 .goal-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
 .goal h2 { font-size: 17px; }
 .goal-meta { font-size: 13px; color: var(--text2); }
-.dday b { font-size: 26px; font-weight: 700; color: var(--accent); line-height: 1; }
+.dday b { font-size: 26px; font-weight: 700; color: var(--accent-text); line-height: 1; }
 .dday.past b { color: var(--muted); }
 .goal-pred { margin-top: 14px; }
 .goal-pred .lbl { font-size: 12px; color: var(--text2); }
 .goal-pred .big { display: block; font-size: 64px; font-weight: 700; line-height: .95; letter-spacing: -.01em; margin-top: 2px; }
 .goal-gap { margin-top: 8px; font-size: 14px; color: var(--text2); }
 .goal-gap b { font-size: 18px; color: var(--text); }
-.goal-gap.ok b { color: var(--accent); }
+.goal-gap.ok b { color: var(--accent-text); }
 .goal-chart { margin: 12px -2px 4px; }
 .goal-chart canvas { display: block; }
 .goal-foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px 12px; font-size: 13px; color: var(--text2); padding-top: 8px; border-top: 1px solid var(--line); }
 .goal-foot b { font-size: 16px; color: var(--text); }
-.goal-foot .gain { color: #6fd39a; font-weight: 600; }
+.goal-foot .gain { color: var(--good-ink); font-weight: 600; }
 .goal-foot .lose { color: var(--serious); font-weight: 600; }
 .goal-none { font-size: 14px; color: var(--text2); margin: 12px 0 4px; }
 .empty-goal { border-style: dashed; background: var(--surface); }
@@ -1000,7 +1004,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
 .meter i { background: linear-gradient(90deg, var(--blue), var(--accent)); }
 .week-sub { justify-content: space-between; }
 .week-sub .left { color: var(--text); font-weight: 600; }
-.week-sub .left.done { color: var(--accent); }
+.week-sub .left.done { color: var(--accent-text); }
 
 /* 최근 4주 변화 */
 .progress { margin: 0 0 6px; }
@@ -1011,7 +1015,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
 .progress li b { font-size: 19px; font-weight: 700; }
 .pg-ic { font-size: 10px; color: var(--muted); }
 .pg-s { font-family: var(--num); font-size: 15px; font-weight: 600; min-width: 52px; text-align: right; color: var(--muted); }
-.progress li.up .pg-ic, .progress li.up .pg-s { color: #6fd39a; }
+.progress li.up .pg-ic, .progress li.up .pg-s { color: var(--good-ink); }
 .progress li.down .pg-ic, .progress li.down .pg-s { color: var(--serious); }
 
 /* 목록 */
@@ -1028,7 +1032,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
 /* 상세 */
 .title-input { font-size: 24px; letter-spacing: -.02em; }
 .pb-banner { border-radius: 18px; padding: 14px 16px; margin-bottom: 12px; background: rgba(242, 184, 75, .12); border: 1px solid rgba(242, 184, 75, .45); }
-.pb-banner h3 { margin: 0 0 8px; font-size: 15px; color: var(--accent); }
+.pb-banner h3 { margin: 0 0 8px; font-size: 15px; color: var(--accent-text); }
 .pb-banner ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
 .pb-banner li { display: flex; align-items: baseline; gap: 10px; }
 .pb-k { font-weight: 700; min-width: 34px; }
@@ -1041,10 +1045,10 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
 .econ-eq b { font-size: 24px; }
 .best-row b { font-size: 22px; }
 .pr b { font-size: 22px; }
-.pr-k { color: var(--accent); }
+.pr-k { color: var(--accent-text); }
 .splits td { font-size: 15px; }
 .splits td.pace { font-weight: 600; }
-.splits tr.fast td.pace span { color: var(--accent); }
+.splits tr.fast td.pace span { color: var(--accent-text); }
 .splits tr.fast .pbar i { background: rgba(242, 184, 75, .45); }
 .field.row input.wide { width: 170px; text-align: left; }
 .btn.primary { box-shadow: none; }
@@ -1055,22 +1059,22 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
 
 /* 코치 코멘트 */
 .coach { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 18px; padding: 16px; margin-bottom: 12px; }
-.coach-tag { font-size: 12px; font-weight: 700; color: var(--accent); }
+.coach-tag { font-size: 12px; font-weight: 700; color: var(--accent-text); }
 .coach-head h3 { margin: 4px 0 12px; font-size: 19px; line-height: 1.35; letter-spacing: -.01em; }
 .coach-sec { padding: 10px 0; border-top: 1px solid var(--line); }
 .coach-sec h4 { margin: 0 0 6px; font-size: 13px; font-weight: 700; }
-.coach-sec.good h4 { color: #6fd39a; }
+.coach-sec.good h4 { color: var(--good-ink); }
 .coach-sec.fix h4 { color: var(--serious); }
-.coach-sec.next h4 { color: #8fbcf0; }
+.coach-sec.next h4 { color: var(--down-ink); }
 .coach-sec ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
 .coach-sec li { font-size: 14px; color: var(--text2); line-height: 1.6; }
 .coach-more { border-top: 1px solid var(--line); padding: 10px 0 4px; }
 .coach-more summary { font-size: 13px; color: var(--text2); cursor: pointer; font-weight: 600; }
 .coach-more .ins { margin-top: 10px; }
-.btn.ask { width: 100%; margin-top: 10px; border-color: rgba(242, 184, 75, .4); color: var(--accent); }
+.btn.ask { width: 100%; margin-top: 10px; border-color: rgba(242, 184, 75, .4); color: var(--accent-text); }
 
 /* v1.3 — 신발·날씨·대회 준비 */
-.link { border: 0; background: none; padding: 0; color: var(--accent); font-weight: 600; font-size: 13px; }
+.link { border: 0; background: none; padding: 0; color: var(--accent-text); font-weight: 600; font-size: 13px; }
 .h-plan { font-size: 12px; font-weight: 600; color: var(--text2); margin-left: 6px; }
 .week-plan { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 13px; color: var(--text2); align-items: baseline; }
 .week-plan b { color: var(--text); margin-right: 2px; }
@@ -1118,8 +1122,8 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
 .days { list-style: none; margin: 10px 0 0; padding: 0; }
 .days li { display: grid; grid-template-columns: 26px 1fr auto; gap: 8px; align-items: baseline; padding: 8px 0; border-top: 1px solid var(--line); font-size: 14px; color: var(--text2); }
 .days li.today { color: var(--text); }
-.days li.today .d-dow { color: var(--accent); }
-.days li.ran .d-l::before { content: '✓ '; color: #6fd39a; font-weight: 700; }
+.days li.today .d-dow { color: var(--accent-text); }
+.days li.ran .d-l::before { content: '✓ '; color: var(--good-ink); font-weight: 700; }
 .days li.skip { opacity: .5; }
 .d-dow { font-weight: 700; color: var(--text); }
 .d-km { font-size: 15px; color: var(--text); }
@@ -1155,16 +1159,88 @@ details.phase .fine { margin: 6px 0 6px; }
 .wk-r { text-align: right; white-space: nowrap; }
 .wk-r b { font-size: 18px; }
 .wk-st { display: inline-block; width: 16px; margin-left: 4px; color: var(--muted); }
-.wk.done .wk-st { color: #6fd39a; }
+.wk.done .wk-st { color: var(--good-ink); }
 .wk.partial .wk-st { color: var(--warn); }
 .wk.current { background: rgba(242, 184, 75, .08); border-radius: 10px; padding-left: 6px; padding-right: 6px; border-top-color: transparent; }
-.wk.current .wk-l b { color: var(--accent); }
-.wk.race .wk-key { color: var(--accent); font-weight: 600; }
+.wk.current .wk-l b { color: var(--accent-text); }
+.wk.race .wk-key { color: var(--accent-text); font-weight: 600; }
 .plan-opt { border-top: 1px solid var(--line); margin-top: 6px; padding-top: 10px; }
 .plan-opt summary { font-size: 13px; color: var(--text2); cursor: pointer; font-weight: 600; }
 .plan-opts { margin-top: 10px; }
 .plan-opt .btn.ghost { width: 100%; }
 .tab { font-size: 10.5px; }
+
+/* ═════ 라이트 테마 ═════ */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --page: #F2F4F7; --surface: #FFFFFF; --surface2: #EEF1F5; --surface3: #DDE2E9;
+  --line: rgba(18, 21, 28, .10); --line-strong: #C9D0DA; --text: #12151C; --text2: #3E4756; --muted: #687284;
+  --accent: #F2B84B; --accent-text: #9A6400; --accent-ink: #1E1606; --blue: #2a78d6;
+  --good: #0ca30c; --warn: #b07800; --serious: #C4511F; --critical: #d03b3b;
+  --good-ink: #0E7A3E; --bad-ink: #C0392B; --warn-ink: #7A5200; --up-ink: #C4511F; --down-ink: #1C5CAB; --violet-ink: #5141C2;
+  --bar-bg: rgba(255, 255, 255, .92); --nav-bg: rgba(255, 255, 255, .97); --overlay: rgba(255, 255, 255, .9); --map-bg: #E8ECF1;
+  --goal-grad: linear-gradient(180deg, #FFF6E3 0%, #FFFFFF 100%); --scrim: rgba(18, 21, 28, .35);
+}
+:root[data-theme="light"] .goal { border-color: rgba(201, 138, 0, .35); }
+:root[data-theme="light"] .run.has-pb { border-color: rgba(201, 138, 0, .45); background: linear-gradient(90deg, rgba(242, 184, 75, .16), var(--surface) 55%); }
+:root[data-theme="light"] .pb-banner { background: rgba(242, 184, 75, .16); border-color: rgba(201, 138, 0, .45); }
+:root[data-theme="light"] .card, :root[data-theme="light"] .run, :root[data-theme="light"] .week, :root[data-theme="light"] .progress ul, :root[data-theme="light"] .coach { box-shadow: 0 1px 2px rgba(18, 21, 28, .05); }
+:root[data-theme="light"] .km-ic span { background: rgba(255, 255, 255, .92); color: #12151C; border-color: rgba(18, 21, 28, .25); }
+:root[data-theme="light"] .banner { background: rgba(242, 184, 75, .16); border-color: rgba(201, 138, 0, .4); }
+:root[data-theme="light"] .tab .plus { box-shadow: 0 1px 0 rgba(0, 0, 0, .08); }
+:root[data-theme="light"] .pbar i { background: rgba(42, 120, 214, .22); }
+:root[data-theme="light"] .splits tr.fast .pbar i { background: rgba(242, 184, 75, .55); }
+:root[data-theme="light"] .wk.current { background: rgba(242, 184, 75, .14); }
+:root[data-theme="light"] .meter i { background: linear-gradient(90deg, #5598e7, #F2B84B); }
+:root[data-theme="light"] .btn.danger-ghost { border-color: rgba(192, 57, 43, .35); }
+:root[data-theme="light"] .leaflet-control-attribution { background: rgba(255, 255, 255, .75) !important; }
+
+/* 테마 전환 버튼 */
+.theme-btn { width: 36px; height: 36px; margin-left: 4px; color: var(--text2); }
+.theme-btn .i-sun { display: none; }
+.theme-btn[data-mode="dark"] .i-sun { display: block; }
+.theme-btn[data-mode="dark"] .i-moon { display: none; }
+
+/* v1.4 — 오늘 훈련, 미션 단계, 주차 상세 */
+.today-box { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; background: var(--surface2); border-radius: 12px; padding: 10px 12px; margin: 12px 0 4px; font-size: 14px; }
+.today-box .lbl { font-weight: 700; color: var(--accent-text); }
+.today-box b { color: var(--text); font-weight: 600; }
+.today-box .num { font-size: 17px; font-weight: 600; margin-left: auto; }
+.today-box.rest span:last-child { color: var(--muted); font-size: 13px; }
+.today-box.ran { outline: 1px solid rgba(15, 160, 80, .35); }
+.tb-ok { font-size: 12px; font-weight: 700; color: var(--good-ink); }
+.weekly { list-style: none; margin: 12px 0 0; padding: 0; }
+.weekly li { display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); font-size: 14px; }
+.weekly li.done .wl-t { color: var(--text2); }
+.weekly li.done .ms-ic, .ms-ic.done { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.wl-c { font-size: 15px; color: var(--text2); }
+.ms-lad { font-size: 11px; font-weight: 700; color: var(--muted); }
+.ms-lad .num { font-size: 12px; margin-left: 4px; }
+.sub-h { font-size: 13px; margin: 16px 0 4px; color: var(--text2); }
+.achv { border-radius: 18px; padding: 14px 16px; margin-bottom: 12px; background: var(--goal-grad); border: 1px solid var(--accent); }
+.achv h3 { margin: 0 0 8px; font-size: 16px; color: var(--accent-text); }
+.achv ul { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.achv li { display: flex; flex-direction: column; font-size: 14px; }
+.achv li span { font-size: 12px; color: var(--text2); }
+.achv-list { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 10px; }
+.achv-list summary { font-size: 13px; font-weight: 600; color: var(--text2); cursor: pointer; }
+.achv-list ul { list-style: none; margin: 8px 0 0; padding: 0; }
+.achv-list li { display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: center; padding: 6px 0; font-size: 13px; }
+.ah-d { color: var(--muted); font-size: 12px; }
+.fine.top { margin: -4px 0 8px; }
+details.wk { display: block; padding: 0; border-top: 1px solid var(--line); }
+details.wk > summary { display: grid; grid-template-columns: 46px 1fr auto; gap: 8px; align-items: center; padding: 8px 0; cursor: pointer; list-style: none; }
+details.wk > summary::-webkit-details-marker, details.phase > summary::-webkit-details-marker { display: none; }
+details.wk[open] > summary .wk-key { font-weight: 600; }
+details.wk .days { margin: 0 0 8px 54px; }
+details.wk .days li { padding: 6px 0; font-size: 13px; }
+details.wk .days li.extra .d-l { color: var(--muted); }
+details.wk.current { padding: 0 6px; }
+details.wk.check .wk-key { color: var(--accent-text); }
+.wk-edit { display: flex; align-items: center; gap: 10px; margin: 0 0 10px 54px; font-size: 12px; color: var(--muted); }
+.wk-edit input { width: 64px; background: var(--surface2); border: 1px solid var(--line); border-radius: 8px; color: var(--text); padding: 4px 6px; margin: 0 4px; text-align: right; font-family: var(--num); font-size: 15px; }
+.wk-edit .chip.sel { padding: 4px 10px; font-size: 12px; }
+.plan-opt .btn.primary { width: 100%; margin-top: 6px; }
 
 </style>
 </head>
@@ -1173,6 +1249,7 @@ details.phase .fine { margin: 6px 0 6px; }
   <button id="backBtn" class="icon-btn" aria-label="뒤로" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
   <h1 id="title">RunLog</h1>
   <span class="brand" aria-hidden="true">RunLog</span>
+  <button id="themeBtn" class="icon-btn theme-btn" aria-label="테마 전환"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
 </header>
 <main id="view"><div class="loading">불러오는 중…</div></main>
 <nav class="tabbar" aria-label="메뉴">
@@ -1960,7 +2037,7 @@ details.phase .fine { margin: 6px 0 6px; }
   'use strict';
   const fin = Number.isFinite;
   const C = {
-    surface: '#1A1F28', text: '#EEF2F7', text2: '#B9C2D0', muted: '#7F8A9C', grid: '#262D38', axis: '#364050',
+    surface: '#1A1F28', text: '#EEF2F7', text2: '#B9C2D0', muted: '#7F8A9C', grid: '#262D38', axis: '#364050', bar: '#2a78d6', barSel: '#F2B84B', goal: 'rgba(242,184,75,.75)', goalText: '#F2B84B',
   };
   const FONT = '500 11px "Barlow Condensed", system-ui, -apple-system, sans-serif';
 
@@ -2172,7 +2249,7 @@ details.phase .fine { margin: 6px 0 6px; }
         if (v > 0) {
           const y = Y(v), h = H - PAD.b - y;
           roundRectTop(ctx, cx - bw / 2, y, bw, Math.max(1, h), h > 4 ? 4 : 1);
-          ctx.fillStyle = i === sel ? (o.selColor || '#F2B84B') : (o.color || '#2a78d6');
+          ctx.fillStyle = i === sel ? (o.selColor || C.barSel) : (o.color || C.bar);
           ctx.fill();
         }
         if (i === sel) {
@@ -2191,9 +2268,9 @@ details.phase .fine { margin: 6px 0 6px; }
       }
       if (o.goal) {
         const y = Math.round(goalY) + 0.5;
-        ctx.strokeStyle = 'rgba(242,184,75,.75)'; ctx.lineWidth = 1;
+        ctx.strokeStyle = C.goal; ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(PAD.l, y); ctx.lineTo(W - PAD.r, y); ctx.stroke();
-        ctx.fillStyle = '#F2B84B'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+        ctx.fillStyle = C.goalText; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
         ctx.font = '600 11px "IBM Plex Sans KR", system-ui, sans-serif';
         ctx.fillText('목표', PAD.l - 6, y);
         ctx.font = FONT;
@@ -2309,7 +2386,7 @@ details.phase .fine { margin: 6px 0 6px; }
     return { draw };
   }
 
-  root.Charts = { line, bars, trend, niceTicks };
+  root.Charts = { line, bars, trend, niceTicks, setTheme(t) { Object.assign(C, t); } };
 })(typeof self !== 'undefined' ? self : this);
 </script>
 <script>/* RunLog — 나만의 러닝 기록·분석 앱 (모든 데이터는 이 기기에만 저장) */
@@ -2319,7 +2396,7 @@ details.phase .fine { margin: 6px 0 6px; }
   const fin = Number.isFinite;
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-  const VERSION = '1.3.0';
+  const VERSION = '1.4.0';
 
   /* ───────── 상수 ───────── */
   const C = {
@@ -2334,9 +2411,40 @@ details.phase .fine { margin: 6px 0 6px; }
     ['interval', '인터벌', '#d55181'], ['race', '레이스', '#c98500'], ['recovery', '회복주', '#9085e9'], ['other', '기타', '#898781'],
   ];
   const TYPE = Object.fromEntries(TYPES.map(([k, l, c]) => [k, { label: l, color: c }]));
+
+  /* ───────── 테마 (다크/라이트) ───────── */
+  const THEMES = {
+    dark: {
+      c: { page: '#12151C', surface: '#1A1F28', text: '#EEF2F7', text2: '#B9C2D0', muted: '#7F8A9C', pace: '#3987e5', gap: '#d95926', hr: '#e66767', cad: '#199e70', stride: '#9085e9', ele: '#a3a29a', accent: '#F2B84B', accentText: '#F2B84B', thumb: '#F2B84B',
+        zones: ['#184f95', '#256abf', '#3987e5', '#86b6ef', '#cde2fb'], zoneInk: ['#fff', '#fff', '#fff', '#12151C', '#12151C'] },
+      types: { easy: '#199e70', long: '#3987e5', tempo: '#d95926', interval: '#d55181', race: '#c98500', recovery: '#9085e9', other: '#898781' },
+      chart: { surface: '#1A1F28', text: '#EEF2F7', text2: '#B9C2D0', muted: '#7F8A9C', grid: '#262D38', axis: '#364050', bar: '#2a78d6', barSel: '#F2B84B', goal: 'rgba(242,184,75,.75)', goalText: '#F2B84B' },
+    },
+    light: {
+      c: { page: '#F2F4F7', surface: '#FFFFFF', text: '#12151C', text2: '#3E4756', muted: '#687284', pace: '#2a78d6', gap: '#eb6834', hr: '#e34948', cad: '#1baf7a', stride: '#6250d6', ele: '#8a8a84', accent: '#F2B84B', accentText: '#9A6400', thumb: '#C98A00',
+        zones: ['#86b6ef', '#5598e7', '#2a78d6', '#1c5cab', '#0d366b'], zoneInk: ['#12151C', '#12151C', '#fff', '#fff', '#fff'] },
+      types: { easy: '#1baf7a', long: '#2a78d6', tempo: '#eb6834', interval: '#e87ba4', race: '#eda100', recovery: '#6250d6', other: '#898781' },
+      chart: { surface: '#FFFFFF', text: '#12151C', text2: '#3E4756', muted: '#687284', grid: '#E6EAF0', axis: '#C9D0DA', bar: '#5598e7', barSel: '#eda100', goal: 'rgba(201,138,0,.8)', goalText: '#9A6400' },
+    },
+  };
+  const RAMP = { dark: ['#256abf', '#2a78d6', '#3987e5', '#5598e7', '#6da7ec', '#86b6ef', '#b7d3f6'], light: ['#86b6ef', '#6da7ec', '#5598e7', '#3987e5', '#2a78d6', '#1c5cab', '#104281'] };
+  const sysLight = () => { try { return window.matchMedia('(prefers-color-scheme: light)').matches; } catch (e) { return false; } };
+  function resolvedTheme() { const t = (S && S.settings.theme) || 'auto'; return t === 'auto' ? (sysLight() ? 'light' : 'dark') : t; }
+  function applyTheme() {
+    const name = resolvedTheme(), T = THEMES[name];
+    document.documentElement.dataset.theme = name;
+    Object.assign(C, T.c);
+    TYPES.forEach((t) => { t[2] = T.types[t[0]]; TYPE[t[0]].color = t[2]; });
+    if (Charts.setTheme) Charts.setTheme(T.chart);
+    const meta = document.querySelector('meta[name="theme-color"]'); if (meta) meta.content = T.c.page;
+    try { localStorage.setItem('runlog-theme', name); } catch (e) { /* noop */ }
+    const tb = document.getElementById('themeBtn');
+    if (tb) { tb.setAttribute('aria-label', name === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'); tb.dataset.mode = name; }
+  }
+  function mapIsDark() { const m = S.settings.mapStyle || 'auto'; return m === 'dark' || (m !== 'light' && resolvedTheme() === 'dark'); }
   const ZONE_NAMES = ['회복', '유산소', '템포', '역치', '최대'];
   const BEST_LABEL = { 1000: '1K', 5000: '5K', 10000: '10K', 21097.5: '하프', 42195: '풀' };
-  const DEFAULTS = { hrMax: 190, hrRest: 55, sex: 'm', zoneMethod: 'hrr', cadMode: 'auto', weekGoal: 40, mapStyle: 'dark', touched: false, tipDismissed: false, goalName: '춘천마라톤', goalDist: 42195, goalTime: 11700, goalDate: '',
+  const DEFAULTS = { hrMax: 190, hrRest: 55, sex: 'm', zoneMethod: 'hrr', cadMode: 'auto', weekGoal: 40, mapStyle: 'auto', theme: 'auto', touched: false, tipDismissed: false, goalName: '춘천마라톤', goalDist: 42195, goalTime: 11700, goalDate: '',
     shoes: [
       { id: 'sh1', name: '나이키 줌플라이', startKm: 0, limitKm: 600, retired: false },
       { id: 'sh2', name: '나이키 베이퍼플라이 4', startKm: 0, limitKm: 400, retired: false },
@@ -2351,7 +2459,7 @@ details.phase .fine { margin: 6px 0 6px; }
 
   /* ───────── 상태 ───────── */
   const S = {
-    acts: [], pbs: new Map(), plan: null, missions: [], raceEdit: false, settings: { ...DEFAULTS }, cache: new Map(), charts: [], map: null,
+    acts: [], pbs: new Map(), plan: null, missions: [], msSeen: null, raceEdit: false, settings: { ...DEFAULTS }, cache: new Map(), charts: [], map: null,
     statsGran: 'week', statsSel: {}, efType: 'easy', mapMode: 'pace', scroll: {}, cameFromList: false,
     storageOK: true,
   };
@@ -2724,7 +2832,7 @@ details.phase .fine { margin: 6px 0 6px; }
     const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
     const sc = Math.min((w - 10) / (x1 - x0 || 1e-9), (h - 10) / (y1 - y0 || 1e-9));
     const ox = (w - (x1 - x0) * sc) / 2, oy = (h - (y1 - y0) * sc) / 2;
-    ctx.strokeStyle = C.accent; ctx.lineWidth = 2; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    ctx.strokeStyle = C.thumb; ctx.lineWidth = 2; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
     ctx.beginPath();
     pts.forEach((p, i) => { const x = ox + (xs[i] - x0) * sc, y = h - (oy + (ys[i] - y0) * sc); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
     ctx.stroke();
@@ -2775,8 +2883,12 @@ details.phase .fine { margin: 6px 0 6px; }
     }
     const G = goalInfo();
     const prog = progressRows();
+    let achv = '';
+    if (trainingPaces()) { const ms = missionState(); if (!S.msSeen) markSeen(ms); else achv = achievementBanner(ms, newAchievements(ms)); }
+    const tdy = todaySession();
     put(v, html`
       ${storageBanner()}
+      ${achv}
       ${goalCard(G)}
       <section class="week">
         <div class="week-head">
@@ -2789,6 +2901,7 @@ details.phase .fine { margin: 6px 0 6px; }
         </div>
         ${goal ? html`<div class="meter" role="progressbar" aria-label="주간 목표 달성률" aria-valuenow="${Math.round(pct)}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>` : ''}
         <div class="week-sub">${wa.n}회 달림, ${fmtHM(wa.time)}${fin(wa.pace) ? `, 평균 ${fmtPace(wa.pace)}/km` : ''}${goal && wa.dist / 1000 < goal ? html`<span class="left">목표까지 ${(goal - wa.dist / 1000).toFixed(1)} km</span>` : goal ? html`<span class="left done">주간 목표 달성</span>` : ''}</div>
+        ${tdy ? html`<div class="today-box${tdy.ran ? ' ran' : ''}${tdy.day ? '' : ' rest'}"><span class="lbl">오늘</span><b>${tdy.day ? tdy.day.label : '휴식'}</b>${tdy.day ? html`<span class="num">${tdy.day.km}km</span>` : html`<span>쉬는 것도 훈련이에요</span>`}${tdy.ran ? html`<span class="tb-ok">완료</span>` : ''}</div>` : ''}
         ${planW ? html`<div class="week-plan">${planW.days.filter((d) => d.kind !== 'easy').map((d) => html`<span><b>${WD[d.dow]}</b> ${d.label}</span>`)}<button class="link" data-go="race">스케줄 보기</button></div>` : ''}
       </section>
       ${tip}
@@ -2889,18 +3002,18 @@ details.phase .fine { margin: 6px 0 6px; }
     const Y = (v) => T + ((v - lo) / (hi - lo)) * (B - T); // 빠를수록 위
     // 목표선
     const gy = Math.round(Y(G.target)) + 0.5;
-    ctx.fillStyle = 'rgba(242,184,75,.10)'; ctx.fillRect(L, T, R - L, gy - T);
-    ctx.strokeStyle = 'rgba(242,184,75,.9)'; ctx.lineWidth = 1; ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(242,184,75,.12)'; ctx.fillRect(L, T, R - L, gy - T);
+    ctx.strokeStyle = C.accentText; ctx.lineWidth = 1; ctx.setLineDash([]);
     ctx.beginPath(); ctx.moveTo(L, gy); ctx.lineTo(R, gy); ctx.stroke();
-    ctx.font = '600 11px "IBM Plex Sans KR", system-ui, sans-serif'; ctx.fillStyle = '#F2B84B'; ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+    ctx.font = '600 11px "IBM Plex Sans KR", system-ui, sans-serif'; ctx.fillStyle = C.accentText; ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
     ctx.fillText(`목표 ${fmtDur(G.target)}`, L + 2, gy - 3);
     // 예측선
-    ctx.strokeStyle = '#EEF2F7'; ctx.lineWidth = 2; ctx.lineJoin = 'round';
+    ctx.strokeStyle = C.text; ctx.lineWidth = 2; ctx.lineJoin = 'round';
     ctx.beginPath(); pts.forEach((p, i) => (i ? ctx.lineTo(X(i), Y(p.y)) : ctx.moveTo(X(i), Y(p.y)))); ctx.stroke();
     const lx = X(pts.length - 1), ly = Y(pts[pts.length - 1].y);
-    ctx.beginPath(); ctx.arc(lx, ly, 6, 0, Math.PI * 2); ctx.fillStyle = '#1A1F28'; ctx.fill();
-    ctx.beginPath(); ctx.arc(lx, ly, 4, 0, Math.PI * 2); ctx.fillStyle = '#EEF2F7'; ctx.fill();
-    ctx.fillStyle = '#7F8A9C'; ctx.font = '500 10px "IBM Plex Sans KR", system-ui, sans-serif'; ctx.textBaseline = 'top';
+    ctx.beginPath(); ctx.arc(lx, ly, 6, 0, Math.PI * 2); ctx.fillStyle = C.surface; ctx.fill();
+    ctx.beginPath(); ctx.arc(lx, ly, 4, 0, Math.PI * 2); ctx.fillStyle = C.text; ctx.fill();
+    ctx.fillStyle = C.muted; ctx.font = '500 10px "IBM Plex Sans KR", system-ui, sans-serif'; ctx.textBaseline = 'top';
     ctx.textAlign = 'left'; ctx.fillText('16주 전', L, B + 5);
     ctx.textAlign = 'right'; ctx.fillText('이번 주', R, B + 5);
   }
@@ -3322,7 +3435,7 @@ details.phase .fine { margin: 6px 0 6px; }
     return html`<div class="segbar">${s.zones.map((z, i) => {
       const p = (z / tot) * 100;
       if (p <= 0) return '';
-      return html`<div style="flex:${p} 1 0;background:${C.zones[i]};color:${i >= 3 ? '#0b0b0b' : '#ffffff'}" title="Z${i + 1} ${Math.round(p)}%">${p >= 9 ? `${Math.round(p)}%` : ''}</div>`;
+      return html`<div style="flex:${p} 1 0;background:${C.zones[i]};color:${C.zoneInk[i]}" title="Z${i + 1} ${Math.round(p)}%">${p >= 9 ? `${Math.round(p)}%` : ''}</div>`;
     })}</div>
     <table class="zones">${s.zones.map((z, i) => html`<tr><td><i class="sw" style="background:${C.zones[i]}"></i>Z${i + 1} ${ZONE_NAMES[i]}</td><td class="muted">${ranges[i]} bpm</td><td>${fmtDur(z)}</td><td class="r">${Math.round((z / tot) * 100)}%</td></tr>`)}</table>
     <p class="fine">${S.settings.zoneMethod === 'max' ? '최대 심박' : '여유 심박(카르보넨)'} 기준 · 최대 ${S.settings.hrMax} / 안정 ${S.settings.hrRest} bpm (설정에서 변경)</p>`;
@@ -3337,7 +3450,8 @@ details.phase .fine { margin: 6px 0 6px; }
     if (tr.lat.length < 2) return;
     const map = L.map(el, { zoomControl: false, attributionControl: true, dragging: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false, tap: false, touchZoom: true });
     S.map = map;
-    const tile = TILES[S.settings.mapStyle] || TILES.dark;
+    const tile = mapIsDark() ? TILES.dark : TILES.light;
+    const ramp = mapIsDark() ? RAMP.dark : RAMP.light, casing = mapIsDark() ? '#12151C' : '#FFFFFF', startFill = mapIsDark() ? '#EEF2F7' : '#12151C';
     let tileErr = 0;
     L.tileLayer(tile[0], { attribution: tile[1], maxZoom: 19, className: tile[2], detectRetina: false })
       .on('tileerror', () => { if (++tileErr === 3) { const nt = $('#mapNote'); if (nt) { nt.hidden = false; setTimeout(() => { nt.hidden = true; }, 5000); } } })
@@ -3369,24 +3483,24 @@ details.phase .fine { margin: 6px 0 6px; }
       const arr = mode === 'hr' ? ser.hr : mode === 'ele' ? ser.ele : ser.pace.map((p) => (p ? 1000 / p : null));
       const vals = arr.filter((x) => x != null && fin(x)).sort((x, y) => x - y);
       const lo = vals[Math.floor(vals.length * 0.05)], hi = vals[Math.ceil(vals.length * 0.95) - 1];
-      const nb = C.ramp.length;
+      const nb = ramp.length;
       const bucket = (x) => (x == null || !fin(x) ? -1 : Math.max(0, Math.min(nb - 1, Math.floor(((x - lo) / (hi - lo || 1)) * nb))));
-      L.polyline(ll, { color: '#12151C', weight: 7, opacity: 0.6, interactive: false }).addTo(layer);
+      L.polyline(ll, { color: casing, weight: 7, opacity: 0.6, interactive: false }).addTo(layer);
       let cur = [ll[0]], cb = bucket(arr[sIdx(tr.d[0])]);
       for (let i = 1; i < ll.length; i++) {
         const b = bucket(arr[sIdx(tr.d[i])]);
         cur.push(ll[i]);
         if (b !== cb || i === ll.length - 1) {
-          L.polyline(cur, { color: cb < 0 ? '#5a5955' : C.ramp[cb], weight: 4, opacity: 1, interactive: false, lineCap: 'round' }).addTo(layer);
+          L.polyline(cur, { color: cb < 0 ? '#5a5955' : ramp[cb], weight: 4, opacity: 1, interactive: false, lineCap: 'round' }).addTo(layer);
           cur = [ll[i]]; cb = b;
         }
       }
       drawKm();
-      L.circleMarker(ll[0], { radius: 6, color: '#12151C', weight: 2, fillColor: '#EEF2F7', fillOpacity: 1 }).addTo(layer);
-      L.circleMarker(ll[ll.length - 1], { radius: 6, color: '#12151C', weight: 2, fillColor: C.accent, fillOpacity: 1 }).addTo(layer);
+      L.circleMarker(ll[0], { radius: 6, color: casing, weight: 2, fillColor: startFill, fillOpacity: 1 }).addTo(layer);
+      L.circleMarker(ll[ll.length - 1], { radius: 6, color: casing, weight: 2, fillColor: C.accent, fillOpacity: 1 }).addTo(layer);
       const fmtL = mode === 'hr' ? (x) => `${Math.round(x)}` : mode === 'ele' ? (x) => `${Math.round(x)}m` : (x) => fmtPace(1000 / x);
       const label = mode === 'hr' ? '심박' : mode === 'ele' ? '고도' : '페이스';
-      put($('#mapLegend'), html`<span>${label}</span><span>${fmtL(lo)}</span><i style="background:linear-gradient(90deg,${C.ramp.join(',')})"></i><span>${fmtL(hi)}</span><span class="ml-dots"><i style="background:#EEF2F7"></i>출발 <i style="background:${C.accent}"></i>도착</span>`);
+      put($('#mapLegend'), html`<span>${label}</span><span>${fmtL(lo)}</span><i style="background:linear-gradient(90deg,${ramp.join(',')})"></i><span>${fmtL(hi)}</span><span class="ml-dots"><i style="background:${startFill};border:1px solid var(--line)"></i>출발 <i style="background:${C.accent}"></i>도착</span>`);
     }
     draw(S.mapMode === 'hr' && !s.hasHR ? 'pace' : S.mapMode === 'ele' && !s.hasEle ? 'pace' : S.mapMode);
     const mm = $('#mapMode');
@@ -3396,7 +3510,7 @@ details.phase .fine { margin: 6px 0 6px; }
       $$('#mapMode button').forEach((x) => x.classList.toggle('on', x === b));
       draw(S.mapMode);
     });
-    const cursor = L.circleMarker(ll[0], { radius: 8, color: '#ffffff', weight: 3, fillColor: '#e66767', fillOpacity: 1, interactive: false });
+    const cursor = L.circleMarker(ll[0], { radius: 8, color: mapIsDark() ? '#ffffff' : '#12151C', weight: 3, fillColor: C.hr, fillOpacity: 1, interactive: false });
     Scrub.on((i) => {
       if (i < 0) { cursor.remove(); return; }
       const D = ser.x[i] * 1000;
@@ -3666,24 +3780,21 @@ details.phase .fine { margin: 6px 0 6px; }
   const PHASES = {
     base: { label: '기초기', color: '#256abf', desc: '유산소 기반과 주간 거리를 쌓는 시기' },
     build: { label: '강화기', color: '#3987e5', desc: '템포·인터벌로 역치와 스피드를 끌어올리는 시기' },
-    peak: { label: '특화기', color: '#86b6ef', desc: '마라톤 페이스 롱런으로 대회 강도에 적응하는 시기' },
+    peak: { label: '특화기', color: '#86b6ef', desc: '목표 페이스 롱런으로 대회 강도에 적응하는 시기' },
     taper: { label: '테이퍼', color: '#F2B84B', desc: '거리를 줄여 피로를 빼고 대회를 준비하는 시기' },
   };
+  const WEEK = 7 * 864e5;
   function trainingPaces() {
     const g = S.settings;
     if (!g.goalTime || !g.goalDist) return null;
     const race = g.goalTime / g.goalDist * 1000;
     const mar = g.goalTime * Math.pow(42195 / g.goalDist, 1.06) / 42.195; // 마라톤 환산 페이스
-    return {
-      race, mp: mar,
-      easy: [mar * 1.15, mar * 1.25], long: [mar * 1.1, mar * 1.18],
-      tempo: mar * 0.94, interval: mar * 0.86,
-    };
+    return { race, mp: mar, easy: [mar * 1.15, mar * 1.25], long: [mar * 1.1, mar * 1.18], tempo: mar * 0.94, interval: mar * 0.86 };
   }
   const paceRange = (r) => `${fmtPace(r[0])}–${fmtPace(r[1])}`;
   function recentBase() {
     const now = Date.now(), from = now - 28 * 864e5;
-    const list = S.acts.filter((a) => a.start > from);
+    const list = S.acts.filter((a) => a.start > from && a.start <= now);
     const km = list.reduce((s, a) => s + a.summary.dist, 0) / 1000 / 4;
     const longest = Math.max(0, ...list.map((a) => a.summary.dist / 1000));
     return { km: Math.max(20, km), longest: Math.max(10, longest) };
@@ -3691,168 +3802,339 @@ details.phase .fine { margin: 6px 0 6px; }
   function autoPeakKm(dist, goalTime) {
     if (dist >= 40000) return goalTime <= 10800 ? 85 : goalTime <= 11700 ? 70 : goalTime <= 12600 ? 62 : goalTime <= 14400 ? 52 : 42;
     if (dist >= 20000) return goalTime <= 5400 ? 60 : goalTime <= 6000 ? 50 : 40;
-    return 40;
+    return goalTime <= 2400 ? 50 : 40;
   }
-  function buildPlan() {
-    const g = S.settings;
-    if (!g.goalDate || !g.goalTime || !g.goalDist) return { err: '대회 날짜와 목표 기록을 먼저 정해 주세요' };
-    const raceDay = new Date(g.goalDate + 'T00:00:00');
-    const startMon = monday(Date.now()), raceMon = monday(+raceDay);
-    const nW = Math.round((raceMon - startMon) / (7 * 864e5)) + 1;
-    if (nW < 4) return { err: '대회까지 4주 이상 남아 있어야 스케줄을 만들 수 있어요' };
+  // 한 주의 요일별 세션 구성
+  function weekDays(o) {
+    const { phase, km, long, runs, P, isRace, full, g, idxInPhase, checkRace } = o;
+    const qN = phase === 'build' || phase === 'peak' ? (runs >= 5 ? 2 : 1) : 1;
+    const qName = (k) => {
+      if (phase === 'base') return k === 0 ? (idxInPhase % 2 ? `템포 20분 @${fmtPace(P.tempo)}` : '언덕 스프린트 8×10초 + 이지') : '';
+      if (phase === 'build') return k === 0 ? `템포 ${Math.min(40, 20 + idxInPhase * 3)}분 @${fmtPace(P.tempo)}` : `인터벌 ${idxInPhase % 2 ? '5×1km' : '6×800m'} @${fmtPace(P.interval)}`;
+      if (phase === 'peak') return k === 0 ? `템포 2×5km @${fmtPace(P.tempo)}` : `인터벌 4×1.6km @${fmtPace(P.interval)}`;
+      return `목표 페이스 ${isRace ? 5 : full ? 8 : 5}km @${fmtPace(P.race)}`;
+    };
+    let longName = '롱런';
+    if (isRace) longName = `대회 · 목표 ${fmtDur(g.goalTime)}`;
+    else if (checkRace) longName = full ? '하프 실전 점검 (대회 또는 혼자 기록 측정)' : '10K 실전 점검 (대회 또는 혼자 기록 측정)';
+    else if (phase === 'peak' && full) longName = `롱런 (마지막 ${Math.min(18, 8 + idxInPhase * 2)}km 목표 페이스)`;
+    else if (phase === 'peak') longName = `롱런 (마지막 ${Math.min(8, 3 + idxInPhase)}km 목표 페이스)`;
+    const longKm = isRace ? +(g.goalDist / 1000).toFixed(1) : checkRace ? (full ? 21.1 : 10) : long;
+    const days = [{ dow: 0, label: longName, km: longKm, kind: isRace ? 'race' : checkRace ? 'check' : 'long' }];
+    const qKm = Math.max(8, Math.min(14, Math.round(km * 0.17)));
+    const qDows = [2, 4];
+    for (let k = 0; k < qN; k++) days.push({ dow: qDows[k], label: qName(k), km: isRace ? 8 : qKm, kind: 'quality' });
+    const easyN = Math.max(0, isRace ? Math.min(2, runs - 2) : runs - 1 - qN);
+    const order = runs >= 6 ? [3, 6, 1, 5, 4] : [3, 6, 4, 5, 1];
+    const easyDows = order.filter((d) => !days.some((x) => x.dow === d)).slice(0, easyN);
+    const easyKm = Math.max(5, Math.round((km - longKm - (isRace ? 8 : qKm) * qN) / Math.max(1, easyN)));
+    for (const d of easyDows) days.push({ dow: d, label: isRace && d === 6 ? '가벼운 조깅 + 스트라이드' : d === 1 ? '회복주' : '이지런', km: isRace && d === 6 ? 4 : isRace ? 6 : easyKm, kind: 'easy' });
+    days.sort((x, y) => ((x.dow + 6) % 7) - ((y.dow + 6) % 7));
+    return days;
+  }
+  // 앞으로의 주 계획 생성 (fromMon부터 대회 주까지)
+  function genWeeks(fromMon, B, peakKm) {
+    const g = S.settings, P = trainingPaces();
+    const raceMon = monday(+new Date(g.goalDate + 'T00:00:00'));
+    const nW = Math.round((raceMon - fromMon) / WEEK) + 1;
     const full = g.goalDist >= 40000, half = !full && g.goalDist >= 20000;
-    const taperW = full ? 3 : half ? 2 : 1;
+    const taperW = Math.min(nW - 1, full ? 3 : half ? 2 : 1);
     let peakW = full ? 6 : half ? 4 : 3, buildW = full ? 8 : half ? 6 : 5;
     const rem = nW - taperW;
-    if (rem < peakW + buildW + 2) { peakW = Math.max(2, Math.round(rem * 0.35)); buildW = Math.max(1, Math.round(rem * 0.4)); }
+    if (rem < peakW + buildW + 2) { peakW = Math.max(1, Math.round(rem * 0.35)); buildW = Math.max(rem >= 3 ? 1 : 0, Math.round(rem * 0.4)); }
     const baseW = Math.max(0, rem - peakW - buildW);
-    const P = trainingPaces();
-    const B = recentBase();
-    const peakKm = g.peakKm > 0 ? g.peakKm : Math.max(autoPeakKm(g.goalDist, g.goalTime), Math.round(B.km * 1.1));
     const peakLong = full ? (g.goalTime <= 11700 ? 32 : 30) : half ? 21 : 15;
     const runs = Math.max(3, Math.min(7, g.runsPerWeek || 5));
+    const rampW = baseW + buildW;
     const weeks = [];
-    const rampW = baseW + buildW; // 이 기간 동안 거리 증가
-    let prevKm = B.km, prevLong = Math.min(B.longest, peakLong);
+    let prevKm = B.km, prevLong = Math.min(B.longest, peakLong), prevPhase = '', idxInPhase = 0, sinceCut = 0;
     for (let i = 0; i < nW; i++) {
-      const start = new Date(startMon); start.setDate(start.getDate() + 7 * i);
+      const start = new Date(fromMon); start.setDate(start.getDate() + 7 * i);
       const phase = i < baseW ? 'base' : i < baseW + buildW ? 'build' : i < rem ? 'peak' : 'taper';
-      const ti = i - rem; // 테이퍼 주차
+      idxInPhase = phase === prevPhase ? idxInPhase + 1 : 0;
       const isRace = i === nW - 1;
-      let cut = phase !== 'taper' && i > 0 && (i + 1) % 4 === 0 && i < rem - 1;
+      sinceCut++;
+      // 4주마다 회복 주. 단계 첫 주·테이퍼 직전 주에는 넣지 않음
+      const cut = phase !== 'taper' && sinceCut >= 4 && idxInPhase > 0 && i < rem - 1;
+      if (cut) sinceCut = 0;
+      // 기초기가 길면 끝 무렵에 실전 점검
+      const checkRace = phase === 'base' && baseW >= 10 && i === baseW - 2 && !cut;
       let km, long;
       if (phase === 'taper') {
+        const ti = i - rem;
         const f = full ? [0.75, 0.55, 0.35][ti] : half ? [0.7, 0.45][ti] : 0.55;
         km = peakKm * f;
-        long = isRace ? g.goalDist / 1000 : full ? [24, 16][ti] : 14;
+        long = isRace ? g.goalDist / 1000 : full ? [24, 16][ti] || 12 : 12;
       } else {
-        const prog = rampW > 0 ? Math.min(1, (i + 1) / Math.max(1, rampW)) : 1;
+        const prog = rampW > 0 ? Math.min(1, (i + 1) / rampW) : 1;
         const target = phase === 'peak' ? peakKm * (i === rem - 1 ? 0.92 : 1) : B.km + (peakKm * 0.92 - B.km) * prog;
-        km = Math.min(target, prevKm * 1.1);
-        const lt = phase === 'peak' ? peakLong : prevLong + (peakLong * 0.9 - prevLong) * Math.min(1, 1 / Math.max(1, rampW - i));
+        km = Math.max(B.km * 0.8, Math.min(target, prevKm * 1.1));
+        const lt = phase === 'peak' ? Math.min(peakLong, prevLong + 2) : prevLong + (peakLong * 0.9 - prevLong) / Math.max(1, rampW - i);
         long = Math.min(peakLong, Math.max(prevLong, lt));
         if (!cut) { prevKm = km; prevLong = long; }
         if (cut) { km *= 0.8; long *= 0.75; }
       }
       long = Math.round(long);
-      // 요일별 배분
-      const qN = phase === 'base' ? 1 : phase === 'taper' ? 1 : runs >= 5 ? 2 : 1;
-      const days = [];
-      const qName = (k) => {
-        if (phase === 'base') return k === 0 ? (i % 2 ? `템포 20분 @${fmtPace(P.tempo)}` : '언덕 스프린트 8×10초 + 이지') : '';
-        if (phase === 'build') return k === 0 ? `템포 ${Math.min(40, 20 + (i - baseW) * 3)}분 @${fmtPace(P.tempo)}` : `인터벌 ${(i - baseW) % 2 ? '5×1km' : '6×800m'} @${fmtPace(P.interval)}`;
-        if (phase === 'peak') return k === 0 ? `템포 2×5km @${fmtPace(P.tempo)}` : `인터벌 4×1.6km @${fmtPace(P.interval)}`;
-        return isRace ? `마라톤 페이스 5km @${fmtPace(P.race)}` : `마라톤 페이스 ${full ? 8 : 5}km @${fmtPace(P.race)}`;
-      };
-      const longName = isRace ? `대회 · 목표 ${fmtDur(g.goalTime)}` : phase === 'peak' && full ? `롱런 (마지막 ${Math.min(18, 8 + (i - baseW - buildW) * 2)}km 마라톤 페이스)` : '롱런';
-      const qKm = Math.max(8, Math.min(14, Math.round(km * 0.17)));
-      const easyN = Math.max(0, runs - 1 - qN - (isRace ? 1 : 0));
-      const easyKm = Math.max(5, Math.round((km - long - qKm * qN) / Math.max(1, easyN)));
-      const dowQ = runs >= 6 ? [2, 4] : [2, 4];
-      const slots = { 0: long };
-      days.push({ dow: 0, label: longName, km: isRace ? +(g.goalDist / 1000).toFixed(1) : long, kind: isRace ? 'race' : 'long' });
-      for (let k = 0; k < qN; k++) days.push({ dow: dowQ[k], label: qName(k), km: qKm, kind: 'quality' });
-      const easyDows = (runs >= 6 ? [3, 6, 4, 1, 5] : [3, 6, 4, 5, 1]).filter((d) => !days.some((x) => x.dow === d)).slice(0, easyN);
-      for (const d of easyDows) days.push({ dow: d, label: d === 1 ? '회복주' : '이지런', km: isRace && d === 6 ? 4 : easyKm, kind: 'easy' });
-      void slots;
-      days.sort((x, y) => ((x.dow + 6) % 7) - ((y.dow + 6) % 7));
-      const sum = days.reduce((s, d) => s + d.km, 0);
-      weeks.push({ i: i + 1, start: +start, phase, km: Math.round(sum), long, cut, race: isRace, days });
+      const days = weekDays({ phase, km, long, runs, P, isRace, full, g, idxInPhase, checkRace });
+      weeks.push({ start: +start, phase, km: Math.round(days.reduce((s, d) => s + d.km, 0)), long, cut, race: isRace, check: checkRace, days });
+      prevPhase = phase;
     }
-    return { created: Date.now(), raceDate: g.goalDate, goalTime: g.goalTime, goalDist: g.goalDist, name: g.goalName, peakKm, runs, base: B, weeks, phases: { base: baseW, build: buildW, peak: peakW, taper: taperW } };
+    return weeks;
+  }
+  function countPhases(weeks) {
+    const ph = { base: 0, build: 0, peak: 0, taper: 0 };
+    for (const w of weeks) ph[w.phase]++;
+    return ph;
+  }
+  /**
+   * 스케줄 만들기 / 다시 계산
+   * keepPast: 기존 스케줄의 지난 주(실적 포함)는 그대로 두고 이번 주부터 다시 짬
+   */
+  function buildPlan(keepPast) {
+    const g = S.settings;
+    if (!g.goalDate || !g.goalTime || !g.goalDist) return { err: '대회 날짜와 목표 기록을 먼저 정해 주세요' };
+    const raceDay = new Date(g.goalDate + 'T00:00:00');
+    const startMon = monday(Date.now());
+    if (raceDay < dayStart(Date.now())) return { err: '대회 날짜가 이미 지났어요. 다음 목표 대회를 정해 주세요' };
+    const nW = Math.round((monday(+raceDay) - startMon) / WEEK) + 1;
+    if (nW < 3) return { err: '대회까지 3주 이상 남아 있어야 스케줄을 만들 수 있어요' };
+    const B = recentBase();
+    const peakKm = g.peakKm > 0 ? g.peakKm : Math.max(autoPeakKm(g.goalDist, g.goalTime), Math.round(B.km * 1.1));
+    const past = keepPast && S.plan ? S.plan.weeks.filter((w) => w.start < +startMon).map(({ act, state, ...w }) => (void act, void state, w)) : [];
+    const weeks = past.concat(genWeeks(+startMon, B, peakKm));
+    weeks.forEach((w, k) => { w.i = k + 1; });
+    return {
+      created: keepPast && S.plan ? S.plan.created : Date.now(), updated: Date.now(),
+      raceDate: g.goalDate, goalTime: g.goalTime, goalDist: g.goalDist, name: g.goalName,
+      peakKm, runs: g.runsPerWeek || 5, base: B, weeks, phases: countPhases(weeks),
+    };
   }
   function weekActual(w) {
-    const list = S.acts.filter((a) => a.start >= w.start && a.start < w.start + 7 * 864e5);
-    const km = list.reduce((s, a) => s + a.summary.dist, 0) / 1000;
-    const long = Math.max(0, ...list.map((a) => a.summary.dist / 1000));
-    const q = list.filter((a) => ['tempo', 'interval', 'race'].includes(a.type)).length;
-    return { km, long, q, n: list.length, list };
+    const list = S.acts.filter((a) => a.start >= w.start && a.start < w.start + WEEK);
+    return {
+      km: list.reduce((s, a) => s + a.summary.dist, 0) / 1000,
+      long: Math.max(0, ...list.map((a) => a.summary.dist / 1000)),
+      q: list.filter((a) => ['tempo', 'interval', 'race'].includes(a.type)).length,
+      n: list.length,
+    };
   }
   function planStatus() {
     const plan = S.plan;
     if (!plan) return null;
     const now = Date.now();
-    const cur = plan.weeks.findIndex((w) => now >= w.start && now < w.start + 7 * 864e5);
+    const cur = plan.weeks.findIndex((w) => now >= w.start && now < w.start + WEEK);
     let planned = 0, done = 0, streak = 0, bestStreak = 0;
     plan.weeks.forEach((w, idx) => {
       w.act = weekActual(w);
-      const past = w.start + 7 * 864e5 <= now;
+      const past = w.start + WEEK <= now;
       if (past) {
         planned += w.km; done += Math.min(w.act.km, w.km);
         w.state = w.act.km >= w.km * 0.9 ? 'done' : w.act.km >= w.km * 0.6 ? 'partial' : 'miss';
         streak = w.state === 'done' ? streak + 1 : 0; bestStreak = Math.max(bestStreak, streak);
       } else if (idx === cur) {
         w.state = 'current';
-        const dayFrac = Math.min(1, (now - w.start) / (7 * 864e5));
+        const dayFrac = Math.min(1, (now - w.start) / WEEK);
         planned += w.km * dayFrac; done += Math.min(w.act.km, w.km * dayFrac);
       } else w.state = 'future';
     });
-    const elapsedW = plan.weeks.filter((w) => w.start + 7 * 864e5 <= now).length;
-    return { cur, curWeek: cur >= 0 ? plan.weeks[cur] : null, adherence: planned > 0 ? done / planned : NaN, elapsedW, total: plan.weeks.length, bestStreak, streak };
+    const elapsedW = plan.weeks.filter((w) => w.start + WEEK <= now).length;
+    const over = now > plan.weeks[plan.weeks.length - 1].start + WEEK;
+    return { cur, curWeek: cur >= 0 ? plan.weeks[cur] : null, adherence: planned > 0 ? done / planned : NaN, elapsedW, total: plan.weeks.length, bestStreak, streak, over };
+  }
+  function todaySession() {
+    const ps = planStatus();
+    if (!ps || !ps.curWeek) return null;
+    const dow = new Date().getDay();
+    const d = ps.curWeek.days.find((x) => x.dow === dow);
+    const ranToday = S.acts.some((a) => ymd(new Date(a.start)) === ymd(new Date()));
+    return { day: d || null, ran: ranToday, week: ps.curWeek };
+  }
+  // 한 주 계획 거리 수정: 이지런 거리로 차이를 흡수
+  function setWeekKm(w, km) {
+    const easy = w.days.filter((d) => d.kind === 'easy');
+    const fixed = w.days.filter((d) => d.kind !== 'easy').reduce((s, d) => s + d.km, 0);
+    if (easy.length) { const each = Math.max(3, Math.round((km - fixed) / easy.length)); easy.forEach((d) => { d.km = each; }); }
+    w.km = Math.round(w.days.reduce((s, d) => s + d.km, 0));
+    w.edited = true;
   }
 
-  // 미션(마일스톤): 기록에서 자동 판정
-  function missions() {
-    const g = S.settings, plan = S.plan, P = trainingPaces();
-    if (!g.goalTime || !g.goalDist || !P) return [];
-    const full = g.goalDist >= 40000, half = !full && g.goalDist >= 20000;
-    const since = plan ? plan.created - 7 * 864e5 : Date.now() - 120 * 864e5;
-    const acts = S.acts.filter((a) => a.start >= since && !a.sample).concat(S.acts.filter((a) => a.sample && a.start >= since));
-    const nW = plan ? plan.weeks.length : 20;
-    const dueAt = (frac) => (plan ? plan.weeks[Math.max(0, Math.min(nW - 1, Math.round(nW * frac) - 1))].start + 6 * 864e5 : null);
-    const firstDone = (pred) => { const x = acts.filter(pred).sort((a, b) => a.start - b.start)[0]; return x ? x.start : null; };
-    const maxLong = Math.max(0, ...acts.map((a) => a.summary.dist / 1000));
-    const longM = (km, frac) => ({ id: `long${km}`, title: `롱런 ${km}km 완주`, due: dueAt(frac), done: firstDone((a) => a.summary.dist >= km * 1000 * 0.98), prog: Math.min(1, maxLong / km), cur: `최장 ${maxLong.toFixed(1)}km` });
-    const equiv = (D) => g.goalTime * Math.pow(D / g.goalDist, 1.06);
-    const bestAt = (D) => Math.min(Infinity, ...acts.map((a) => (a.summary.best || {})[D]).filter(fin));
-    const timeM = (D, label, frac) => {
-      const t = equiv(D), b = bestAt(D);
-      return { id: `t${D}`, title: `${label} ${fmtDur(t)} 이내`, sub: '목표 기록 환산', due: dueAt(frac), done: firstDone((a) => ((a.summary.best || {})[D] || Infinity) <= t), prog: fin(b) ? Math.min(1, t / b) : 0, cur: fin(b) ? `현재 최고 ${fmtDur(b)}` : '기록 없음' };
-    };
-    const weekMax = (() => { let m = 0; const ws = new Map(); for (const a of acts) { const k = +monday(a.start); ws.set(k, (ws.get(k) || 0) + a.summary.dist / 1000); } for (const v of ws.values()) m = Math.max(m, v); return { m, ws }; })();
-    const wkTarget = Math.round((plan ? plan.peakKm : autoPeakKm(g.goalDist, g.goalTime)) * 0.8);
-    const mpDist = full ? 15 : half ? 8 : 5;
-    const mpRuns = acts.filter((a) => a.summary.pace <= P.race + 5);
-    const mpBest = Math.max(0, ...mpRuns.map((a) => a.summary.dist / 1000));
-    const ps = planStatus();
-    const efOf = (list) => { const e = list.filter((a) => (a.type === 'easy' || a.type === 'long') && fin(a.summary.ef)); return e.length >= 2 ? e.reduce((s, a) => s + a.summary.ef, 0) / e.length : NaN; };
-    const ef0 = efOf(acts.filter((a) => a.start < since + 35 * 864e5)), ef1 = efOf(acts.filter((a) => a.start > Date.now() - 28 * 864e5));
-    const efGain = fin(ef0) && fin(ef1) ? (ef1 / ef0 - 1) * 100 : NaN;
-    const G = goalInfo();
-    const list = [];
-    list.push({ id: 'streak', title: '계획 4주 연속 90% 이상 소화', due: dueAt(0.3), done: ps && ps.bestStreak >= 4 ? Date.now() : null, prog: ps ? Math.min(1, ps.bestStreak / 4) : 0, cur: ps ? `최장 ${ps.bestStreak}주 연속` : '스케줄을 만들면 집계돼요' });
-    list.push({ id: 'week', title: `주간 ${wkTarget}km 달성`, due: dueAt(0.6), done: (() => { for (const [k, v] of [...weekMax.ws.entries()].sort((a, b) => a[0] - b[0])) if (v >= wkTarget) return k + 6 * 864e5; return null; })(), prog: Math.min(1, weekMax.m / wkTarget), cur: `최대 ${weekMax.m.toFixed(1)}km/주` });
-    if (full) { list.push(longM(25, 0.5)); list.push(longM(30, 0.72)); list.push(longM(32, 0.85)); }
-    else if (half) { list.push(longM(16, 0.45)); list.push(longM(18, 0.65)); list.push(longM(21, 0.85)); }
-    else { list.push(longM(12, 0.5)); list.push(longM(15, 0.8)); }
-    list.push(timeM(10000, '10K', 0.5));
-    if (full) list.push(timeM(21097.5, '하프', 0.75));
-    else if (half) list.push(timeM(5000, '5K', 0.4));
-    list.push({ id: 'mp', title: `목표 페이스(${fmtPace(P.race)})로 ${mpDist}km 이상`, due: dueAt(0.8), done: firstDone((a) => a.summary.pace <= P.race + 5 && a.summary.dist >= mpDist * 1000 * 0.98), prog: Math.min(1, mpBest / mpDist), cur: mpBest ? `최장 ${mpBest.toFixed(1)}km` : '기록 없음' });
-    list.push({ id: 'ef', title: '이지·롱런 심박 효율 3% 향상', sub: '스케줄 시작 시점 대비', due: dueAt(0.6), done: fin(efGain) && efGain >= 3 ? Date.now() : null, prog: fin(efGain) ? Math.max(0, Math.min(1, efGain / 3)) : 0, cur: fin(efGain) ? `${efGain >= 0 ? '+' : ''}${efGain.toFixed(1)}%` : '데이터 부족' });
-    list.push({ id: 'pred', title: '예상 기록이 목표에 도달', due: dueAt(0.95), done: G && fin(G.now) && G.now <= g.goalTime ? Date.now() : null, prog: G && fin(G.now) ? Math.min(1, g.goalTime / G.now) : 0, cur: G && fin(G.now) ? `예상 ${fmtDur(G.now)}` : '기록 없음' });
-    for (const m of S.missions || []) list.push({ id: m.id, title: m.title, due: m.due ? +new Date(m.due + 'T23:59:00') : null, done: m.done || null, prog: m.done ? 1 : 0, custom: true });
-    const now = Date.now();
-    for (const m of list) m.state = m.done ? 'done' : m.due && m.due < now ? 'late' : 'open';
-    list.sort((a, b) => (a.state === 'done') - (b.state === 'done') || (a.due || 9e15) - (b.due || 9e15));
-    return list;
+  /* ───────── 미션: 단계형(달성하면 다음 단계가 열림) + 주간 미션 ───────── */
+  function planDueBy(pred) {
+    if (!S.plan) return null;
+    const w = S.plan.weeks.find(pred);
+    return w ? w.start + 6 * 864e5 : null;
   }
+  function planDueFrac(f) {
+    if (!S.plan) return null;
+    const ws = S.plan.weeks, n = ws.length;
+    return ws[Math.max(0, Math.min(n - 1, Math.round(n * f) - 1))].start + 6 * 864e5;
+  }
+  function missionLadders() {
+    const g = S.settings, plan = S.plan, P = trainingPaces();
+    if (!P) return [];
+    const full = g.goalDist >= 40000, half = !full && g.goalDist >= 20000;
+    const since = plan ? plan.created - 28 * 864e5 : Date.now() - 120 * 864e5;
+    const acts = S.acts.filter((a) => a.start >= since).sort((a, b) => a.start - b.start);
+    const firstWhen = (pred) => { const x = acts.find(pred); return x ? x.start : null; };
+    const L = [];
+    const mk = (key, label, levels, cur, curText, unit) => {
+      levels.forEach((lv, k) => { lv.id = `${key}:${lv.v}`; lv.key = key; lv.step = k + 1; lv.steps = levels.length; });
+      L.push({ key, label, levels, cur, curText, unit });
+    };
+    // 1. 롱런 거리
+    const maxLong = Math.max(0, ...acts.map((a) => a.summary.dist / 1000));
+    const longLv = full ? [16, 20, 24, 26, 28, 30, 32, 35] : half ? [12, 15, 18, 21, 24] : [8, 10, 12, 15, 18];
+    mk('long', '롱런', longLv.map((v) => ({ v, title: `롱런 ${v}km 완주`, done: firstWhen((a) => a.summary.dist >= v * 980), prog: Math.min(1, maxLong / v), due: planDueBy((w) => w.long >= v && !w.cut) })), maxLong, `최장 ${maxLong.toFixed(1)}km`);
+    // 2. 주간 거리
+    const wk = new Map();
+    for (const a of acts) { const k = +monday(a.start); wk.set(k, (wk.get(k) || 0) + a.summary.dist / 1000); }
+    const wkMax = Math.max(0, ...wk.values());
+    const peak = plan ? plan.peakKm : autoPeakKm(g.goalDist, g.goalTime);
+    const wkLv = [30, 40, 50, 60, 70, 80, 90, 100].filter((v) => v <= Math.max(40, peak * 1.15));
+    mk('week', '주간 거리', wkLv.map((v) => ({ v, title: `주간 ${v}km 달리기`, done: (() => { for (const [k, x] of [...wk.entries()].sort((p, q) => p[0] - q[0])) if (x >= v) return k + 6 * 864e5; return null; })(), prog: Math.min(1, wkMax / v), due: planDueBy((w) => w.km >= v && !w.cut) })), wkMax, `최고 ${wkMax.toFixed(1)}km/주`);
+    // 3. 목표 페이스 지속
+    const mpLv = full ? [5, 8, 12, 15, 18, 21, 25, 30] : half ? [3, 5, 8, 10, 12] : [2, 3, 5, 6, 8];
+    const mpOk = (a) => a.summary.pace <= P.race + 5;
+    const mpMax = Math.max(0, ...acts.filter(mpOk).map((a) => a.summary.dist / 1000));
+    mk('mp', '목표 페이스', mpLv.map((v, k) => ({ v, title: `목표 페이스(${fmtPace(P.race)})로 ${v}km`, done: firstWhen((a) => mpOk(a) && a.summary.dist >= v * 980), prog: Math.min(1, mpMax / v), due: planDueFrac(0.45 + (0.5 * (k + 1)) / mpLv.length) })), mpMax, mpMax ? `최장 ${mpMax.toFixed(1)}km` : '기록 없음');
+    // 4. 기록(목표 환산)
+    const equiv = (D) => g.goalTime * Math.pow(D / g.goalDist, 1.06);
+    const timeLadder = (D, label, step) => {
+      const t0 = equiv(D);
+      const lv = [];
+      for (let k = 5; k >= -1; k--) lv.push(t0 + k * step);
+      const best = Math.min(Infinity, ...acts.map((a) => (a.summary.best || {})[D]).filter(fin));
+      mk(`t${D}`, label, lv.map((t, k) => ({ v: Math.round(t), title: `${label} ${fmtDur(t)} 이내${k === lv.length - 1 ? ' (목표 초과)' : k === lv.length - 2 ? ' (목표 환산)' : ''}`, done: firstWhen((a) => ((a.summary.best || {})[D] || Infinity) <= t + 0.5), prog: fin(best) ? Math.min(1, t / best) : 0, due: planDueFrac(0.2 + (0.7 * (k + 1)) / lv.length) })), best, fin(best) ? `최고 ${fmtDur(best)}` : '기록 없음');
+    };
+    timeLadder(10000, '10K', 45);
+    if (full) timeLadder(21097.5, '하프', 100);
+    else timeLadder(5000, '5K', 20);
+    // 5. 심박 효율 향상
+    const efOf = (list) => { const e = list.filter((a) => (a.type === 'easy' || a.type === 'long') && fin(a.summary.ef)); return e.length >= 2 ? e.reduce((s, a) => s + a.summary.ef, 0) / e.length : NaN; };
+    const ef0 = efOf(acts.filter((a) => a.start < since + 42 * 864e5));
+    const efAt = (t) => efOf(acts.filter((a) => a.start <= t && a.start > t - 28 * 864e5));
+    const efNow = efAt(Date.now());
+    const gain = fin(ef0) && fin(efNow) ? (efNow / ef0 - 1) * 100 : NaN;
+    const efLv = [1, 2, 3, 4, 5, 7];
+    mk('ef', '심박 효율', efLv.map((v, k) => ({ v, title: `이지·롱런 심박 효율 +${v}%`, done: fin(ef0) ? firstWhen((a) => a.start > since + 42 * 864e5 && (efAt(a.start) / ef0 - 1) * 100 >= v) : null, prog: fin(gain) ? Math.max(0, Math.min(1, gain / v)) : 0, due: planDueFrac((0.75 * (k + 1)) / efLv.length) })), gain, fin(gain) ? `시작 대비 ${gain >= 0 ? '+' : ''}${gain.toFixed(1)}%` : '데이터 쌓는 중');
+    // 6. 계획 연속 소화
+    if (plan) {
+      const ps = planStatus();
+      const stLv = [1, 2, 4, 6, 8, 12];
+      const doneAt = (n) => { let s = 0; for (const w of plan.weeks) { if (w.state === 'done') { s++; if (s >= n) return w.start + 6 * 864e5; } else if (w.state !== 'current' && w.state !== 'future') s = 0; } return null; };
+      mk('streak', '꾸준함', stLv.map((v) => ({ v, title: `계획 ${v}주 연속 90% 이상 소화`, done: doneAt(v), prog: Math.min(1, ps.bestStreak / v), due: null })), ps.bestStreak, `최장 ${ps.bestStreak}주 연속`);
+    }
+    // 7. 예상 기록
+    const G = goalInfo();
+    const pLv = [];
+    for (let k = 5; k >= 0; k--) pLv.push(g.goalTime + k * 120);
+    pLv.push(g.goalTime - 180);
+    mk('pred', '예상 기록', pLv.map((t, k) => ({ v: t, title: `예상 기록 ${fmtDur(t)} 이내${t === g.goalTime ? ' (목표)' : t < g.goalTime ? ' (목표 초과)' : ''}`, done: firstWhen((a) => predictionAt(a.start, g.goalDist, 56) <= t), prog: G && fin(G.now) ? Math.min(1, t / G.now) : 0, due: planDueFrac(0.3 + (0.65 * (k + 1)) / pLv.length) })), G ? G.now : NaN, G && fin(G.now) ? `현재 ${fmtDur(G.now)}` : '기록 없음');
+    return L;
+  }
+  function weeklyMissions() {
+    const ps = planStatus();
+    if (!ps || !ps.curWeek) return [];
+    const w = ps.curWeek, a = w.act;
+    const qN = w.days.filter((d) => d.kind === 'quality').length;
+    const longD = w.days.find((d) => d.kind === 'long' || d.kind === 'check' || d.kind === 'race');
+    const out = [{ id: `w${w.i}:km`, title: `이번 주 ${w.km}km 달리기`, prog: Math.min(1, a.km / w.km), cur: `${a.km.toFixed(1)}km` }];
+    if (longD) out.push({ id: `w${w.i}:long`, title: `${longD.kind === 'race' ? '대회 완주' : longD.kind === 'check' ? '실전 점검' : `롱런 ${longD.km}km`}`, prog: Math.min(1, a.long / (longD.km * 0.95)), cur: `최장 ${a.long.toFixed(1)}km` });
+    if (qN) out.push({ id: `w${w.i}:q`, title: `핵심 훈련 ${qN}회 (템포·인터벌)`, prog: Math.min(1, a.q / qN), cur: `${a.q}회` });
+    for (const m of out) m.done = m.prog >= 1;
+    return out;
+  }
+  function missionState() {
+    const ladders = missionLadders();
+    const now = Date.now();
+    const active = [], history = [];
+    for (const L of ladders) {
+      const curIdx = L.levels.findIndex((lv) => !lv.done);
+      for (const lv of L.levels) if (lv.done) history.push({ ...lv, ladder: L.label });
+      if (curIdx >= 0) {
+        const lv = L.levels[curIdx];
+        active.push({ ...lv, ladder: L.label, curText: L.curText, next: L.levels[curIdx + 1] ? L.levels[curIdx + 1].title : null, state: lv.due && lv.due < now ? 'late' : 'open' });
+      } else active.push({ id: `${L.key}:all`, ladder: L.label, title: `${L.label} 미션 모두 달성`, all: true, state: 'done', curText: L.curText, step: L.levels.length, steps: L.levels.length });
+    }
+    // 이전 주 주간 미션 결과
+    const plan = S.plan;
+    if (plan) {
+      for (const w of plan.weeks) {
+        if (w.state !== 'done' && w.state !== 'partial' && w.state !== 'miss') continue;
+        if (w.act && w.act.km >= w.km) history.push({ id: `w${w.i}:km`, title: `${w.i}주차 계획 ${w.km}km 완료`, done: w.start + 6 * 864e5, ladder: '주간' });
+      }
+    }
+    for (const m of S.missions || []) if (m.done) history.push({ id: m.id, title: m.title, done: m.done, ladder: '나만의 미션' });
+    history.sort((a, b) => b.done - a.done);
+    active.sort((a, b) => (a.state === 'done') - (b.state === 'done') || (a.due || 9e15) - (b.due || 9e15));
+    return { active, history, weekly: weeklyMissions() };
+  }
+  // 새로 달성한 미션 (처음 실행 땐 기존 달성분을 조용히 '확인함'으로 처리)
+  function newAchievements(ms) {
+    if (!S.msSeen) return [];
+    const seen = new Set(S.msSeen);
+    return ms.history.filter((h) => !seen.has(h.id));
+  }
+  async function markSeen(ms) {
+    S.msSeen = ms.history.map((h) => h.id);
+    await DB.put('kv', S.msSeen, 'msSeen').catch(() => {});
+  }
+  function nextOf(ms, id) {
+    const key = id.split(':')[0];
+    const a = ms.active.find((x) => x.key === key || x.id.startsWith(key + ':'));
+    return a && !a.all ? a.title : null;
+  }
+  function achievementBanner(ms, list) {
+    if (!list.length) return '';
+    return html`<section class="achv" role="status">
+      <h3>미션 달성</h3>
+      <ul>${list.slice(0, 4).map((h) => { const nx = nextOf(ms, h.id); return html`<li><b>${h.title}</b>${nx ? html`<span>다음 미션: ${nx}</span>` : ''}</li>`; })}</ul>
+      ${list.length > 4 ? html`<p class="fine">외 ${list.length - 4}개</p>` : ''}
+      <button class="btn small primary" data-act="achv-ok">확인</button>
+    </section>`;
+  }
+
   function checkpoints() {
     const plan = S.plan;
     if (!plan) return [];
     const out = [];
-    let idx = 0;
     for (const ph of ['base', 'build', 'peak']) {
-      idx += plan.phases[ph];
-      if (!plan.phases[ph] || idx < 1) continue;
-      const w = plan.weeks[idx - 1];
-      out.push({ ph, at: w.start + 6 * 864e5, label: `${PHASES[ph].label} 종료 점검` });
+      const ws = plan.weeks.filter((w) => w.phase === ph);
+      if (!ws.length) continue;
+      out.push({ ph, at: ws[ws.length - 1].start + 6 * 864e5, label: `${PHASES[ph].label} 종료 점검` });
     }
     return out;
   }
 
-  async function savePlan() { await DB.put('kv', S.plan, 'plan').catch(() => {}); }
+  async function savePlan() {
+    if (!S.plan) return;
+    const clean = { ...S.plan, weeks: S.plan.weeks.map(({ act, state, ...w }) => (void act, void state, w)) };
+    await DB.put('kv', clean, 'plan').catch(() => {});
+  }
   async function saveMissions() { await DB.put('kv', S.missions, 'missions').catch(() => {}); }
+
+  function weekRow(w, now) {
+    const dayRows = w.days.map((d) => {
+      const day = new Date(w.start); day.setDate(day.getDate() + ((d.dow + 6) % 7));
+      const ran = S.acts.filter((a) => ymd(new Date(a.start)) === ymd(day));
+      const km = ran.reduce((s, a) => s + a.summary.dist, 0) / 1000;
+      const isToday = ymd(day) === ymd(new Date());
+      return html`<li class="${ran.length ? 'ran' : day < dayStart(now) ? 'skip' : ''}${isToday ? ' today' : ''}"><span class="d-dow">${WD[d.dow]}</span><span class="d-l">${d.label}</span><span class="d-km num">${ran.length ? `${km.toFixed(1)} / ` : ''}${d.km}km</span></li>`;
+    });
+    const extra = S.acts.filter((a) => a.start >= w.start && a.start < w.start + WEEK && !w.days.some((d) => { const day = new Date(w.start); day.setDate(day.getDate() + ((d.dow + 6) % 7)); return ymd(day) === ymd(new Date(a.start)); }));
+    return html`<details class="wk ${w.state}${w.race ? ' race' : ''}${w.check ? ' check' : ''}" ${w.state === 'current' ? 'open' : ''}>
+      <summary>
+        <div class="wk-l"><b>${w.i}주</b><span>${md(new Date(w.start))}</span></div>
+        <div class="wk-m"><div class="wk-key">${w.days.filter((d) => d.kind !== 'easy').map((d) => d.label).join(' / ')}</div><div class="wk-sub">${w.days.length}회${w.cut ? ', 회복 주' : ''}${w.race || w.check ? '' : `, 롱런 ${w.long}km`}${w.edited ? ', 수정함' : ''}</div></div>
+        <div class="wk-r">${w.state === 'future' ? html`<b class="num">${w.km}</b><small>km</small>` : html`<b class="num">${w.act.km.toFixed(0)}</b><small>/ ${w.km}km</small><span class="wk-st">${w.state === 'done' ? '✓' : w.state === 'partial' ? '◐' : w.state === 'miss' ? '–' : ''}</span>`}</div>
+      </summary>
+      <ul class="days">${dayRows}${extra.map((a) => html`<li class="ran extra"><span class="d-dow">${WD[new Date(a.start).getDay()]}</span><span class="d-l">계획 외 · ${a.name}</span><span class="d-km num">${fmtKm(a.summary.dist, 1)}km</span></li>`)}</ul>
+      ${w.state !== 'done' && w.state !== 'partial' && w.state !== 'miss' && !w.race ? html`<div class="wk-edit">
+        <label>계획 거리 <input type="number" inputmode="numeric" min="0" max="250" value="${w.km}" data-wk-km="${w.i}">km</label>
+        <button class="chip sel${w.cut ? ' on' : ''}" data-wk-cut="${w.i}">회복 주</button>
+      </div>` : ''}
+    </details>`;
+  }
 
   function renderRace() {
     setTop('대회 준비', { tab: 'race' });
@@ -3861,25 +4143,29 @@ details.phase .fine { margin: 6px 0 6px; }
     const distOpts = [[10000, '10K'], [21097.5, '하프'], [42195, '풀']];
     const plan = S.plan, ps = planStatus();
     const stale = plan && (plan.raceDate !== g.goalDate || plan.goalTime !== g.goalTime || plan.goalDist !== g.goalDist);
-    const ms = missions();
-    const msDone = ms.filter((m) => m.state === 'done').length;
+    const ms = missionState();
+    if (!S.msSeen) markSeen(ms);
+    const fresh = newAchievements(ms);
     const cps = checkpoints();
     const now = Date.now();
     const showForm = S.raceEdit || !g.goalDate || !g.goalTime;
     const dday = g.goalDate ? Math.ceil((new Date(g.goalDate + 'T00:00:00') - dayStart(now)) / 864e5) : null;
+    const behind = ps && fin(ps.adherence) && ps.elapsedW >= 2 && ps.adherence < 0.75;
     const phaseBar = plan ? (() => {
       const total = plan.weeks.length;
       const segs = ['base', 'build', 'peak', 'taper'].filter((k) => plan.phases[k] > 0);
-      const pos = Math.max(0, Math.min(1, (now - plan.weeks[0].start) / (total * 7 * 864e5)));
+      const pos = Math.max(0, Math.min(1, (now - plan.weeks[0].start) / (total * WEEK)));
       return html`<div class="phasebar">${segs.map((k) => html`<div style="flex:${plan.phases[k]} 1 0;background:${PHASES[k].color}" title="${PHASES[k].label}"></div>`)}<i class="today" style="left:${pos * 100}%"></i></div>
         <div class="phase-legend">${segs.map((k) => html`<span><i class="sw" style="background:${PHASES[k].color}"></i>${PHASES[k].label} ${plan.phases[k]}주</span>`)}</div>`;
     })() : '';
     const cw = ps && ps.curWeek;
+    const today = todaySession();
 
     put(v, html`
+      ${achievementBanner(ms, fresh)}
       <section class="goal race-goal">
         <div class="goal-top">
-          <div><h2>${g.goalName || '목표 대회'}</h2><span class="goal-meta">${distOpts.find((x) => x[0] === g.goalDist)?.[1] || ''}${g.goalTime ? `, 목표 ${fmtDur(g.goalTime)}` : ''}${g.goalDate ? `, ${g.goalDate.replace(/-/g, '.')}` : ''}</span></div>
+          <div><h2>${g.goalName || '목표 대회'}</h2><span class="goal-meta">${(distOpts.find((x) => x[0] === g.goalDist) || [0, ''])[1]}${g.goalTime ? `, 목표 ${fmtDur(g.goalTime)}` : ''}${g.goalDate ? `, ${g.goalDate.replace(/-/g, '.')}` : ''}</span></div>
           ${dday != null ? html`<div class="dday${dday < 0 ? ' past' : ''}"><b class="num">${dday > 0 ? `D-${dday}` : dday === 0 ? 'D-DAY' : '완료'}</b></div>` : ''}
         </div>
         ${G && fin(G.now) ? html`<div class="goal-gap">예상 기록 <b class="num">${fmtDur(G.now)}</b>${G.now > g.goalTime ? html`, 목표까지 <b class="num">${fmtDur(G.now - g.goalTime)}</b>` : ', 목표 달성권'}</div>` : ''}
@@ -3892,59 +4178,65 @@ details.phase .fine { margin: 6px 0 6px; }
         </div>` : ''}
       </section>
 
-      ${P ? html`<section class="card">
-        <h3>훈련 페이스 <span class="h-sub">목표 기록 기준</span></h3>
-        <table class="paces">
-          <tr><td><i class="sw" style="background:#199e70"></i>이지런</td><td class="num">${paceRange(P.easy)}</td><td class="muted">대화 가능한 강도</td></tr>
-          <tr><td><i class="sw" style="background:#3987e5"></i>롱런</td><td class="num">${paceRange(P.long)}</td><td class="muted">후반은 더 빠르게 가능</td></tr>
-          <tr><td><i class="sw" style="background:#c98500"></i>목표 페이스</td><td class="num">${fmtPace(P.race)}</td><td class="muted">대회 당일 평균</td></tr>
-          <tr><td><i class="sw" style="background:#d95926"></i>템포(역치)</td><td class="num">${fmtPace(P.tempo)}</td><td class="muted">20~40분 지속</td></tr>
-          <tr><td><i class="sw" style="background:#d55181"></i>인터벌</td><td class="num">${fmtPace(P.interval)}</td><td class="muted">800m~1.6km 반복</td></tr>
-        </table>
-      </section>` : ''}
-
       ${!plan ? html`<section class="card plan-empty">
         <h3>훈련 마스터 스케줄</h3>
-        <p>대회 날짜와 목표 기록으로 오늘부터 대회 주까지 주별 거리, 롱런, 핵심 훈련을 짜 드려요. 최근 4주 기록(주 평균 ${recentBase().km.toFixed(0)}km)에서 출발해 무리 없이 늘려 가요.</p>
+        <p>대회 날짜와 목표 기록으로 이번 주부터 대회 주까지 주별 거리, 롱런, 요일별 훈련을 짜 드려요. 최근 4주 기록(주 평균 ${recentBase().km.toFixed(0)}km)에서 출발해 주 10% 넘게 늘리지 않아요.</p>
         ${planOptions()}
         <button class="btn primary" data-act="plan-make" ${!g.goalDate || !g.goalTime ? 'disabled' : ''}>스케줄 만들기</button>
+        ${!g.goalDate ? html`<p class="fine">위의 '목표 수정'에서 대회 날짜를 먼저 넣어 주세요.</p>` : ''}
       </section>` : html`
-      ${stale ? html`<div class="banner">목표 대회 정보가 바뀌었어요. 스케줄을 다시 만들면 새 목표에 맞춰 조정돼요. <button class="btn small primary" data-act="plan-make">다시 만들기</button></div>` : ''}
+      ${stale ? html`<div class="banner">목표 대회 정보가 바뀌었어요. 지난 기록은 그대로 두고 이번 주부터 새 목표에 맞춰 다시 짤까요? <button class="btn small primary" data-act="plan-rebuild">다시 계산</button></div>` : ''}
+      ${!stale && behind ? html`<div class="banner">최근 계획 소화율이 ${Math.round(ps.adherence * 100)}%예요. 무리해서 채우기보다 지금 몸 상태(최근 4주 기록)에 맞춰 남은 일정을 다시 계산하는 걸 권해요. <button class="btn small primary" data-act="plan-rebuild">남은 일정 다시 계산</button></div>` : ''}
+      ${ps.over ? html`<div class="banner">대회가 끝났어요. 수고 많으셨어요! 다음 목표를 정하고 새 스케줄을 만들어 보세요.</div>` : ''}
       <section class="card prog-card">
         <h3>준비 진척도</h3>
         <div class="prog-grid">
           <div><b class="num big2">${fin(ps.adherence) ? Math.round(ps.adherence * 100) : '–'}</b><small>%</small><span class="lbl">계획 거리 소화율</span></div>
           <div><b class="num big2">${Math.min(ps.elapsedW + (ps.cur >= 0 ? 1 : 0), ps.total)}</b><small>/ ${ps.total}주</small><span class="lbl">일정 진행</span></div>
-          <div><b class="num big2">${msDone}</b><small>/ ${ms.length}</small><span class="lbl">미션 달성</span></div>
+          <div><b class="num big2">${ms.history.length}</b><small>개</small><span class="lbl">달성한 미션</span></div>
         </div>
         ${phaseBar}
       </section>
 
       ${cw ? html`<section class="card this-week">
-        <h3>이번 주 계획 <span class="h-sub">${cw.i}주차, ${PHASES[cw.phase].label}${cw.cut ? ', 회복 주' : ''}</span></h3>
+        <h3>이번 주 <span class="h-sub">${cw.i}주차, ${PHASES[cw.phase].label}${cw.cut ? ', 회복 주' : ''}</span></h3>
+        ${today && today.day ? html`<div class="today-box${today.ran ? ' ran' : ''}"><span class="lbl">오늘</span><b>${today.day.label}</b><span class="num">${today.day.km}km</span>${today.ran ? html`<span class="tb-ok">완료</span>` : ''}</div>` : today ? html`<div class="today-box rest"><span class="lbl">오늘</span><b>휴식</b><span>${today.ran ? '계획 외 러닝 완료' : '쉬는 것도 훈련이에요'}</span></div>` : ''}
         <div class="tw-top"><b class="num big2">${cw.act.km.toFixed(1)}</b><small>/ ${cw.km} km</small></div>
         <div class="meter"><i style="width:${Math.min(100, (cw.act.km / cw.km) * 100)}%"></i></div>
-        <ul class="days">${cw.days.map((d) => {
-          const day = new Date(cw.start); day.setDate(day.getDate() + ((d.dow + 6) % 7));
-          const ran = S.acts.filter((a) => ymd(new Date(a.start)) === ymd(day));
-          const isToday = ymd(day) === ymd(new Date());
-          return html`<li class="${ran.length ? 'ran' : day < dayStart(now) ? 'skip' : ''}${isToday ? ' today' : ''}"><span class="d-dow">${WD[d.dow]}</span><span class="d-l">${d.label}</span><span class="d-km num">${ran.length ? `${(ran.reduce((s, a) => s + a.summary.dist, 0) / 1000).toFixed(1)} / ` : ''}${d.km}km</span></li>`;
-        })}</ul>
+        ${ms.weekly.length ? html`<ul class="weekly">${ms.weekly.map((m) => html`<li class="${m.done ? 'done' : ''}"><span class="ms-ic" aria-hidden="true">${m.done ? '✓' : ''}</span><span class="wl-t">${m.title}</span><span class="wl-c num">${m.cur}</span></li>`)}</ul>` : ''}
       </section>` : ''}
       `}
 
-      ${ms.length ? html`<section class="card">
-        <h3>미션 <span class="h-sub">기록으로 자동 판정돼요</span></h3>
-        <ul class="missions">${ms.map((m) => html`<li class="ms ${m.state}">
+      ${P ? html`<section class="card">
+        <h3>훈련 페이스 <span class="h-sub">목표 기록 기준</span></h3>
+        <table class="paces">
+          <tr><td><i class="sw" style="background:${TYPE.easy.color}"></i>이지런</td><td class="num">${paceRange(P.easy)}</td><td class="muted">대화 가능한 강도</td></tr>
+          <tr><td><i class="sw" style="background:${TYPE.long.color}"></i>롱런</td><td class="num">${paceRange(P.long)}</td><td class="muted">후반은 더 빠르게 가능</td></tr>
+          <tr><td><i class="sw" style="background:${TYPE.race.color}"></i>목표 페이스</td><td class="num">${fmtPace(P.race)}</td><td class="muted">대회 당일 평균</td></tr>
+          <tr><td><i class="sw" style="background:${TYPE.tempo.color}"></i>템포(역치)</td><td class="num">${fmtPace(P.tempo)}</td><td class="muted">20~40분 지속</td></tr>
+          <tr><td><i class="sw" style="background:${TYPE.interval.color}"></i>인터벌</td><td class="num">${fmtPace(P.interval)}</td><td class="muted">800m~1.6km 반복</td></tr>
+        </table>
+      </section>` : ''}
+
+      ${P ? html`<section class="card">
+        <h3>미션 <span class="h-sub">달성하면 다음 단계가 열려요</span></h3>
+        <ul class="missions">${ms.active.map((m) => html`<li class="ms ${m.state}">
           <span class="ms-ic" aria-hidden="true">${m.state === 'done' ? '✓' : m.state === 'late' ? '!' : ''}</span>
           <div class="ms-main">
+            <span class="ms-lad">${m.ladder} <span class="num">${m.all ? '완료' : `${m.step}/${m.steps}단계`}</span></span>
             <b>${m.title}</b>
-            <span class="ms-sub">${m.state === 'done' ? `달성 ${fmtDate(m.done)}` : [m.cur, m.sub].filter(Boolean).join(', ')}${m.due && m.state !== 'done' ? ` · ${new Date(m.due).getMonth() + 1}월 ${new Date(m.due).getDate()}일까지` : ''}</span>
-            ${m.state !== 'done' && !m.custom ? html`<div class="meter thin"><i style="width:${Math.round(m.prog * 100)}%"></i></div>` : ''}
+            <span class="ms-sub">${m.curText}${m.due && m.state !== 'done' ? ` · ${new Date(m.due).getMonth() + 1}월 ${new Date(m.due).getDate()}일 목표` : ''}${m.next ? ` · 다음: ${m.next}` : ''}</span>
+            ${m.state !== 'done' ? html`<div class="meter thin"><i style="width:${Math.round((m.prog || 0) * 100)}%"></i></div>` : ''}
           </div>
-          ${m.custom ? html`<div class="ms-ctl"><button class="btn small ghost" data-ms-toggle="${m.id}">${m.done ? '취소' : '완료'}</button><button class="icon-btn small" data-ms-del="${m.id}" aria-label="미션 삭제">${ICON.close}</button></div>` : ''}
         </li>`)}</ul>
-        <div class="ms-add"><input id="msTitle" placeholder="나만의 미션 추가 (예: 대회 코스 답사)" maxlength="40"><input id="msDue" type="date"><button class="btn small primary" data-act="ms-add">추가</button></div>
+        <h4 class="sub-h">나만의 미션</h4>
+        <ul class="missions">${(S.missions || []).map((m) => html`<li class="ms ${m.done ? 'done' : m.due && +new Date(m.due + 'T23:59:00') < now ? 'late' : 'open'}">
+          <span class="ms-ic" aria-hidden="true">${m.done ? '✓' : ''}</span>
+          <div class="ms-main"><b>${m.title}</b><span class="ms-sub">${m.done ? `달성 ${fmtDate(m.done)}` : m.due ? `${m.due.replace(/-/g, '.')}까지` : '기한 없음'}</span></div>
+          <div class="ms-ctl"><button class="btn small ghost" data-ms-toggle="${m.id}">${m.done ? '취소' : '완료'}</button><button class="icon-btn small" data-ms-del="${m.id}" aria-label="미션 삭제">${ICON.close}</button></div>
+        </li>`)}</ul>
+        <div class="ms-add"><input id="msTitle" placeholder="예: 대회 코스 답사" maxlength="40" aria-label="미션 이름"><input id="msDue" type="date" aria-label="기한"><button class="btn small primary" data-act="ms-add">추가</button></div>
+        ${ms.history.length ? html`<details class="achv-list"><summary>달성 기록 ${ms.history.length}개</summary><ul>${ms.history.map((h) => html`<li><span class="ms-ic done" aria-hidden="true">✓</span><span class="ah-t">${h.title}</span><span class="ah-d">${fmtDate(h.done)}</span></li>`)}</ul></details>` : ''}
       </section>` : ''}
 
       ${cps.length ? html`<section class="card">
@@ -3958,24 +4250,31 @@ details.phase .fine { margin: 6px 0 6px; }
 
       ${plan ? html`<section class="card">
         <h3>마스터 스케줄 <span class="h-sub">${plan.weeks.length}주, 피크 ${plan.peakKm}km/주</span></h3>
+        <p class="fine top">주를 누르면 요일별 계획과 실제 기록이 보이고, 앞으로의 주는 거리와 회복 주를 바꿀 수 있어요.</p>
         ${['base', 'build', 'peak', 'taper'].filter((k) => plan.phases[k] > 0).map((k) => {
           const ws = plan.weeks.filter((w) => w.phase === k);
           const open = ws.some((w) => w.state === 'current');
           return html`<details class="phase" ${open ? 'open' : ''}>
             <summary><i class="sw" style="background:${PHASES[k].color}"></i><b>${PHASES[k].label}</b><span class="muted">${md(new Date(ws[0].start))} – ${md(new Date(ws[ws.length - 1].start + 6 * 864e5))}, ${ws.length}주</span></summary>
             <p class="fine">${PHASES[k].desc}</p>
-            ${ws.map((w) => html`<div class="wk ${w.state}${w.race ? ' race' : ''}">
-              <div class="wk-l"><b>${w.i}주</b><span>${md(new Date(w.start))}</span></div>
-              <div class="wk-m"><div class="wk-key">${w.days.filter((d) => d.kind !== 'easy').map((d) => d.label).join(' / ')}</div><div class="wk-sub">${w.days.length}회${w.cut ? ', 회복 주' : ''}${w.race ? '' : `, 롱런 ${w.long}km`}</div></div>
-              <div class="wk-r">${w.state === 'future' ? html`<b class="num">${w.km}</b><small>km</small>` : html`<b class="num">${w.act.km.toFixed(0)}</b><small>/ ${w.km}km</small><span class="wk-st">${w.state === 'done' ? '✓' : w.state === 'partial' ? '◐' : w.state === 'miss' ? '–' : ''}</span>`}</div>
-            </div>`)}
+            ${ws.map((w) => weekRow(w, now))}
           </details>`;
         })}
-        <details class="plan-opt"><summary>스케줄 설정</summary>${planOptions()}<button class="btn ghost" data-act="plan-make">이 설정으로 다시 만들기</button><button class="btn danger-ghost" data-act="plan-del">스케줄 삭제</button></details>
+        <details class="plan-opt"><summary>스케줄 관리</summary>
+          ${planOptions()}
+          <button class="btn primary" data-act="plan-rebuild">남은 일정 다시 계산</button>
+          <p class="fine">지난 주 계획과 실적은 그대로 두고, 이번 주부터 최근 4주 기록과 위 설정으로 다시 짜요. 직접 수정한 주도 새로 계산돼요.</p>
+          <button class="btn danger-ghost" data-act="plan-del">스케줄 삭제</button>
+        </details>
       </section>` : ''}
     `);
     bindGoalForm();
     bindPlanOptions();
+    v.querySelectorAll('[data-wk-km]').forEach((inp) => inp.addEventListener('change', async () => {
+      const w = S.plan.weeks.find((x) => x.i === +inp.dataset.wkKm); const km = parseFloat(inp.value);
+      if (!w || !fin(km) || km < 0) return;
+      setWeekKm(w, km); await savePlan(); toast(`${w.i}주차 계획을 ${w.km}km로 바꿨어요`, 1800); route();
+    }));
   }
   function planOptions() {
     const g = S.settings;
@@ -4024,6 +4323,10 @@ details.phase .fine { margin: 6px 0 6px; }
     const distOpts = [[10000, '10K'], [21097.5, '하프'], [42195, '풀']];
     put($('#view'), html`
       <section class="card">
+        <h3>화면</h3>
+        <div class="field row"><span>테마<small>시스템은 폰 설정을 따라가요</small></span>${seg('theme', [['auto', '시스템'], ['dark', '다크'], ['light', '라이트']])}</div>
+      </section>
+      <section class="card">
         <h3>신발</h3>
         <div class="shoes">${shoeList().map((x) => { const u = shoeUsage(x.id); const pct = x.limitKm ? Math.min(100, (u.km / x.limitKm) * 100) : 0; return html`<div class="shoe${x.retired ? ' retired' : ''}" data-sid="${x.id}">
           <div class="shoe-top"><input class="shoe-name" value="${x.name}" maxlength="30" aria-label="신발 이름"><span class="shoe-km num">${u.km.toFixed(0)}${x.limitKm ? ` / ${x.limitKm}` : ''} km</span></div>
@@ -4056,7 +4359,7 @@ details.phase .fine { margin: 6px 0 6px; }
         <h3>케이던스 · 목표 · 지도</h3>
         <div class="field row"><span>GPX 케이던스 값<small>한쪽 발 기준(80~95)이면 ×2 해서 spm으로</small></span>${seg('cadMode', [['auto', '자동'], ['x1', '그대로'], ['x2', '×2']])}</div>
         <label class="field row"><span>주간 목표 거리<small>km, 0이면 표시 안 함</small></span><input type="number" inputmode="decimal" data-num="weekGoal" value="${st.weekGoal}" min="0" max="300"></label>
-        <div class="field row"><span>지도 스타일</span>${seg('mapStyle', [['dark', '다크'], ['light', '라이트']])}</div>
+        <div class="field row"><span>지도 스타일</span>${seg('mapStyle', [['auto', '테마 따라'], ['dark', '다크'], ['light', '라이트']])}</div>
       </section>
       <section class="card">
         <h3>데이터</h3>
@@ -4110,6 +4413,7 @@ details.phase .fine { margin: 6px 0 6px; }
     S.settings[k] = val;
     if (k === 'hrMax' || k === 'hrRest') S.settings.touched = true;
     saveSettings();
+    if (k === 'theme') { applyTheme(); route(); return; }
     if (ANALYSIS_KEYS.includes(k)) { clearTimeout(recomputeT); recomputeT = setTimeout(recomputeAll, 600); }
     else toast('저장했어요', 1200);
   }
@@ -4189,6 +4493,12 @@ details.phase .fine { margin: 6px 0 6px; }
     if (runEl) { S.cameFromList = true; go('run-' + runEl.dataset.run); return; }
     const goEl = e.target.closest('[data-go]');
     if (goEl) { go(goEl.dataset.go); return; }
+    const wkC = e.target.closest('[data-wk-cut]');
+    if (wkC) {
+      const w = S.plan && S.plan.weeks.find((x) => x.i === +wkC.dataset.wkCut); if (!w) return;
+      w.cut = !w.cut; setWeekKm(w, w.cut ? w.km * 0.8 : w.km / 0.8);
+      await savePlan(); toast(w.cut ? `${w.i}주차를 회복 주로 바꿨어요` : `${w.i}주차 회복 주를 해제했어요`, 1800); route(); return;
+    }
     const msT = e.target.closest('[data-ms-toggle]');
     if (msT) { const m = S.missions.find((x) => x.id === msT.dataset.msToggle); if (m) { m.done = m.done ? null : Date.now(); await saveMissions(); route(); } return; }
     const msD = e.target.closest('[data-ms-del]');
@@ -4216,10 +4526,16 @@ details.phase .fine { margin: 6px 0 6px; }
     else if (k === 'dismiss-tip') { S.settings.tipDismissed = true; saveSettings(); route(); }
     else if (k === 'export') exportBackup();
     else if (k === 'race-edit') { S.raceEdit = !S.raceEdit; route(); }
-    else if (k === 'plan-make') {
-      const pl = buildPlan();
+    else if (k === 'achv-ok') { await markSeen(missionState()); route(); }
+    else if (k === 'plan-rebuild') {
+      const pl = buildPlan(true);
       if (pl.err) { toast(pl.err, 3000); return; }
-      S.plan = pl; await savePlan(); S.raceEdit = false;
+      S.plan = pl; await savePlan(); await markSeen(missionState());
+      toast('지난 기록은 그대로 두고 이번 주부터 다시 계산했어요', 2500); route();
+    } else if (k === 'plan-make') {
+      const pl = buildPlan(false);
+      if (pl.err) { toast(pl.err, 3000); return; }
+      S.plan = pl; await savePlan(); S.raceEdit = false; await markSeen(missionState());
       toast(`${pl.weeks.length}주 마스터 스케줄을 만들었어요`); route();
     } else if (k === 'plan-del') {
       if (!(await dialog({ title: '마스터 스케줄을 삭제할까요?', body: '러닝 기록은 그대로 남아요.', ok: '삭제', danger: true }))) return;
@@ -4266,6 +4582,11 @@ details.phase .fine { margin: 6px 0 6px; }
     $('#tabStats').addEventListener('click', () => go('stats'));
     $('#tabPrefs').addEventListener('click', () => go('prefs'));
     $('#tabRace').addEventListener('click', () => go('race'));
+    $('#themeBtn').addEventListener('click', () => {
+      S.settings.theme = resolvedTheme() === 'dark' ? 'light' : 'dark';
+      saveSettings(); applyTheme(); route();
+    });
+    try { window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => { if ((S.settings.theme || 'auto') === 'auto') { applyTheme(); route(); } }); } catch (e) { /* noop */ }
     $('#tabAdd').addEventListener('click', () => $('#fileInput').click());
     $('#backBtn').addEventListener('click', () => { if (S.cameFromList && history.length > 1) { S.cameFromList = false; history.back(); } else go('runs'); });
     $('#fileInput').addEventListener('change', (e) => { const f = e.target.files; if (f && f.length) importFiles(f); e.target.value = ''; });
@@ -4281,8 +4602,11 @@ details.phase .fine { margin: 6px 0 6px; }
     bindShell();
     S.storageOK = await DB.open();
     try { const st = await DB.get('kv', 'settings'); if (st) S.settings = { ...DEFAULTS, ...st }; } catch (e) { /* noop */ }
+    if (!S.settings.v14) { if (S.settings.mapStyle === 'dark') S.settings.mapStyle = 'auto'; S.settings.v14 = true; saveSettings(); }
+    applyTheme();
     try { S.acts = await DB.all('acts'); } catch (e) { S.acts = []; }
-    try { S.plan = (await DB.get('kv', 'plan')) || null; S.missions = (await DB.get('kv', 'missions')) || []; } catch (e) { /* noop */ }
+    try { S.plan = (await DB.get('kv', 'plan')) || null; S.missions = (await DB.get('kv', 'missions')) || []; S.msSeen = (await DB.get('kv', 'msSeen')) || null; } catch (e) { /* noop */ }
+    if (S.plan) { for (const w of S.plan.weeks) if (!w.days) w.days = []; S.plan.phases = countPhases(S.plan.weeks); }
     sortActs();
     route();
     handleShareInbox();
@@ -4291,7 +4615,7 @@ details.phase .fine { margin: 6px 0 6px; }
       navigator.serviceWorker.register('./sw.js').catch(() => {});
     }
   }
-  window.RunLog = { S, importFiles, addSamples, route };
+  window.RunLog = { S, importFiles, addSamples, route, buildPlan, planStatus, missionState, applyTheme, saveSettings };
   init();
 })();
 </script>
