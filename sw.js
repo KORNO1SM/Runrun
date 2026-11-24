@@ -1,5 +1,5 @@
 /* RunLog 서비스 워커 — 오프라인 실행 + 다른 앱에서 GPX 공유 받기 */
-const CACHE = 'runlog-v4';
+const CACHE = 'runlog-v5';
 const FONT_CACHE = 'runlog-fonts';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 

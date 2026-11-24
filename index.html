@@ -1069,6 +1069,103 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
 .coach-more .ins { margin-top: 10px; }
 .btn.ask { width: 100%; margin-top: 10px; border-color: rgba(242, 184, 75, .4); color: var(--accent); }
 
+/* v1.3 — 신발·날씨·대회 준비 */
+.link { border: 0; background: none; padding: 0; color: var(--accent); font-weight: 600; font-size: 13px; }
+.h-plan { font-size: 12px; font-weight: 600; color: var(--text2); margin-left: 6px; }
+.week-plan { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 13px; color: var(--text2); align-items: baseline; }
+.week-plan b { color: var(--text); margin-right: 2px; }
+.week-plan .link { margin-left: auto; }
+.wx { margin-left: 8px; color: var(--text2); }
+.wx:empty { display: none; }
+.wx-row { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 13px; color: var(--muted); margin: 4px 0 2px; }
+.wx-main { color: var(--text); font-weight: 600; }
+.coach-note { margin: -4px 0 12px; font-size: 13px; color: var(--text2); background: var(--surface2); border-radius: 10px; padding: 8px 10px; }
+.field select { background: var(--surface2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; color: var(--text); font-size: 15px; width: 100%; }
+.shoes { display: flex; flex-direction: column; gap: 10px; }
+.shoe { border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; background: var(--surface2); }
+.shoe.retired { opacity: .55; }
+.shoe-top { display: flex; align-items: center; gap: 8px; }
+.shoe-name { flex: 1; min-width: 0; background: transparent; border: 0; border-bottom: 1px dashed transparent; color: var(--text); font-weight: 600; font-size: 15px; padding: 2px 0; outline: none; }
+.shoe-name:focus { border-bottom-color: var(--muted); }
+.shoe-km { font-size: 16px; color: var(--text2); white-space: nowrap; }
+.shoe-sub { display: flex; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin: 8px 0; }
+.shoe-sub input { width: 64px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; color: var(--text); padding: 4px 6px; margin: 0 3px; text-align: right; }
+.shoe-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.shoe-btns .chip.sel { padding: 4px 10px; font-size: 12px; }
+.meter.thin { height: 4px; margin: 6px 0 0; }
+.ms-add { display: flex; gap: 6px; margin-top: 12px; }
+.ms-add input { flex: 1; min-width: 0; background: var(--surface2); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; color: var(--text); font-size: 14px; }
+.ms-add input[type=date] { flex: none; width: 140px; }
+.race-goal { position: relative; }
+.edit-goal { position: absolute; right: 14px; bottom: 14px; }
+.race-goal .goal-gap { margin-top: 10px; padding-right: 90px; }
+.goal-form { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); }
+.paces td { padding: 7px 2px; border-top: 1px solid var(--line); font-size: 14px; }
+.paces tr:first-child td { border-top: 0; }
+.paces td.num { font-size: 18px; font-weight: 600; text-align: right; padding-right: 12px; }
+.paces td.muted { font-size: 12px; }
+.plan-empty p { color: var(--text2); font-size: 14px; margin: 0 0 12px; }
+.plan-empty .btn.primary { width: 100%; margin-top: 4px; }
+.btn[disabled] { opacity: .45; }
+.prog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+.prog-grid .lbl { margin-top: 2px; }
+.big2 { font-size: 34px; font-weight: 700; line-height: 1.05; }
+.phasebar { position: relative; display: flex; gap: 2px; height: 10px; border-radius: 5px; overflow: visible; }
+.phasebar > div { border-radius: 3px; }
+.phasebar .today { position: absolute; top: -5px; width: 2px; height: 20px; background: var(--text); border-radius: 1px; transform: translateX(-1px); }
+.phase-legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--text2); margin-top: 10px; }
+.this-week .tw-top { margin-bottom: 4px; }
+.days { list-style: none; margin: 10px 0 0; padding: 0; }
+.days li { display: grid; grid-template-columns: 26px 1fr auto; gap: 8px; align-items: baseline; padding: 8px 0; border-top: 1px solid var(--line); font-size: 14px; color: var(--text2); }
+.days li.today { color: var(--text); }
+.days li.today .d-dow { color: var(--accent); }
+.days li.ran .d-l::before { content: '✓ '; color: #6fd39a; font-weight: 700; }
+.days li.skip { opacity: .5; }
+.d-dow { font-weight: 700; color: var(--text); }
+.d-km { font-size: 15px; color: var(--text); }
+.missions { list-style: none; margin: 0; padding: 0; }
+.ms { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-top: 1px solid var(--line); }
+.ms:first-child { border-top: 0; }
+.ms-ic { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--surface3); display: grid; place-items: center; font-size: 12px; font-weight: 800; margin-top: 1px; }
+.ms.done .ms-ic { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.ms.late .ms-ic { border-color: var(--serious); color: var(--serious); }
+.ms-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.ms-main b { font-size: 14px; font-weight: 600; }
+.ms.done .ms-main b { color: var(--text2); }
+.ms-sub { font-size: 12px; color: var(--muted); }
+.ms-ctl { display: flex; align-items: center; gap: 2px; }
+.icon-btn.small { width: 30px; height: 30px; }
+.icon-btn.small svg { width: 16px; height: 16px; }
+.cps { list-style: none; margin: 0; padding: 0; }
+.cps li { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 14px; }
+.cps li:first-child { border-top: 0; }
+.cps li > span { font-size: 12px; color: var(--muted); }
+.cps .cp-r { grid-column: 1 / -1; color: var(--text2); font-size: 13px; }
+.cps li:not(.past) b { color: var(--text2); font-weight: 600; }
+details.phase { border-top: 1px solid var(--line); padding: 10px 0; }
+details.phase:first-of-type { border-top: 0; }
+details.phase summary { display: flex; align-items: baseline; gap: 6px; cursor: pointer; font-size: 14px; }
+details.phase summary .muted { font-size: 12px; margin-left: auto; }
+details.phase .fine { margin: 6px 0 6px; }
+.wk { display: grid; grid-template-columns: 46px 1fr auto; gap: 8px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); }
+.wk-l { display: flex; flex-direction: column; font-size: 12px; color: var(--muted); }
+.wk-l b { font-size: 14px; color: var(--text); }
+.wk-key { font-size: 13px; color: var(--text); line-height: 1.4; }
+.wk-sub { font-size: 12px; color: var(--muted); }
+.wk-r { text-align: right; white-space: nowrap; }
+.wk-r b { font-size: 18px; }
+.wk-st { display: inline-block; width: 16px; margin-left: 4px; color: var(--muted); }
+.wk.done .wk-st { color: #6fd39a; }
+.wk.partial .wk-st { color: var(--warn); }
+.wk.current { background: rgba(242, 184, 75, .08); border-radius: 10px; padding-left: 6px; padding-right: 6px; border-top-color: transparent; }
+.wk.current .wk-l b { color: var(--accent); }
+.wk.race .wk-key { color: var(--accent); font-weight: 600; }
+.plan-opt { border-top: 1px solid var(--line); margin-top: 6px; padding-top: 10px; }
+.plan-opt summary { font-size: 13px; color: var(--text2); cursor: pointer; font-weight: 600; }
+.plan-opts { margin-top: 10px; }
+.plan-opt .btn.ghost { width: 100%; }
+.tab { font-size: 10.5px; }
+
 </style>
 </head>
 <body>
@@ -1082,6 +1179,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
   <button class="tab" id="tabRuns" data-tab="runs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg><span>기록</span></button>
   <button class="tab" id="tabStats" data-tab="stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>통계</span></button>
   <button class="tab add" id="tabAdd"><span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span><span>가져오기</span></button>
+  <button class="tab" id="tabRace" data-tab="race"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg><span>대회</span></button>
   <button class="tab" id="tabPrefs" data-tab="prefs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span>설정</span></button>
 </nav>
 <input type="file" id="fileInput" multiple hidden>
@@ -2221,7 +2319,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
   const fin = Number.isFinite;
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-  const VERSION = '1.2.0';
+  const VERSION = '1.3.0';
 
   /* ───────── 상수 ───────── */
   const C = {
@@ -2238,7 +2336,14 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
   const TYPE = Object.fromEntries(TYPES.map(([k, l, c]) => [k, { label: l, color: c }]));
   const ZONE_NAMES = ['회복', '유산소', '템포', '역치', '최대'];
   const BEST_LABEL = { 1000: '1K', 5000: '5K', 10000: '10K', 21097.5: '하프', 42195: '풀' };
-  const DEFAULTS = { hrMax: 190, hrRest: 55, sex: 'm', zoneMethod: 'hrr', cadMode: 'auto', weekGoal: 40, mapStyle: 'dark', touched: false, tipDismissed: false, goalName: '춘천마라톤', goalDist: 42195, goalTime: 11700, goalDate: '' };
+  const DEFAULTS = { hrMax: 190, hrRest: 55, sex: 'm', zoneMethod: 'hrr', cadMode: 'auto', weekGoal: 40, mapStyle: 'dark', touched: false, tipDismissed: false, goalName: '춘천마라톤', goalDist: 42195, goalTime: 11700, goalDate: '',
+    shoes: [
+      { id: 'sh1', name: '나이키 줌플라이', startKm: 0, limitKm: 600, retired: false },
+      { id: 'sh2', name: '나이키 베이퍼플라이 4', startKm: 0, limitKm: 400, retired: false },
+      { id: 'sh3', name: '아디다스 아디오스 프로 4', startKm: 0, limitKm: 400, retired: false },
+      { id: 'sh4', name: '나이키 보메로 플러스', startKm: 0, limitKm: 700, retired: false },
+    ],
+    defaultShoe: '', raceShoe: '', weatherAuto: true, runsPerWeek: 5, peakKm: 0 };
   const ANALYSIS_KEYS = ['hrMax', 'hrRest', 'sex', 'zoneMethod', 'cadMode'];
   // CARTO 타일은 API 키가 필요해져서 OpenStreetMap 타일을 쓰고, 다크는 CSS 필터로 어둡게 표시
   const OSM = ['https://tile.openstreetmap.org/{z}/{x}/{y}.png', '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'];
@@ -2246,7 +2351,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
 
   /* ───────── 상태 ───────── */
   const S = {
-    acts: [], pbs: new Map(), settings: { ...DEFAULTS }, cache: new Map(), charts: [], map: null,
+    acts: [], pbs: new Map(), plan: null, missions: [], raceEdit: false, settings: { ...DEFAULTS }, cache: new Map(), charts: [], map: null,
     statsGran: 'week', statsSel: {}, efType: 'easy', mapMode: 'pace', scroll: {}, cameFromList: false,
     storageOK: true,
   };
@@ -2365,6 +2470,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     if (h.startsWith('run-')) { S.current = h; renderDetail(+h.slice(4)); }
     else if (h === 'stats') { S.current = 'stats'; renderStats(); }
     else if (h === 'prefs') { S.current = 'prefs'; renderPrefs(); }
+    else if (h === 'race') { S.current = 'race'; renderRace(); }
     else { S.current = 'runs'; renderRuns(); }
     const y = S.current.startsWith('run-') ? 0 : S.scroll[S.current] || 0;
     requestAnimationFrame(() => window.scrollTo(0, y));
@@ -2391,6 +2497,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     const meta = {
       id, start: p.start, name, type, typeAuto: !extra.type, summary: sm, thumb: E.thumb(p.raw),
       source: extra.source || '', sample: !!extra.sample, note: extra.note || '', shoe: extra.shoe || '', added: Date.now(),
+      shoeId: extra.shoeId !== undefined ? extra.shoeId : (type === 'race' && S.settings.raceShoe) || S.settings.defaultShoe || '', weather: extra.weather || null,
     };
     await DB.put('streams', { id, raw: p.raw });
     await DB.put('acts', meta);
@@ -2429,6 +2536,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     toast(parts.join(' · ') || '가져온 기록이 없어요', 3500);
     if (errs.length) await dialog({ title: '가져오지 못한 파일', body: errs.slice(0, 5).join('\n'), cancel: null });
     requestPersist();
+    if (ok) fillWeather(null).then((n) => { if (n) toast(`날씨 ${n}건을 기록했어요`, 2000); });
     if ((ok === 1 || (merged.length === 1 && !ok)) && lastId) { S.cameFromList = true; S.cache.delete(lastId); go('run-' + lastId); }
     else route();
   }
@@ -2644,7 +2752,9 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     const p = periods('week', 1)[0];
     const wk = actsIn(p);
     const wa = agg(wk);
-    const goal = S.settings.weekGoal;
+    const psH = planStatus();
+    const planW = psH && psH.curWeek;
+    const goal = planW ? planW.km : S.settings.weekGoal;
     const pct = goal ? Math.min(100, (wa.dist / 1000 / goal) * 100) : 0;
     const days = [];
     for (let k = 0; k < 7; k++) {
@@ -2670,7 +2780,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
       ${goalCard(G)}
       <section class="week">
         <div class="week-head">
-          <h2>이번 주</h2>
+          <h2>이번 주${planW ? html` <span class="h-plan">계획 ${planW.i}주차, ${PHASES[planW.phase].label}</span>` : ''}</h2>
           <span class="muted">${p.label.split(' · ')[0]}</span>
         </div>
         <div class="week-body">
@@ -2679,6 +2789,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
         </div>
         ${goal ? html`<div class="meter" role="progressbar" aria-label="주간 목표 달성률" aria-valuenow="${Math.round(pct)}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>` : ''}
         <div class="week-sub">${wa.n}회 달림, ${fmtHM(wa.time)}${fin(wa.pace) ? `, 평균 ${fmtPace(wa.pace)}/km` : ''}${goal && wa.dist / 1000 < goal ? html`<span class="left">목표까지 ${(goal - wa.dist / 1000).toFixed(1)} km</span>` : goal ? html`<span class="left done">주간 목표 달성</span>` : ''}</div>
+        ${planW ? html`<div class="week-plan">${planW.days.filter((d) => d.kind !== 'easy').map((d) => html`<span><b>${WD[d.dow]}</b> ${d.label}</span>`)}<button class="link" data-go="race">스케줄 보기</button></div>` : ''}
       </section>
       ${tip}
       ${prog.length ? html`<section class="progress">
@@ -2701,7 +2812,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     return html`<button class="run${pb.length ? ' has-pb' : ''}" data-run="${a.id}">
       <canvas class="thumb" data-id="${a.id}"></canvas>
       <div class="run-main">
-        <div class="run-meta">${fmtDate(a.start)} ${fmtTime(a.start)}</div>
+        <div class="run-meta">${fmtDate(a.start)} ${fmtTime(a.start)}<span class="wx" data-wx="${a.id}">${wxShort(a)}</span></div>
         <div class="run-name">${a.name}</div>
         <div class="run-stats"><span><b class="num">${fmtPace(s.pace)}</b><small>/km</small></span><span class="num">${fmtDur(s.moving)}</span>${fin(s.avgHR) ? html`<span>${ICON.heart}<span class="num">${fmtInt(s.avgHR)}</span></span>` : ''}</div>
       </div>
@@ -2760,7 +2871,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
         </div>
         <div class="goal-gap ${gap <= 0 ? 'ok' : ''}">${gap <= 0 ? html`목표보다 <b class="num">${fmtDur(-gap)}</b> 빨라요. 목표를 올려 볼 때예요.` : html`목표까지 <b class="num">${fmtDur(gap)}</b> 단축 필요, km당 <b class="num">${Math.round(gap / G.D * 1000)}초</b>`}</div>
         <div class="goal-chart"><canvas id="goalChart" aria-label="주별 예상 기록 추이"></canvas></div>
-        <div class="goal-foot"><span>목표 페이스 <b class="num">${fmtPace(G.pace)}</b>/km</span>${fin(gained) && Math.abs(gained) >= 5 ? html`<span class="${gained > 0 ? 'gain' : 'lose'}">16주 전보다 ${gained > 0 ? '' : '+'}${fmtDur(Math.abs(gained))} ${gained > 0 ? '단축' : '느려짐'}</span>` : ''}</div>
+        <div class="goal-foot"><span>목표 페이스 <b class="num">${fmtPace(G.pace)}</b>/km</span><button class="link" data-go="race">대회 준비</button>${fin(gained) && Math.abs(gained) >= 5 ? html`<span class="${gained > 0 ? 'gain' : 'lose'}">16주 전보다 ${gained > 0 ? '' : '+'}${fmtDur(Math.abs(gained))} ${gained > 0 ? '단축' : '느려짐'}</span>` : ''}</div>
       ` : html`<p class="goal-none">최근 8주 안에 5km 이상 달린 기록이 있으면 예상 기록이 나와요. 목표 페이스는 <b class="num">${fmtPace(G.pace)}</b>/km예요.</p>`}
     </section>`;
   }
@@ -2864,7 +2975,8 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     const ctx = efContext(a);
     const ins = E.insights(A, { type: a.type, ...ctx });
     const hasHills = A.hills.climbs.length || A.hills.descents.length;
-    const shoes = [...new Set(S.acts.map((x) => x.shoe).filter(Boolean))];
+    const curShoe = shoeOf(a);
+    const shoeOpts = shoeList().filter((x) => !x.retired || (curShoe && curShoe.id === x.id));
     const efDelta = fin(s.ef) && ctx.efN >= 2 ? (s.ef / ctx.efAvg - 1) * 100 : NaN;
     const decStatus = !fin(s.dec) ? null : s.dec < 5 ? ['good', '안정'] : s.dec < 10 ? ['warn', '주의'] : ['bad', '높음'];
     const speed = 1000 / s.pace;
@@ -2874,6 +2986,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     put(v, html`
       <section class="d-head">
         <div class="run-meta">${fmtDate(a.start)} · ${fmtTime(a.start)}${a.sample ? ' · 샘플' : ''}</div>
+        ${a.weather && !a.weather.err && fin(a.weather.temp) ? html`<div class="wx-row" data-wx-row="${a.id}"><span class="wx-main">${wxShort(a)}</span><span>체감 ${Math.round(a.weather.feels)}°C</span><span>습도 ${a.weather.hum}%</span><span>바람 ${a.weather.wind}m/s</span></div>` : html`<div class="wx-row empty"><button class="link" data-act="wx-one" data-id="${a.id}">${a.weather && a.weather.err ? '날씨 다시 불러오기' : '러닝 당시 날씨 불러오기'}</button></div>`}
         <input class="title-input" id="nameInput" value="${a.name}" maxlength="60" aria-label="러닝 이름">
         <div class="type-row" id="typeRow">${TYPES.map(([k, l, c]) => html`<button class="chip sel${a.type === k ? ' on' : ''}" data-type="${k}"><i style="background:${c}"></i>${l}</button>`)}</div>
       </section>
@@ -2962,7 +3075,8 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
 
       <section class="card">
         <h3>메모 · 장비</h3>
-        <label class="field"><span>신발</span><input id="shoeInput" list="shoeList" value="${a.shoe || ''}" placeholder="예: 베이퍼플라이 4"><datalist id="shoeList">${shoes.map((x) => html`<option value="${x}">`)}</datalist></label>
+        <label class="field"><span>신발${curShoe && curShoe.id ? html` <small>누적 ${shoeUsage(curShoe.id).km.toFixed(0)}km</small>` : ''}</span><select id="shoeSel"><option value="">선택 안 함</option>${shoeOpts.map((x) => html`<option value="${x.id}" ${curShoe && curShoe.id === x.id ? 'selected' : ''}>${x.name}</option>`)}${curShoe && curShoe.legacy ? html`<option value="__legacy" selected>${curShoe.name} (미등록)</option>` : ''}</select></label>
+        ${!shoeList().length ? html`<p class="fine">설정에서 신발을 등록하면 여기서 고를 수 있어요.</p>` : ''}
         <label class="field"><span>메모</span><textarea id="noteInput" rows="3" placeholder="날씨, 컨디션, 보급 등">${a.note || ''}</textarea></label>
         <div class="fine">${a.source ? `원본: ${a.source}` : ''}</div>
         <button class="btn danger-ghost" id="delBtn">이 기록 삭제</button>
@@ -2979,7 +3093,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
       a.type = b.dataset.type; a.typeAuto = false; saveMeta();
       $$('#typeRow .chip').forEach((c) => c.classList.toggle('on', c === b));
     });
-    $('#shoeInput').addEventListener('change', (e) => { a.shoe = e.target.value.trim(); saveMeta(); });
+    $('#shoeSel').addEventListener('change', (e) => { if (e.target.value === '__legacy') return; a.shoeId = e.target.value; a.shoe = ''; saveMeta(); toast(e.target.value ? '신발을 기록했어요' : '신발 선택을 해제했어요', 1400); });
     $('#noteInput').addEventListener('change', (e) => { a.note = e.target.value; saveMeta(); });
     const askBtn = $('#askClaude');
     askBtn && askBtn.addEventListener('click', async () => {
@@ -3113,13 +3227,23 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
       if (Math.abs(d) >= 3) (d < 0 && !(hd > 3) ? good : d > 0 ? fix : good).push(`직전 ${TYPE[type].label}(${fmtDate(prev.start)})보다 km당 ${Math.abs(Math.round(d))}초 ${d < 0 ? '빨랐어요' : '느렸어요'}${fin(hd) ? `, 평균 심박은 ${hd >= 0 ? '+' : ''}${Math.round(hd)}bpm` : ''}.`);
     }
     if (fin(tsb) && tsb < -25 && !next.some((x) => x.includes('피로'))) next.unshift(`훈련 부하가 높아요(TSB ${Math.round(tsb)}). 부상 예방을 위해 이번 주는 볼륨을 10~20% 줄이는 걸 권해요.`);
-    return { head, good: good.slice(0, 4), fix: fix.slice(0, 3), next: next.slice(0, 2) };
+    let note = '';
+    const w = a.weather;
+    if (w && !w.err && fin(w.temp)) {
+      const lbl = wmo(w.code)[0];
+      if (w.temp >= 24) note = `${Math.round(w.temp)}°C로 더운 날이었어요. 더위에는 같은 페이스에서도 심박이 5~10bpm 오르고 드리프트가 커지는 게 정상이니 감안해서 보세요.`;
+      else if (w.temp <= 0) note = `${Math.round(w.temp)}°C 추운 날이었어요. 초반 몸이 덜 풀려 페이스가 늦는 건 자연스러워요. 워밍업을 길게 가져가세요.`;
+      else if (w.code >= 51 && w.code < 95) note = `${lbl} 속에서 달렸어요. 젖은 노면과 무거워진 옷 때문에 기록이 조금 늦어도 괜찮아요.`;
+      else if (w.wind >= 6) note = `바람이 ${w.wind}m/s로 강했어요. 맞바람 구간의 페이스 하락은 감안하세요.`;
+      else if (w.temp >= 8 && w.temp <= 15) note = `${Math.round(w.temp)}°C ${lbl}, 달리기 좋은 날씨였어요.`;
+    }
+    return { head, note, good: good.slice(0, 4), fix: fix.slice(0, 3), next: next.slice(0, 2) };
   }
   function coachCard(a, A, ins) {
     const r = coachReport(a, A);
     const hills = ins.filter((x) => x.k === 'hill' || x.k === 'info');
     return html`<section class="coach">
-      <div class="coach-head"><span class="coach-tag">코치 코멘트</span><h3>${r.head}</h3></div>
+      <div class="coach-head"><span class="coach-tag">코치 코멘트</span><h3>${r.head}</h3>${r.note ? html`<p class="coach-note">${r.note}</p>` : ''}</div>
       ${r.good.length ? html`<div class="coach-sec good"><h4>잘한 점</h4><ul>${r.good.map((t) => html`<li>${t}</li>`)}</ul></div>` : ''}
       ${r.fix.length ? html`<div class="coach-sec fix"><h4>보완할 점</h4><ul>${r.fix.map((t) => html`<li>${t}</li>`)}</ul></div>` : ''}
       ${r.next.length ? html`<div class="coach-sec next"><h4>다음 훈련</h4><ul>${r.next.map((t) => html`<li>${t}</li>`)}</ul></div>` : ''}
@@ -3144,6 +3268,8 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     if (hl.length) L.push(`\n경사 구간\n` + hl.join('\n'));
     const recent = S.acts.filter((x) => x.start < a.start && x.start > a.start - 28 * 864e5);
     if (recent.length) { const r = agg(recent); L.push(`\n최근 4주: ${r.n}회, ${fmtKm(r.dist, 1)}km, 평균 ${fmtPace(r.pace)}/km, 심박효율 ${fin(r.ef) ? r.ef.toFixed(2) : '-'}`); }
+    if (a.weather && !a.weather.err) L.push(`날씨: ${Math.round(a.weather.temp)}°C(체감 ${Math.round(a.weather.feels)}°C) ${wmo(a.weather.code)[0]}, 습도 ${a.weather.hum}%, 바람 ${a.weather.wind}m/s`);
+    const sh = shoeOf(a); if (sh) L.push(`신발: ${sh.name}`);
     if (a.note) L.push(`메모: ${a.note}`);
     return L.join('\n');
   }
@@ -3311,7 +3437,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     const bestKeys = Object.keys(bests).map(Number).sort((x, y) => x - y);
     // 신발
     const shoeMap = new Map();
-    for (const a of S.acts) if (a.shoe) { const r = shoeMap.get(a.shoe) || { n: 0, d: 0, last: 0 }; r.n++; r.d += a.summary.dist; r.last = Math.max(r.last, a.start); shoeMap.set(a.shoe, r); }
+    for (const a of S.acts) { const sh = shoeOf(a); if (!sh) continue; const key = sh.id || sh.name; const r = shoeMap.get(key) || { name: sh.name, n: 0, d: (+sh.startKm || 0) * 1000, limit: sh.limitKm || 0 }; r.n++; r.d += a.summary.dist; shoeMap.set(key, r); }
     const load = loadSeries(120);
     const lastLoad = load && load[load.length - 1];
     const tsbSt = !lastLoad ? null : lastLoad.tsb > 5 ? ['good', '회복됨 · 컨디션 좋음'] : lastLoad.tsb >= -10 ? ['info', '적정 훈련 상태'] : lastLoad.tsb >= -25 ? ['warn', '피로 누적 · 회복 필요'] : ['bad', '과부하 주의'];
@@ -3358,7 +3484,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
       ${bestKeys.length ? html`<section class="card"><h3>개인 최고 기록 <span class="h-sub">GPS 구간 기준</span></h3>
         <div class="pr-list">${bestKeys.map((k) => html`<button class="pr" data-run="${bests[k].a.id}"><span class="pr-k">${BEST_LABEL[k]}</span><b>${fmtDur(bests[k].t)}</b><span class="muted">${fmtPace((bests[k].t / k) * 1000)}/km</span><span class="muted r">${fmtDate(bests[k].a.start)}</span></button>`)}</div></section>` : ''}
 
-      ${shoeMap.size ? html`<section class="card"><h3>신발별 누적 거리</h3><table class="zones">${[...shoeMap.entries()].sort((x, y) => y[1].d - x[1].d).map(([k, r]) => html`<tr><td>${k}</td><td class="muted">${r.n}회</td><td class="r"><b>${fmtKm(r.d, 1)}</b> km</td></tr>`)}</table></section>` : ''}
+      ${shoeMap.size ? html`<section class="card"><h3>신발별 누적 거리</h3><table class="zones">${[...shoeMap.values()].sort((x, y) => y.d - x.d).map((r) => html`<tr><td>${r.name}${r.limit ? html`<div class="meter thin"><i style="width:${Math.min(100, r.d / 10 / r.limit)}%;${r.d / 1000 >= r.limit * 0.9 ? 'background:var(--serious)' : ''}"></i></div>` : ''}</td><td class="muted">${r.n}회</td><td class="r"><b>${fmtKm(r.d, 0)}</b>${r.limit ? ` / ${r.limit}` : ''} km</td></tr>`)}</table></section>` : ''}
     `);
 
     $('#granSeg').addEventListener('click', (e) => { const b = e.target.closest('[data-gran]'); if (!b) return; S.statsGran = b.dataset.gran; route(); });
@@ -3445,6 +3571,445 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     `);
   }
 
+  /* ═════════ 신발 ═════════ */
+  const shoeList = () => S.settings.shoes || [];
+  const shoeById = (id) => shoeList().find((x) => x.id === id);
+  function shoeOf(a) {
+    if (a.shoeId) return shoeById(a.shoeId) || null;
+    if (a.shoe) return shoeList().find((x) => x.name === a.shoe) || { id: '', name: a.shoe, legacy: true };
+    return null;
+  }
+  function shoeUsage(id) {
+    const sh = shoeById(id);
+    let d = 0, n = 0, last = 0;
+    for (const a of S.acts) { const s = shoeOf(a); if (s && s.id === id) { d += a.summary.dist; n++; last = Math.max(last, a.start); } }
+    return { km: (sh ? +sh.startKm || 0 : 0) + d / 1000, n, last };
+  }
+
+  /* ═════════ 날씨 (Open-Meteo, 러닝 위치·시각 기준) ═════════ */
+  function wmo(c) {
+    if (c == null || !fin(c)) return ['', ''];
+    if (c === 0) return ['맑음', '☀️'];
+    if (c <= 2) return ['구름 조금', '🌤️'];
+    if (c === 3) return ['흐림', '☁️'];
+    if (c === 45 || c === 48) return ['안개', '🌫️'];
+    if (c >= 51 && c <= 57) return ['이슬비', '🌦️'];
+    if ((c >= 61 && c <= 67) || (c >= 80 && c <= 82)) return ['비', '🌧️'];
+    if ((c >= 71 && c <= 77) || c === 85 || c === 86) return ['눈', '🌨️'];
+    if (c >= 95) return ['뇌우', '⛈️'];
+    return ['', ''];
+  }
+  function wxShort(a) {
+    const w = a.weather;
+    if (!w || w.err || !fin(w.temp)) return '';
+    const [label, ic] = wmo(w.code);
+    return `${ic} ${Math.round(w.temp)}°C ${label}`.trim();
+  }
+  function localYmd(ms) { return ymd(new Date(ms)); }
+  async function fetchWeather(a) {
+    const p = a.thumb && a.thumb[0];
+    if (!p) return null;
+    const lat = p[0].toFixed(2), lon = p[1].toFixed(2); // 약 1km 단위로 반올림해 전송
+    const mid = a.start + (a.summary.elapsed * 1000) / 2;
+    const day = localYmd(mid);
+    const q = `latitude=${lat}&longitude=${lon}&start_date=${day}&end_date=${day}&hourly=temperature_2m,apparent_temperature,weather_code,relative_humidity_2m,wind_speed_10m&timezone=auto&wind_speed_unit=ms`;
+    const urls = [`https://historical-forecast-api.open-meteo.com/v1/forecast?${q}`, `https://api.open-meteo.com/v1/forecast?${q}`];
+    for (const u of urls) {
+      try {
+        const res = await fetch(u);
+        if (!res.ok) continue;
+        const j = await res.json();
+        const H = j.hourly;
+        if (!H || !H.time || !H.time.length) continue;
+        const d = new Date(mid);
+        const hf = d.getHours() + d.getMinutes() / 60;
+        const h0 = Math.max(0, Math.min(H.time.length - 1, Math.floor(hf))), h1 = Math.min(H.time.length - 1, h0 + 1), f = hf - Math.floor(hf);
+        const lerp = (arr) => (arr && fin(arr[h0]) ? (fin(arr[h1]) ? arr[h0] + (arr[h1] - arr[h0]) * f : arr[h0]) : NaN);
+        // 러닝 시간대 중 가장 '나쁜' 날씨(비·눈 등)를 우선 표시
+        const sH = new Date(a.start).getHours(), eH = new Date(a.start + a.summary.elapsed * 1000).getHours();
+        let code = H.weather_code ? H.weather_code[Math.round(hf) % 24] : NaN;
+        for (let h = sH; h <= Math.min(23, eH); h++) { const c = H.weather_code && H.weather_code[h]; if (fin(c) && c >= 51 && !(code >= 51 && code > c)) code = c; }
+        const temp = lerp(H.temperature_2m);
+        if (!fin(temp)) continue;
+        return { temp: +temp.toFixed(1), feels: +lerp(H.apparent_temperature).toFixed(1), code, hum: Math.round(lerp(H.relative_humidity_2m)), wind: +lerp(H.wind_speed_10m).toFixed(1), at: Date.now() };
+      } catch (e) { /* 다음 주소 시도 */ }
+    }
+    return null;
+  }
+  let wxBusy = false, wxAgain = false;
+  async function fillWeather(ids, force) {
+    if (!S.settings.weatherAuto && !force) return 0;
+    if (!navigator.onLine) return 0;
+    if (wxBusy) { wxAgain = true; return 0; }
+    wxBusy = true;
+    let n = 0;
+    try {
+      const list = (ids ? S.acts.filter((a) => ids.includes(a.id)) : S.acts)
+        .filter((a) => !a.sample && a.thumb && a.thumb.length && (force || !a.weather || (a.weather.err && Date.now() - a.weather.at > 864e5)))
+        .slice(0, ids ? 50 : 40);
+      for (const a of list) {
+        const w = await fetchWeather(a);
+        a.weather = w || { err: true, at: Date.now() };
+        await DB.put('acts', a).catch(() => {});
+        if (w) {
+          n++;
+          $$(`[data-wx="${a.id}"]`).forEach((el) => { el.textContent = wxShort(a); });
+        }
+        await new Promise((r) => setTimeout(r, 250));
+      }
+    } finally { wxBusy = false; }
+    if (wxAgain) { wxAgain = false; n += await fillWeather(null); }
+    return n;
+  }
+
+  /* ═════════ 대회 준비: 훈련 페이스 · 마스터 스케줄 · 미션 ═════════ */
+  const PHASES = {
+    base: { label: '기초기', color: '#256abf', desc: '유산소 기반과 주간 거리를 쌓는 시기' },
+    build: { label: '강화기', color: '#3987e5', desc: '템포·인터벌로 역치와 스피드를 끌어올리는 시기' },
+    peak: { label: '특화기', color: '#86b6ef', desc: '마라톤 페이스 롱런으로 대회 강도에 적응하는 시기' },
+    taper: { label: '테이퍼', color: '#F2B84B', desc: '거리를 줄여 피로를 빼고 대회를 준비하는 시기' },
+  };
+  function trainingPaces() {
+    const g = S.settings;
+    if (!g.goalTime || !g.goalDist) return null;
+    const race = g.goalTime / g.goalDist * 1000;
+    const mar = g.goalTime * Math.pow(42195 / g.goalDist, 1.06) / 42.195; // 마라톤 환산 페이스
+    return {
+      race, mp: mar,
+      easy: [mar * 1.15, mar * 1.25], long: [mar * 1.1, mar * 1.18],
+      tempo: mar * 0.94, interval: mar * 0.86,
+    };
+  }
+  const paceRange = (r) => `${fmtPace(r[0])}–${fmtPace(r[1])}`;
+  function recentBase() {
+    const now = Date.now(), from = now - 28 * 864e5;
+    const list = S.acts.filter((a) => a.start > from);
+    const km = list.reduce((s, a) => s + a.summary.dist, 0) / 1000 / 4;
+    const longest = Math.max(0, ...list.map((a) => a.summary.dist / 1000));
+    return { km: Math.max(20, km), longest: Math.max(10, longest) };
+  }
+  function autoPeakKm(dist, goalTime) {
+    if (dist >= 40000) return goalTime <= 10800 ? 85 : goalTime <= 11700 ? 70 : goalTime <= 12600 ? 62 : goalTime <= 14400 ? 52 : 42;
+    if (dist >= 20000) return goalTime <= 5400 ? 60 : goalTime <= 6000 ? 50 : 40;
+    return 40;
+  }
+  function buildPlan() {
+    const g = S.settings;
+    if (!g.goalDate || !g.goalTime || !g.goalDist) return { err: '대회 날짜와 목표 기록을 먼저 정해 주세요' };
+    const raceDay = new Date(g.goalDate + 'T00:00:00');
+    const startMon = monday(Date.now()), raceMon = monday(+raceDay);
+    const nW = Math.round((raceMon - startMon) / (7 * 864e5)) + 1;
+    if (nW < 4) return { err: '대회까지 4주 이상 남아 있어야 스케줄을 만들 수 있어요' };
+    const full = g.goalDist >= 40000, half = !full && g.goalDist >= 20000;
+    const taperW = full ? 3 : half ? 2 : 1;
+    let peakW = full ? 6 : half ? 4 : 3, buildW = full ? 8 : half ? 6 : 5;
+    const rem = nW - taperW;
+    if (rem < peakW + buildW + 2) { peakW = Math.max(2, Math.round(rem * 0.35)); buildW = Math.max(1, Math.round(rem * 0.4)); }
+    const baseW = Math.max(0, rem - peakW - buildW);
+    const P = trainingPaces();
+    const B = recentBase();
+    const peakKm = g.peakKm > 0 ? g.peakKm : Math.max(autoPeakKm(g.goalDist, g.goalTime), Math.round(B.km * 1.1));
+    const peakLong = full ? (g.goalTime <= 11700 ? 32 : 30) : half ? 21 : 15;
+    const runs = Math.max(3, Math.min(7, g.runsPerWeek || 5));
+    const weeks = [];
+    const rampW = baseW + buildW; // 이 기간 동안 거리 증가
+    let prevKm = B.km, prevLong = Math.min(B.longest, peakLong);
+    for (let i = 0; i < nW; i++) {
+      const start = new Date(startMon); start.setDate(start.getDate() + 7 * i);
+      const phase = i < baseW ? 'base' : i < baseW + buildW ? 'build' : i < rem ? 'peak' : 'taper';
+      const ti = i - rem; // 테이퍼 주차
+      const isRace = i === nW - 1;
+      let cut = phase !== 'taper' && i > 0 && (i + 1) % 4 === 0 && i < rem - 1;
+      let km, long;
+      if (phase === 'taper') {
+        const f = full ? [0.75, 0.55, 0.35][ti] : half ? [0.7, 0.45][ti] : 0.55;
+        km = peakKm * f;
+        long = isRace ? g.goalDist / 1000 : full ? [24, 16][ti] : 14;
+      } else {
+        const prog = rampW > 0 ? Math.min(1, (i + 1) / Math.max(1, rampW)) : 1;
+        const target = phase === 'peak' ? peakKm * (i === rem - 1 ? 0.92 : 1) : B.km + (peakKm * 0.92 - B.km) * prog;
+        km = Math.min(target, prevKm * 1.1);
+        const lt = phase === 'peak' ? peakLong : prevLong + (peakLong * 0.9 - prevLong) * Math.min(1, 1 / Math.max(1, rampW - i));
+        long = Math.min(peakLong, Math.max(prevLong, lt));
+        if (!cut) { prevKm = km; prevLong = long; }
+        if (cut) { km *= 0.8; long *= 0.75; }
+      }
+      long = Math.round(long);
+      // 요일별 배분
+      const qN = phase === 'base' ? 1 : phase === 'taper' ? 1 : runs >= 5 ? 2 : 1;
+      const days = [];
+      const qName = (k) => {
+        if (phase === 'base') return k === 0 ? (i % 2 ? `템포 20분 @${fmtPace(P.tempo)}` : '언덕 스프린트 8×10초 + 이지') : '';
+        if (phase === 'build') return k === 0 ? `템포 ${Math.min(40, 20 + (i - baseW) * 3)}분 @${fmtPace(P.tempo)}` : `인터벌 ${(i - baseW) % 2 ? '5×1km' : '6×800m'} @${fmtPace(P.interval)}`;
+        if (phase === 'peak') return k === 0 ? `템포 2×5km @${fmtPace(P.tempo)}` : `인터벌 4×1.6km @${fmtPace(P.interval)}`;
+        return isRace ? `마라톤 페이스 5km @${fmtPace(P.race)}` : `마라톤 페이스 ${full ? 8 : 5}km @${fmtPace(P.race)}`;
+      };
+      const longName = isRace ? `대회 · 목표 ${fmtDur(g.goalTime)}` : phase === 'peak' && full ? `롱런 (마지막 ${Math.min(18, 8 + (i - baseW - buildW) * 2)}km 마라톤 페이스)` : '롱런';
+      const qKm = Math.max(8, Math.min(14, Math.round(km * 0.17)));
+      const easyN = Math.max(0, runs - 1 - qN - (isRace ? 1 : 0));
+      const easyKm = Math.max(5, Math.round((km - long - qKm * qN) / Math.max(1, easyN)));
+      const dowQ = runs >= 6 ? [2, 4] : [2, 4];
+      const slots = { 0: long };
+      days.push({ dow: 0, label: longName, km: isRace ? +(g.goalDist / 1000).toFixed(1) : long, kind: isRace ? 'race' : 'long' });
+      for (let k = 0; k < qN; k++) days.push({ dow: dowQ[k], label: qName(k), km: qKm, kind: 'quality' });
+      const easyDows = (runs >= 6 ? [3, 6, 4, 1, 5] : [3, 6, 4, 5, 1]).filter((d) => !days.some((x) => x.dow === d)).slice(0, easyN);
+      for (const d of easyDows) days.push({ dow: d, label: d === 1 ? '회복주' : '이지런', km: isRace && d === 6 ? 4 : easyKm, kind: 'easy' });
+      void slots;
+      days.sort((x, y) => ((x.dow + 6) % 7) - ((y.dow + 6) % 7));
+      const sum = days.reduce((s, d) => s + d.km, 0);
+      weeks.push({ i: i + 1, start: +start, phase, km: Math.round(sum), long, cut, race: isRace, days });
+    }
+    return { created: Date.now(), raceDate: g.goalDate, goalTime: g.goalTime, goalDist: g.goalDist, name: g.goalName, peakKm, runs, base: B, weeks, phases: { base: baseW, build: buildW, peak: peakW, taper: taperW } };
+  }
+  function weekActual(w) {
+    const list = S.acts.filter((a) => a.start >= w.start && a.start < w.start + 7 * 864e5);
+    const km = list.reduce((s, a) => s + a.summary.dist, 0) / 1000;
+    const long = Math.max(0, ...list.map((a) => a.summary.dist / 1000));
+    const q = list.filter((a) => ['tempo', 'interval', 'race'].includes(a.type)).length;
+    return { km, long, q, n: list.length, list };
+  }
+  function planStatus() {
+    const plan = S.plan;
+    if (!plan) return null;
+    const now = Date.now();
+    const cur = plan.weeks.findIndex((w) => now >= w.start && now < w.start + 7 * 864e5);
+    let planned = 0, done = 0, streak = 0, bestStreak = 0;
+    plan.weeks.forEach((w, idx) => {
+      w.act = weekActual(w);
+      const past = w.start + 7 * 864e5 <= now;
+      if (past) {
+        planned += w.km; done += Math.min(w.act.km, w.km);
+        w.state = w.act.km >= w.km * 0.9 ? 'done' : w.act.km >= w.km * 0.6 ? 'partial' : 'miss';
+        streak = w.state === 'done' ? streak + 1 : 0; bestStreak = Math.max(bestStreak, streak);
+      } else if (idx === cur) {
+        w.state = 'current';
+        const dayFrac = Math.min(1, (now - w.start) / (7 * 864e5));
+        planned += w.km * dayFrac; done += Math.min(w.act.km, w.km * dayFrac);
+      } else w.state = 'future';
+    });
+    const elapsedW = plan.weeks.filter((w) => w.start + 7 * 864e5 <= now).length;
+    return { cur, curWeek: cur >= 0 ? plan.weeks[cur] : null, adherence: planned > 0 ? done / planned : NaN, elapsedW, total: plan.weeks.length, bestStreak, streak };
+  }
+
+  // 미션(마일스톤): 기록에서 자동 판정
+  function missions() {
+    const g = S.settings, plan = S.plan, P = trainingPaces();
+    if (!g.goalTime || !g.goalDist || !P) return [];
+    const full = g.goalDist >= 40000, half = !full && g.goalDist >= 20000;
+    const since = plan ? plan.created - 7 * 864e5 : Date.now() - 120 * 864e5;
+    const acts = S.acts.filter((a) => a.start >= since && !a.sample).concat(S.acts.filter((a) => a.sample && a.start >= since));
+    const nW = plan ? plan.weeks.length : 20;
+    const dueAt = (frac) => (plan ? plan.weeks[Math.max(0, Math.min(nW - 1, Math.round(nW * frac) - 1))].start + 6 * 864e5 : null);
+    const firstDone = (pred) => { const x = acts.filter(pred).sort((a, b) => a.start - b.start)[0]; return x ? x.start : null; };
+    const maxLong = Math.max(0, ...acts.map((a) => a.summary.dist / 1000));
+    const longM = (km, frac) => ({ id: `long${km}`, title: `롱런 ${km}km 완주`, due: dueAt(frac), done: firstDone((a) => a.summary.dist >= km * 1000 * 0.98), prog: Math.min(1, maxLong / km), cur: `최장 ${maxLong.toFixed(1)}km` });
+    const equiv = (D) => g.goalTime * Math.pow(D / g.goalDist, 1.06);
+    const bestAt = (D) => Math.min(Infinity, ...acts.map((a) => (a.summary.best || {})[D]).filter(fin));
+    const timeM = (D, label, frac) => {
+      const t = equiv(D), b = bestAt(D);
+      return { id: `t${D}`, title: `${label} ${fmtDur(t)} 이내`, sub: '목표 기록 환산', due: dueAt(frac), done: firstDone((a) => ((a.summary.best || {})[D] || Infinity) <= t), prog: fin(b) ? Math.min(1, t / b) : 0, cur: fin(b) ? `현재 최고 ${fmtDur(b)}` : '기록 없음' };
+    };
+    const weekMax = (() => { let m = 0; const ws = new Map(); for (const a of acts) { const k = +monday(a.start); ws.set(k, (ws.get(k) || 0) + a.summary.dist / 1000); } for (const v of ws.values()) m = Math.max(m, v); return { m, ws }; })();
+    const wkTarget = Math.round((plan ? plan.peakKm : autoPeakKm(g.goalDist, g.goalTime)) * 0.8);
+    const mpDist = full ? 15 : half ? 8 : 5;
+    const mpRuns = acts.filter((a) => a.summary.pace <= P.race + 5);
+    const mpBest = Math.max(0, ...mpRuns.map((a) => a.summary.dist / 1000));
+    const ps = planStatus();
+    const efOf = (list) => { const e = list.filter((a) => (a.type === 'easy' || a.type === 'long') && fin(a.summary.ef)); return e.length >= 2 ? e.reduce((s, a) => s + a.summary.ef, 0) / e.length : NaN; };
+    const ef0 = efOf(acts.filter((a) => a.start < since + 35 * 864e5)), ef1 = efOf(acts.filter((a) => a.start > Date.now() - 28 * 864e5));
+    const efGain = fin(ef0) && fin(ef1) ? (ef1 / ef0 - 1) * 100 : NaN;
+    const G = goalInfo();
+    const list = [];
+    list.push({ id: 'streak', title: '계획 4주 연속 90% 이상 소화', due: dueAt(0.3), done: ps && ps.bestStreak >= 4 ? Date.now() : null, prog: ps ? Math.min(1, ps.bestStreak / 4) : 0, cur: ps ? `최장 ${ps.bestStreak}주 연속` : '스케줄을 만들면 집계돼요' });
+    list.push({ id: 'week', title: `주간 ${wkTarget}km 달성`, due: dueAt(0.6), done: (() => { for (const [k, v] of [...weekMax.ws.entries()].sort((a, b) => a[0] - b[0])) if (v >= wkTarget) return k + 6 * 864e5; return null; })(), prog: Math.min(1, weekMax.m / wkTarget), cur: `최대 ${weekMax.m.toFixed(1)}km/주` });
+    if (full) { list.push(longM(25, 0.5)); list.push(longM(30, 0.72)); list.push(longM(32, 0.85)); }
+    else if (half) { list.push(longM(16, 0.45)); list.push(longM(18, 0.65)); list.push(longM(21, 0.85)); }
+    else { list.push(longM(12, 0.5)); list.push(longM(15, 0.8)); }
+    list.push(timeM(10000, '10K', 0.5));
+    if (full) list.push(timeM(21097.5, '하프', 0.75));
+    else if (half) list.push(timeM(5000, '5K', 0.4));
+    list.push({ id: 'mp', title: `목표 페이스(${fmtPace(P.race)})로 ${mpDist}km 이상`, due: dueAt(0.8), done: firstDone((a) => a.summary.pace <= P.race + 5 && a.summary.dist >= mpDist * 1000 * 0.98), prog: Math.min(1, mpBest / mpDist), cur: mpBest ? `최장 ${mpBest.toFixed(1)}km` : '기록 없음' });
+    list.push({ id: 'ef', title: '이지·롱런 심박 효율 3% 향상', sub: '스케줄 시작 시점 대비', due: dueAt(0.6), done: fin(efGain) && efGain >= 3 ? Date.now() : null, prog: fin(efGain) ? Math.max(0, Math.min(1, efGain / 3)) : 0, cur: fin(efGain) ? `${efGain >= 0 ? '+' : ''}${efGain.toFixed(1)}%` : '데이터 부족' });
+    list.push({ id: 'pred', title: '예상 기록이 목표에 도달', due: dueAt(0.95), done: G && fin(G.now) && G.now <= g.goalTime ? Date.now() : null, prog: G && fin(G.now) ? Math.min(1, g.goalTime / G.now) : 0, cur: G && fin(G.now) ? `예상 ${fmtDur(G.now)}` : '기록 없음' });
+    for (const m of S.missions || []) list.push({ id: m.id, title: m.title, due: m.due ? +new Date(m.due + 'T23:59:00') : null, done: m.done || null, prog: m.done ? 1 : 0, custom: true });
+    const now = Date.now();
+    for (const m of list) m.state = m.done ? 'done' : m.due && m.due < now ? 'late' : 'open';
+    list.sort((a, b) => (a.state === 'done') - (b.state === 'done') || (a.due || 9e15) - (b.due || 9e15));
+    return list;
+  }
+  function checkpoints() {
+    const plan = S.plan;
+    if (!plan) return [];
+    const out = [];
+    let idx = 0;
+    for (const ph of ['base', 'build', 'peak']) {
+      idx += plan.phases[ph];
+      if (!plan.phases[ph] || idx < 1) continue;
+      const w = plan.weeks[idx - 1];
+      out.push({ ph, at: w.start + 6 * 864e5, label: `${PHASES[ph].label} 종료 점검` });
+    }
+    return out;
+  }
+
+  async function savePlan() { await DB.put('kv', S.plan, 'plan').catch(() => {}); }
+  async function saveMissions() { await DB.put('kv', S.missions, 'missions').catch(() => {}); }
+
+  function renderRace() {
+    setTop('대회 준비', { tab: 'race' });
+    const v = $('#view');
+    const g = S.settings, P = trainingPaces(), G = goalInfo();
+    const distOpts = [[10000, '10K'], [21097.5, '하프'], [42195, '풀']];
+    const plan = S.plan, ps = planStatus();
+    const stale = plan && (plan.raceDate !== g.goalDate || plan.goalTime !== g.goalTime || plan.goalDist !== g.goalDist);
+    const ms = missions();
+    const msDone = ms.filter((m) => m.state === 'done').length;
+    const cps = checkpoints();
+    const now = Date.now();
+    const showForm = S.raceEdit || !g.goalDate || !g.goalTime;
+    const dday = g.goalDate ? Math.ceil((new Date(g.goalDate + 'T00:00:00') - dayStart(now)) / 864e5) : null;
+    const phaseBar = plan ? (() => {
+      const total = plan.weeks.length;
+      const segs = ['base', 'build', 'peak', 'taper'].filter((k) => plan.phases[k] > 0);
+      const pos = Math.max(0, Math.min(1, (now - plan.weeks[0].start) / (total * 7 * 864e5)));
+      return html`<div class="phasebar">${segs.map((k) => html`<div style="flex:${plan.phases[k]} 1 0;background:${PHASES[k].color}" title="${PHASES[k].label}"></div>`)}<i class="today" style="left:${pos * 100}%"></i></div>
+        <div class="phase-legend">${segs.map((k) => html`<span><i class="sw" style="background:${PHASES[k].color}"></i>${PHASES[k].label} ${plan.phases[k]}주</span>`)}</div>`;
+    })() : '';
+    const cw = ps && ps.curWeek;
+
+    put(v, html`
+      <section class="goal race-goal">
+        <div class="goal-top">
+          <div><h2>${g.goalName || '목표 대회'}</h2><span class="goal-meta">${distOpts.find((x) => x[0] === g.goalDist)?.[1] || ''}${g.goalTime ? `, 목표 ${fmtDur(g.goalTime)}` : ''}${g.goalDate ? `, ${g.goalDate.replace(/-/g, '.')}` : ''}</span></div>
+          ${dday != null ? html`<div class="dday${dday < 0 ? ' past' : ''}"><b class="num">${dday > 0 ? `D-${dday}` : dday === 0 ? 'D-DAY' : '완료'}</b></div>` : ''}
+        </div>
+        ${G && fin(G.now) ? html`<div class="goal-gap">예상 기록 <b class="num">${fmtDur(G.now)}</b>${G.now > g.goalTime ? html`, 목표까지 <b class="num">${fmtDur(G.now - g.goalTime)}</b>` : ', 목표 달성권'}</div>` : ''}
+        <button class="btn small ghost edit-goal" data-act="race-edit">${showForm ? '닫기' : '목표 수정'}</button>
+        ${showForm ? html`<div class="goal-form">
+          <label class="field row"><span>대회 이름</span><input type="text" id="gName" value="${g.goalName || ''}" placeholder="예: 춘천마라톤" maxlength="30" class="wide"></label>
+          <div class="field row"><span>거리</span><div class="seg small" id="gDist">${distOpts.map(([k, l]) => html`<button data-v="${k}" class="${g.goalDist === k ? 'on' : ''}">${l}</button>`)}</div></div>
+          <label class="field row"><span>목표 기록<small>시:분:초</small></span><input type="text" inputmode="numeric" id="gTime" value="${g.goalTime ? fmtDur(g.goalTime) : ''}" placeholder="3:15:00"></label>
+          <label class="field row"><span>대회 날짜<small>춘천마라톤은 보통 10월 말 일요일</small></span><input type="date" id="gDate" value="${g.goalDate || ''}" class="wide"></label>
+        </div>` : ''}
+      </section>
+
+      ${P ? html`<section class="card">
+        <h3>훈련 페이스 <span class="h-sub">목표 기록 기준</span></h3>
+        <table class="paces">
+          <tr><td><i class="sw" style="background:#199e70"></i>이지런</td><td class="num">${paceRange(P.easy)}</td><td class="muted">대화 가능한 강도</td></tr>
+          <tr><td><i class="sw" style="background:#3987e5"></i>롱런</td><td class="num">${paceRange(P.long)}</td><td class="muted">후반은 더 빠르게 가능</td></tr>
+          <tr><td><i class="sw" style="background:#c98500"></i>목표 페이스</td><td class="num">${fmtPace(P.race)}</td><td class="muted">대회 당일 평균</td></tr>
+          <tr><td><i class="sw" style="background:#d95926"></i>템포(역치)</td><td class="num">${fmtPace(P.tempo)}</td><td class="muted">20~40분 지속</td></tr>
+          <tr><td><i class="sw" style="background:#d55181"></i>인터벌</td><td class="num">${fmtPace(P.interval)}</td><td class="muted">800m~1.6km 반복</td></tr>
+        </table>
+      </section>` : ''}
+
+      ${!plan ? html`<section class="card plan-empty">
+        <h3>훈련 마스터 스케줄</h3>
+        <p>대회 날짜와 목표 기록으로 오늘부터 대회 주까지 주별 거리, 롱런, 핵심 훈련을 짜 드려요. 최근 4주 기록(주 평균 ${recentBase().km.toFixed(0)}km)에서 출발해 무리 없이 늘려 가요.</p>
+        ${planOptions()}
+        <button class="btn primary" data-act="plan-make" ${!g.goalDate || !g.goalTime ? 'disabled' : ''}>스케줄 만들기</button>
+      </section>` : html`
+      ${stale ? html`<div class="banner">목표 대회 정보가 바뀌었어요. 스케줄을 다시 만들면 새 목표에 맞춰 조정돼요. <button class="btn small primary" data-act="plan-make">다시 만들기</button></div>` : ''}
+      <section class="card prog-card">
+        <h3>준비 진척도</h3>
+        <div class="prog-grid">
+          <div><b class="num big2">${fin(ps.adherence) ? Math.round(ps.adherence * 100) : '–'}</b><small>%</small><span class="lbl">계획 거리 소화율</span></div>
+          <div><b class="num big2">${Math.min(ps.elapsedW + (ps.cur >= 0 ? 1 : 0), ps.total)}</b><small>/ ${ps.total}주</small><span class="lbl">일정 진행</span></div>
+          <div><b class="num big2">${msDone}</b><small>/ ${ms.length}</small><span class="lbl">미션 달성</span></div>
+        </div>
+        ${phaseBar}
+      </section>
+
+      ${cw ? html`<section class="card this-week">
+        <h3>이번 주 계획 <span class="h-sub">${cw.i}주차, ${PHASES[cw.phase].label}${cw.cut ? ', 회복 주' : ''}</span></h3>
+        <div class="tw-top"><b class="num big2">${cw.act.km.toFixed(1)}</b><small>/ ${cw.km} km</small></div>
+        <div class="meter"><i style="width:${Math.min(100, (cw.act.km / cw.km) * 100)}%"></i></div>
+        <ul class="days">${cw.days.map((d) => {
+          const day = new Date(cw.start); day.setDate(day.getDate() + ((d.dow + 6) % 7));
+          const ran = S.acts.filter((a) => ymd(new Date(a.start)) === ymd(day));
+          const isToday = ymd(day) === ymd(new Date());
+          return html`<li class="${ran.length ? 'ran' : day < dayStart(now) ? 'skip' : ''}${isToday ? ' today' : ''}"><span class="d-dow">${WD[d.dow]}</span><span class="d-l">${d.label}</span><span class="d-km num">${ran.length ? `${(ran.reduce((s, a) => s + a.summary.dist, 0) / 1000).toFixed(1)} / ` : ''}${d.km}km</span></li>`;
+        })}</ul>
+      </section>` : ''}
+      `}
+
+      ${ms.length ? html`<section class="card">
+        <h3>미션 <span class="h-sub">기록으로 자동 판정돼요</span></h3>
+        <ul class="missions">${ms.map((m) => html`<li class="ms ${m.state}">
+          <span class="ms-ic" aria-hidden="true">${m.state === 'done' ? '✓' : m.state === 'late' ? '!' : ''}</span>
+          <div class="ms-main">
+            <b>${m.title}</b>
+            <span class="ms-sub">${m.state === 'done' ? `달성 ${fmtDate(m.done)}` : [m.cur, m.sub].filter(Boolean).join(', ')}${m.due && m.state !== 'done' ? ` · ${new Date(m.due).getMonth() + 1}월 ${new Date(m.due).getDate()}일까지` : ''}</span>
+            ${m.state !== 'done' && !m.custom ? html`<div class="meter thin"><i style="width:${Math.round(m.prog * 100)}%"></i></div>` : ''}
+          </div>
+          ${m.custom ? html`<div class="ms-ctl"><button class="btn small ghost" data-ms-toggle="${m.id}">${m.done ? '취소' : '완료'}</button><button class="icon-btn small" data-ms-del="${m.id}" aria-label="미션 삭제">${ICON.close}</button></div>` : ''}
+        </li>`)}</ul>
+        <div class="ms-add"><input id="msTitle" placeholder="나만의 미션 추가 (예: 대회 코스 답사)" maxlength="40"><input id="msDue" type="date"><button class="btn small primary" data-act="ms-add">추가</button></div>
+      </section>` : ''}
+
+      ${cps.length ? html`<section class="card">
+        <h3>체크포인트 <span class="h-sub">단계가 끝날 때 목표를 다시 점검해요</span></h3>
+        <ul class="cps">${cps.map((c) => {
+          const past = c.at < now;
+          const pred = past ? predictionAt(c.at, g.goalDist, 56) : NaN;
+          return html`<li class="${past ? 'past' : ''}"><b>${c.label}</b><span>${fmtDate(c.at)}</span><span class="cp-r">${past ? (fin(pred) ? html`당시 예상 <b class="num">${fmtDur(pred)}</b>${pred <= g.goalTime ? ' · 목표권' : pred - g.goalTime > 300 ? ' · 목표 조정 검토' : ' · 유지'}` : '기록 부족') : '예정'}</span></li>`;
+        })}</ul>
+      </section>` : ''}
+
+      ${plan ? html`<section class="card">
+        <h3>마스터 스케줄 <span class="h-sub">${plan.weeks.length}주, 피크 ${plan.peakKm}km/주</span></h3>
+        ${['base', 'build', 'peak', 'taper'].filter((k) => plan.phases[k] > 0).map((k) => {
+          const ws = plan.weeks.filter((w) => w.phase === k);
+          const open = ws.some((w) => w.state === 'current');
+          return html`<details class="phase" ${open ? 'open' : ''}>
+            <summary><i class="sw" style="background:${PHASES[k].color}"></i><b>${PHASES[k].label}</b><span class="muted">${md(new Date(ws[0].start))} – ${md(new Date(ws[ws.length - 1].start + 6 * 864e5))}, ${ws.length}주</span></summary>
+            <p class="fine">${PHASES[k].desc}</p>
+            ${ws.map((w) => html`<div class="wk ${w.state}${w.race ? ' race' : ''}">
+              <div class="wk-l"><b>${w.i}주</b><span>${md(new Date(w.start))}</span></div>
+              <div class="wk-m"><div class="wk-key">${w.days.filter((d) => d.kind !== 'easy').map((d) => d.label).join(' / ')}</div><div class="wk-sub">${w.days.length}회${w.cut ? ', 회복 주' : ''}${w.race ? '' : `, 롱런 ${w.long}km`}</div></div>
+              <div class="wk-r">${w.state === 'future' ? html`<b class="num">${w.km}</b><small>km</small>` : html`<b class="num">${w.act.km.toFixed(0)}</b><small>/ ${w.km}km</small><span class="wk-st">${w.state === 'done' ? '✓' : w.state === 'partial' ? '◐' : w.state === 'miss' ? '–' : ''}</span>`}</div>
+            </div>`)}
+          </details>`;
+        })}
+        <details class="plan-opt"><summary>스케줄 설정</summary>${planOptions()}<button class="btn ghost" data-act="plan-make">이 설정으로 다시 만들기</button><button class="btn danger-ghost" data-act="plan-del">스케줄 삭제</button></details>
+      </section>` : ''}
+    `);
+    bindGoalForm();
+    bindPlanOptions();
+  }
+  function planOptions() {
+    const g = S.settings;
+    return html`<div class="plan-opts">
+      <div class="field row"><span>주당 러닝 횟수</span><div class="seg small" id="pRuns">${[4, 5, 6].map((k) => html`<button data-v="${k}" class="${(g.runsPerWeek || 5) === k ? 'on' : ''}">${k}회</button>`)}</div></div>
+      <label class="field row"><span>피크 주간 거리<small>km, 0이면 목표 기록으로 자동</small></span><input type="number" inputmode="numeric" id="pPeak" value="${g.peakKm || 0}" min="0" max="200"></label>
+    </div>`;
+  }
+  function bindPlanOptions() {
+    $$('#pRuns').forEach((sg) => sg.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-v]'); if (!b) return;
+      sg.querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b));
+      S.settings.runsPerWeek = +b.dataset.v; saveSettings();
+    }));
+    $$('#pPeak').forEach((inp) => inp.addEventListener('change', () => { const x = parseFloat(inp.value); S.settings.peakKm = fin(x) && x >= 0 ? x : 0; saveSettings(); }));
+  }
+  function bindGoalForm() {
+    const gn = $('#gName'); if (!gn) return;
+    gn.addEventListener('change', (e) => { S.settings.goalName = e.target.value.trim(); saveSettings(); toast('목표 대회를 저장했어요', 1400); });
+    $('#gDate').addEventListener('change', (e) => { S.settings.goalDate = e.target.value; saveSettings(); toast('대회 날짜를 저장했어요', 1400); });
+    $('#gTime').addEventListener('change', (e) => {
+      const parts = e.target.value.trim().split(':').map(Number);
+      if (!parts.length || parts.some((x) => !fin(x))) { toast('목표 기록은 3:15:00 형식으로 입력해 주세요'); return; }
+      const sec = parts.reduce((acc, x) => acc * 60 + x, 0);
+      if (sec < 600) { toast('목표 기록을 다시 확인해 주세요'); return; }
+      S.settings.goalTime = sec; saveSettings(); e.target.value = fmtDur(sec); toast('목표 기록을 저장했어요', 1400);
+    });
+    $('#gDist').addEventListener('click', (e) => {
+      const b = e.target.closest('[data-v]'); if (!b) return;
+      $$('#gDist button').forEach((x) => x.classList.toggle('on', x === b));
+      S.settings.goalDist = +b.dataset.v; saveSettings(); toast('목표 거리를 저장했어요', 1400);
+    });
+  }
+
   /* ═════════ 설정 ═════════ */
   async function renderPrefs() {
     setTop('설정', { tab: 'prefs' });
@@ -3459,12 +4024,26 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     const distOpts = [[10000, '10K'], [21097.5, '하프'], [42195, '풀']];
     put($('#view'), html`
       <section class="card">
-        <h3>목표 대회</h3>
-        <label class="field row"><span>대회 이름</span><input type="text" id="gName" value="${st.goalName || ''}" placeholder="예: 춘천마라톤" maxlength="30" class="wide"></label>
-        <div class="field row"><span>거리</span><div class="seg small" id="gDist">${distOpts.map(([k, l]) => html`<button data-v="${k}" class="${st.goalDist === k ? 'on' : ''}">${l}</button>`)}</div></div>
-        <label class="field row"><span>목표 기록<small>시:분:초</small></span><input type="text" inputmode="numeric" id="gTime" value="${st.goalTime ? fmtDur(st.goalTime) : ''}" placeholder="3:15:00"></label>
-        <label class="field row"><span>대회 날짜<small>D-day 표시</small></span><input type="date" id="gDate" value="${st.goalDate || ''}" class="wide"></label>
-        <p class="fine">예상 기록은 최근 8주 안의 5K·10K·하프 최고 구간 기록을 리겔 공식(지수 1.06)으로 환산한 값이에요. 풀코스는 실제보다 낙관적으로 나오는 경향이 있어요.</p>
+        <h3>신발</h3>
+        <div class="shoes">${shoeList().map((x) => { const u = shoeUsage(x.id); const pct = x.limitKm ? Math.min(100, (u.km / x.limitKm) * 100) : 0; return html`<div class="shoe${x.retired ? ' retired' : ''}" data-sid="${x.id}">
+          <div class="shoe-top"><input class="shoe-name" value="${x.name}" maxlength="30" aria-label="신발 이름"><span class="shoe-km num">${u.km.toFixed(0)}${x.limitKm ? ` / ${x.limitKm}` : ''} km</span></div>
+          ${x.limitKm ? html`<div class="meter thin"><i style="width:${pct}%;${pct >= 90 ? 'background:var(--serious)' : ''}"></i></div>` : ''}
+          <div class="shoe-sub"><label>이전 사용 <input type="number" inputmode="numeric" class="shoe-start" value="${x.startKm || 0}" min="0">km</label><label>교체 기준 <input type="number" inputmode="numeric" class="shoe-limit" value="${x.limitKm || 0}" min="0">km</label></div>
+          <div class="shoe-btns">
+            <button class="chip sel${S.settings.defaultShoe === x.id ? ' on' : ''}" data-shoe-act="default">훈련 기본</button>
+            <button class="chip sel${S.settings.raceShoe === x.id ? ' on' : ''}" data-shoe-act="race">레이스용</button>
+            <button class="chip sel${x.retired ? ' on' : ''}" data-shoe-act="retire">${x.retired ? '은퇴함' : '은퇴'}</button>
+            <button class="chip sel" data-shoe-act="del">삭제</button>
+          </div>
+        </div>`; })}</div>
+        <div class="ms-add"><input id="newShoe" placeholder="신발 이름 (예: 노바블라스트 5)" maxlength="30"><button class="btn small primary" data-act="shoe-add">등록</button></div>
+        <p class="fine">새로 가져온 기록에는 '훈련 기본' 신발이, 레이스로 분류된 기록에는 '레이스용' 신발이 자동으로 지정돼요. 기록 상세에서 언제든 바꿀 수 있어요.</p>
+      </section>
+      <section class="card">
+        <h3>날씨</h3>
+        <div class="field row"><span>러닝 날씨 자동 기록<small>기온·상태·습도·바람</small></span><div class="seg small" data-key="weatherAuto"><button data-v="true" class="${st.weatherAuto ? 'on' : ''}">켜기</button><button data-v="false" class="${!st.weatherAuto ? 'on' : ''}">끄기</button></div></div>
+        <p class="fine">켜면 러닝 시작 위치(약 1km 단위로 반올림)와 날짜만 Open-Meteo 날씨 서비스로 보내 그 시각의 날씨를 받아 와요. 러닝 기록 자체는 보내지 않아요.</p>
+        <button class="btn ghost" data-act="wx-all">날씨 없는 기록 채우기</button>
       </section>
       <section class="card">
         <h3>심박</h3>
@@ -3505,20 +4084,6 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
       <p class="fine center">RunLog ${VERSION} · 서버 없이 이 기기에서만 동작해요</p>
     `);
     const v = $('#view');
-    $('#gName').addEventListener('change', (e) => { S.settings.goalName = e.target.value.trim(); saveSettings(); toast('목표 대회를 저장했어요', 1400); });
-    $('#gDate').addEventListener('change', (e) => { S.settings.goalDate = e.target.value; saveSettings(); toast('대회 날짜를 저장했어요', 1400); });
-    $('#gTime').addEventListener('change', (e) => {
-      const parts = e.target.value.trim().split(':').map(Number);
-      if (!parts.length || parts.some((x) => !fin(x))) { toast('목표 기록은 3:15:00 형식으로 입력해 주세요'); return; }
-      const sec = parts.reduce((acc, x) => acc * 60 + x, 0);
-      if (sec < 600) { toast('목표 기록을 다시 확인해 주세요'); return; }
-      S.settings.goalTime = sec; saveSettings(); e.target.value = fmtDur(sec); toast('목표 기록을 저장했어요', 1400);
-    });
-    $('#gDist').addEventListener('click', (e) => {
-      const b = e.target.closest('[data-v]'); if (!b) return;
-      $$('#gDist button').forEach((x) => x.classList.toggle('on', x === b));
-      S.settings.goalDist = +b.dataset.v; saveSettings(); toast('목표 거리를 저장했어요', 1400);
-    });
     v.querySelectorAll('[data-num]').forEach((inp) => inp.addEventListener('change', () => {
       const k = inp.dataset.num, val = parseFloat(inp.value);
       if (!fin(val)) { inp.value = st[k]; return; }
@@ -3527,8 +4092,15 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     v.querySelectorAll('.seg[data-key]').forEach((sg) => sg.addEventListener('click', (e) => {
       const b = e.target.closest('[data-v]'); if (!b) return;
       sg.querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b));
-      updateSetting(sg.dataset.key, b.dataset.v);
+      const val = b.dataset.v === 'true' ? true : b.dataset.v === 'false' ? false : b.dataset.v;
+      updateSetting(sg.dataset.key, val);
     }));
+    v.querySelectorAll('.shoe').forEach((row) => {
+      const sh = shoeById(row.dataset.sid); if (!sh) return;
+      row.querySelector('.shoe-name').addEventListener('change', (e) => { sh.name = e.target.value.trim() || sh.name; saveSettings(); toast('신발 이름을 바꿨어요', 1200); });
+      row.querySelector('.shoe-start').addEventListener('change', (e) => { sh.startKm = Math.max(0, +e.target.value || 0); saveSettings(); route(); });
+      row.querySelector('.shoe-limit').addEventListener('change', (e) => { sh.limitKm = Math.max(0, +e.target.value || 0); saveSettings(); route(); });
+    });
   }
   let recomputeT = 0;
   function updateSetting(k, val) {
@@ -3551,13 +4123,14 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
       if (!st) continue;
       const R = st.raw;
       acts.push({
-        id: a.id, start: a.start, name: a.name, type: a.type, typeAuto: a.typeAuto, note: a.note, shoe: a.shoe, source: a.source, sample: a.sample,
+        id: a.id, start: a.start, name: a.name, type: a.type, typeAuto: a.typeAuto, note: a.note, shoe: a.shoe, shoeId: a.shoeId || '', weather: a.weather || null, source: a.source, sample: a.sample,
         raw: { t: r1(R.t, 1), lat: r1(R.lat, 6), lon: r1(R.lon, 6), ele: r1(R.ele, 1), hr: r1(R.hr, 0), cad: r1(R.cad, 0), pwr: r1(R.pwr, 0), dist: R.dist ? r1(R.dist, 1) : null },
       });
     }
     const { touched, tipDismissed, ...settings } = S.settings;
     void touched; void tipDismissed;
-    return { app: 'runlog', version: 1, exported: new Date().toISOString(), settings, acts };
+    const plan = S.plan ? { ...S.plan, weeks: S.plan.weeks.map(({ act, state, ...w }) => (void act, void state, w)) } : null;
+    return { app: 'runlog', version: 2, exported: new Date().toISOString(), settings, plan, missions: S.missions, acts };
   }
   const backupName = () => `runlog-backup-${ymd(new Date())}.json`;
   async function exportBackup() {
@@ -3593,13 +4166,15 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
       const j = JSON.parse(await readFileText(file));
       if (j.app !== 'runlog' || !Array.isArray(j.acts)) throw new Error('RunLog 백업 파일이 아니에요');
       if (j.settings) { S.settings = { ...S.settings, ...j.settings, touched: true }; await saveSettings(); }
+      if (j.plan) { S.plan = j.plan; await savePlan(); }
+      if (Array.isArray(j.missions)) { S.missions = j.missions; await saveMissions(); }
       let n = 0, dup = 0;
       const F64 = (a) => Float64Array.from(a, (x) => (x == null ? NaN : x)), F32 = (a) => Float32Array.from(a, (x) => (x == null ? NaN : x));
       for (const b of j.acts) {
         const R = b.raw;
         const rawData = { t: F64(R.t), lat: F64(R.lat), lon: F64(R.lon), ele: F32(R.ele), hr: F32(R.hr), cad: F32(R.cad), pwr: F32(R.pwr || []), dist: R.dist ? F64(R.dist) : null };
         if (rawData.pwr.length !== rawData.t.length) rawData.pwr = new Float32Array(rawData.t.length).fill(NaN);
-        const r = await importParsed({ name: b.name, start: b.start, raw: rawData }, { name: b.name, type: b.typeAuto ? '' : b.type, note: b.note, shoe: b.shoe, source: b.source, sample: b.sample });
+        const r = await importParsed({ name: b.name, start: b.start, raw: rawData }, { name: b.name, type: b.typeAuto ? '' : b.type, note: b.note, shoe: b.shoe, shoeId: b.shoeId || '', weather: b.weather || null, source: b.source, sample: b.sample });
         if (r.ok) n++; else if (r.dup) dup++;
       }
       sortActs(); S.cache.clear();
@@ -3614,6 +4189,25 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     if (runEl) { S.cameFromList = true; go('run-' + runEl.dataset.run); return; }
     const goEl = e.target.closest('[data-go]');
     if (goEl) { go(goEl.dataset.go); return; }
+    const msT = e.target.closest('[data-ms-toggle]');
+    if (msT) { const m = S.missions.find((x) => x.id === msT.dataset.msToggle); if (m) { m.done = m.done ? null : Date.now(); await saveMissions(); route(); } return; }
+    const msD = e.target.closest('[data-ms-del]');
+    if (msD) { S.missions = S.missions.filter((x) => x.id !== msD.dataset.msDel); await saveMissions(); route(); return; }
+    const shA = e.target.closest('[data-shoe-act]');
+    if (shA) {
+      const row = shA.closest('[data-sid]'); const sh = row && shoeById(row.dataset.sid); if (!sh) return;
+      const k2 = shA.dataset.shoeAct;
+      if (k2 === 'default') S.settings.defaultShoe = S.settings.defaultShoe === sh.id ? '' : sh.id;
+      else if (k2 === 'race') S.settings.raceShoe = S.settings.raceShoe === sh.id ? '' : sh.id;
+      else if (k2 === 'retire') sh.retired = !sh.retired;
+      else if (k2 === 'del') {
+        const used = shoeUsage(sh.id).n;
+        if (!(await dialog({ title: `'${sh.name}'을 삭제할까요?`, body: used ? `${used}개 기록에서 신발 정보가 빠져요. 그만 신는 신발이면 '은퇴'를 권해요.` : '', ok: '삭제', danger: true }))) return;
+        S.settings.shoes = shoeList().filter((x) => x.id !== sh.id);
+        for (const a of S.acts) if (a.shoeId === sh.id) { a.shoeId = ''; DB.put('acts', a).catch(() => {}); }
+      }
+      saveSettings(); route(); return;
+    }
     const act = e.target.closest('[data-act]');
     if (!act) return;
     const k = act.dataset.act;
@@ -3621,6 +4215,36 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     else if (k === 'samples') addSamples();
     else if (k === 'dismiss-tip') { S.settings.tipDismissed = true; saveSettings(); route(); }
     else if (k === 'export') exportBackup();
+    else if (k === 'race-edit') { S.raceEdit = !S.raceEdit; route(); }
+    else if (k === 'plan-make') {
+      const pl = buildPlan();
+      if (pl.err) { toast(pl.err, 3000); return; }
+      S.plan = pl; await savePlan(); S.raceEdit = false;
+      toast(`${pl.weeks.length}주 마스터 스케줄을 만들었어요`); route();
+    } else if (k === 'plan-del') {
+      if (!(await dialog({ title: '마스터 스케줄을 삭제할까요?', body: '러닝 기록은 그대로 남아요.', ok: '삭제', danger: true }))) return;
+      S.plan = null; await DB.del('kv', 'plan').catch(() => {}); route();
+    } else if (k === 'ms-add') {
+      const t = $('#msTitle').value.trim(); if (!t) { toast('미션 이름을 입력해 주세요'); return; }
+      S.missions.push({ id: 'm' + Date.now(), title: t, due: $('#msDue').value || '', done: null });
+      await saveMissions(); route();
+    } else if (k === 'shoe-add') {
+      const t = $('#newShoe').value.trim(); if (!t) { toast('신발 이름을 입력해 주세요'); return; }
+      S.settings.shoes = [...shoeList(), { id: 'sh' + Date.now(), name: t, startKm: 0, limitKm: 600, retired: false }];
+      saveSettings(); toast('신발을 등록했어요', 1400); route();
+    } else if (k === 'wx-all') {
+      if (!navigator.onLine) { toast('인터넷에 연결되어 있을 때 다시 시도해 주세요'); return; }
+      toast('날씨를 불러오는 중…', 30000);
+      const n = await fillWeather(null, true);
+      toast(n ? `${n}개 기록에 날씨를 채웠어요` : '채울 수 있는 기록이 없거나 날씨를 받지 못했어요', 3000);
+    } else if (k === 'wx-one') {
+      const a = S.acts.find((x) => x.id === +act.dataset.id); if (!a) return;
+      toast('날씨를 불러오는 중…', 20000);
+      a.weather = null;
+      const n = await fillWeather([a.id], true);
+      toast(n ? '날씨를 기록했어요' : '날씨를 받지 못했어요. 인터넷 연결을 확인해 주세요', 2500);
+      if (n) route();
+    }
     else if (k === 'share-backup') shareBackup();
     else if (k === 'restore') $('#backupInput').click();
     else if (k === 'del-samples') {
@@ -3641,6 +4265,7 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     $('#tabRuns').addEventListener('click', () => go('runs'));
     $('#tabStats').addEventListener('click', () => go('stats'));
     $('#tabPrefs').addEventListener('click', () => go('prefs'));
+    $('#tabRace').addEventListener('click', () => go('race'));
     $('#tabAdd').addEventListener('click', () => $('#fileInput').click());
     $('#backBtn').addEventListener('click', () => { if (S.cameFromList && history.length > 1) { S.cameFromList = false; history.back(); } else go('runs'); });
     $('#fileInput').addEventListener('change', (e) => { const f = e.target.files; if (f && f.length) importFiles(f); e.target.value = ''; });
@@ -3657,9 +4282,11 @@ h2 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: -.01em; }
     S.storageOK = await DB.open();
     try { const st = await DB.get('kv', 'settings'); if (st) S.settings = { ...DEFAULTS, ...st }; } catch (e) { /* noop */ }
     try { S.acts = await DB.all('acts'); } catch (e) { S.acts = []; }
+    try { S.plan = (await DB.get('kv', 'plan')) || null; S.missions = (await DB.get('kv', 'missions')) || []; } catch (e) { /* noop */ }
     sortActs();
     route();
     handleShareInbox();
+    setTimeout(() => fillWeather(null), 1500);
     if ('serviceWorker' in navigator && /^https:|^http:\/\/localhost|^http:\/\/127\./.test(location.href) && !window.claude) {
       navigator.serviceWorker.register('./sw.js').catch(() => {});
     }
